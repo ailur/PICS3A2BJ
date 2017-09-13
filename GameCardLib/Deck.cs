@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
-    class Deck
+    public class Deck
     {
         #region fields
         private Stack<Card> cards;

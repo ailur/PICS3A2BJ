@@ -13,6 +13,7 @@ namespace GameCardLib
         private string name;
         #endregion
         #region Properties
+        public Hand Hand { get; set; }
         #endregion
         #region Methods()
         #region Constructors
