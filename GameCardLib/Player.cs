@@ -9,10 +9,11 @@ namespace GameCardLib
     public class Player
     {
         #region fields
-        private Hand hand;
         private string name;
+        private Hand hand;
         #endregion
         #region Properties
+        public string Name { get; set; }
         public Hand Hand { get; set; }
         #endregion
         #region Methods()

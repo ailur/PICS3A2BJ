@@ -11,9 +11,9 @@ namespace GameCardLib
         private Deck deck;
         private List<Player> players;
 
-        public void GiveCard(Player player)
+        public void GiveCard(int playerId)
         {
-            player.Hand.AddCard(deck.DrawNextCard());
+            players[playerId].Hand.AddCard(deck.DrawNextCard());
         }
     }
 }
