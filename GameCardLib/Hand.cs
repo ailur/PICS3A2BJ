@@ -41,9 +41,14 @@ namespace GameCardLib
 
         }
         #endregion
+        //Cambiar a bool
         public void AddCard(Card card)
         {
             cards.Add(card);
+        }
+        public void Clear()
+        {
+            cards.Clear();
         }
         #endregion
     }
