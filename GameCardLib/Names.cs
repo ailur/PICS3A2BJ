@@ -1,11 +1,11 @@
-﻿enum EnumSuite
+﻿public enum EnumSuite
 {
     Clubs,
     Diamonds,
     Hearts,
     Spades
 }
-enum EnumValue
+public enum EnumValue
 {
     Ace,
     Two,
