@@ -93,5 +93,85 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameCardLib\GameCardLib.csproj">
+      <Project>{36033be6-ce8e-4135-8cc8-d3096b17d52d}</Project>
+      <Name>GameCardLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtilitiesLib\UtilitiesLib.csproj">
+      <Project>{eaab521a-a3f3-40ee-9534-b1e766985ab3}</Project>
+      <Name>UtilitiesLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CardGUI\b1fh.png" />
+    <Resource Include="CardGUI\b1fv.png" />
+    <Resource Include="CardGUI\b1pb.png" />
+    <Resource Include="CardGUI\b1pl.png" />
+    <Resource Include="CardGUI\b1pr.png" />
+    <Resource Include="CardGUI\b1pt.png" />
+    <Resource Include="CardGUI\b2fh.png" />
+    <Resource Include="CardGUI\b2fv.png" />
+    <Resource Include="CardGUI\b2pb.png" />
+    <Resource Include="CardGUI\b2pl.png" />
+    <Resource Include="CardGUI\b2pr.png" />
+    <Resource Include="CardGUI\b2pt.png" />
+    <Resource Include="CardGUI\c1.png" />
+    <Resource Include="CardGUI\c10.png" />
+    <Resource Include="CardGUI\c2.png" />
+    <Resource Include="CardGUI\c3.png" />
+    <Resource Include="CardGUI\c4.png" />
+    <Resource Include="CardGUI\c5.png" />
+    <Resource Include="CardGUI\c6.png" />
+    <Resource Include="CardGUI\c7.png" />
+    <Resource Include="CardGUI\c8.png" />
+    <Resource Include="CardGUI\c9.png" />
+    <Resource Include="CardGUI\cj.png" />
+    <Resource Include="CardGUI\ck.png" />
+    <Resource Include="CardGUI\cq.png" />
+    <Resource Include="CardGUI\d1.png" />
+    <Resource Include="CardGUI\d10.png" />
+    <Resource Include="CardGUI\d2.png" />
+    <Resource Include="CardGUI\d3.png" />
+    <Resource Include="CardGUI\d4.png" />
+    <Resource Include="CardGUI\d5.png" />
+    <Resource Include="CardGUI\d6.png" />
+    <Resource Include="CardGUI\d7.png" />
+    <Resource Include="CardGUI\d8.png" />
+    <Resource Include="CardGUI\d9.png" />
+    <Resource Include="CardGUI\dj.png" />
+    <Resource Include="CardGUI\dk.png" />
+    <Resource Include="CardGUI\dq.png" />
+    <Resource Include="CardGUI\ec.png" />
+    <Resource Include="CardGUI\h1.png" />
+    <Resource Include="CardGUI\h10.png" />
+    <Resource Include="CardGUI\h2.png" />
+    <Resource Include="CardGUI\h3.png" />
+    <Resource Include="CardGUI\h4.png" />
+    <Resource Include="CardGUI\h5.png" />
+    <Resource Include="CardGUI\h6.png" />
+    <Resource Include="CardGUI\h7.png" />
+    <Resource Include="CardGUI\h8.png" />
+    <Resource Include="CardGUI\h9.png" />
+    <Resource Include="CardGUI\hj.png" />
+    <Resource Include="CardGUI\hk.png" />
+    <Resource Include="CardGUI\hq.png" />
+    <Content Include="CardGUI\index.html" />
+    <Resource Include="CardGUI\jb.png" />
+    <Resource Include="CardGUI\jr.png" />
+    <Resource Include="CardGUI\s1.png" />
+    <Resource Include="CardGUI\s10.png" />
+    <Resource Include="CardGUI\s2.png" />
+    <Resource Include="CardGUI\s3.png" />
+    <Resource Include="CardGUI\s4.png" />
+    <Resource Include="CardGUI\s5.png" />
+    <Resource Include="CardGUI\s6.png" />
+    <Resource Include="CardGUI\s7.png" />
+    <Resource Include="CardGUI\s8.png" />
+    <Resource Include="CardGUI\s9.png" />
+    <Resource Include="CardGUI\sj.png" />
+    <Resource Include="CardGUI\sk.png" />
+    <Resource Include="CardGUI\sq.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

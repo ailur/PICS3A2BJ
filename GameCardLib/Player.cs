@@ -10,6 +10,7 @@ namespace GameCardLib
     {
         #region fields
         private Hand hand;
+        private string name;
         #endregion
         #region Properties
         #endregion
@@ -18,6 +19,10 @@ namespace GameCardLib
         public Player()
         {
 
+        }
+        public override string ToString()
+        {
+            return base.ToString();
         }
         #endregion
         #endregion

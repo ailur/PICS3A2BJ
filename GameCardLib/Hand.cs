@@ -50,6 +50,10 @@ namespace GameCardLib
         {
             cards.Clear();
         }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
         #endregion
     }
 }
