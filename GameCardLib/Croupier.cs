@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
-    public class Game
+    public class Croupier
     {
         private Deck deck;
         private List<Player> players;
