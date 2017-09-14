@@ -65,6 +65,15 @@ namespace GameCardLib
             Random rnd = new Random();
             return new Stack<Card>(cards.OrderBy(x => rnd.Next()));
         }
+        public override string ToString()
+        {
+            string result = "";
+            foreach (Card card in cards)
+            {
+                result += card.ToStringShort;
+            }
+            return result;
+        }
         #endregion
     }
 }

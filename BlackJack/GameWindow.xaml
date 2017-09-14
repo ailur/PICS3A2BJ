@@ -23,6 +23,7 @@
             <StackPanel Name="PlayerDeck" Orientation="Horizontal">
             </StackPanel>
             <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96">Stop Drawing</Button>
+            <TextBlock Name="txtDebug"></TextBlock>
         </StackPanel>
     </StackPanel>
 </Window>

@@ -30,11 +30,12 @@ namespace BlackJack
         private void btnReshuffle_Click(object sender, RoutedEventArgs e)
         {
             croupier.Reshuffle();
+            txtDebug.Text = croupier.Deck.ToString();
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            croupier = new Croupier();
+            croupier = new Croupier(int.Parse(txtPlayers.Text));
             croupier.StartGame();
             updateCards();
         }
@@ -69,6 +70,7 @@ namespace BlackJack
         {
             croupier.GiveCard(0);
             updateCards();
+            txtDebug.Text = croupier.Deck.ToString();
         }
     }
 }
