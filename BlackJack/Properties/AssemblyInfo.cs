@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("BlackJack")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP Inc.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BlackJack")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2017")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
