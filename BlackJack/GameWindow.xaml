@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Width="1024" Height="328">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Name="Options" Orientation="Horizontal">
+            <Button Name="btnAddPlayer">Add player</Button>
+            <Button Name="btnRemovePlayer">Remove player</Button>
+            <Label>Number of decks:</Label>
+            <TextBox Name="txtNumberOfDecks" MinWidth="32" MaxWidth="40"/>
+            <Button Name="btnReshuffle">Reshuffle</Button>
+        </StackPanel>
+        <StackPanel Name="Croupier" Orientation="Horizontal" VerticalAlignment="Top">
+            <Image Source="CardGUI/b2fv.png"/>
+        </StackPanel>
+        <StackPanel Name="Players" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Image Source="CardGUI/s1.png"/>
+        </StackPanel>
+    </StackPanel>
 </Window>

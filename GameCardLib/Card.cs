@@ -21,7 +21,7 @@ namespace GameCardLib
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Card() : this(1,EnumSuite.Diamonds)
+        public Card() : this(1,EnumSuite.Spades)
         {
         }
         public Card(int value, EnumSuite suite)
