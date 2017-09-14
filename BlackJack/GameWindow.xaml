@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="BlackJack" Width="1024" Height="326" ResizeMode="NoResize">
-    <StackPanel Orientation="Vertical">
+        Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="Height">
+    <StackPanel Orientation="Vertical" Height="218">
         <StackPanel Name="Options" Orientation="Horizontal">
             <Label Name="lblPlayers">Number of players:</Label>
             <TextBox Name="txtPlayers" MinWidth="32" MaxWidth="40"/>
@@ -15,11 +15,14 @@
             <Button Name="btnStart" Click="btnStart_Click">Start</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
-        <StackPanel Name="Croupier" Orientation="Horizontal" VerticalAlignment="Top">
-            <Image Source="CardGUI/b2fv.png"/>
+        <StackPanel Name="Croupier" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Source="CardGUI/b2fv.png" MaxHeight="96"/>
         </StackPanel>
-        <StackPanel Name="Players" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <Image Source="CardGUI/s1.png"/>
+        <StackPanel Name="Players" Orientation="Horizontal">
+            <Button Name="btnDrawCard" MinHeight="96" Click="btnDrawCard_Click">Draw a Card</Button>
+            <StackPanel Name="PlayerDeck" Orientation="Horizontal">
+            </StackPanel>
+            <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96">Stop Drawing</Button>
         </StackPanel>
     </StackPanel>
 </Window>

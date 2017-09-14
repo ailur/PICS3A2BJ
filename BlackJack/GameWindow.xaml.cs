@@ -49,10 +49,10 @@ namespace BlackJack
                 Image img = new Image();
 
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
-
+                img.Height = 96;
                 Croupier.Children.Add(img);
             }
-            Players.Children.Clear();
+            PlayerDeck.Children.Clear();
             foreach (Card card in croupier.Players[0].Hand)
             {
                 string src = "CardGUI/" + card.ToStringShort + ".png";
@@ -60,9 +60,15 @@ namespace BlackJack
                 Image img = new Image();
 
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
-
-                Players.Children.Add(img);
+                img.Height = 96;
+                PlayerDeck.Children.Add(img);
             }
+        }
+
+        private void btnDrawCard_Click(object sender, RoutedEventArgs e)
+        {
+            croupier.GiveCard(0);
+            updateCards();
         }
     }
 }
