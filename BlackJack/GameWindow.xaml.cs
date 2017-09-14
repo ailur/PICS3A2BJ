@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameCardLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace BlackJack
     /// </summary>
     public partial class GameWindow : Window
     {
+        private Croupier croupier = new Croupier();
         public GameWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnReshuffle_Click(object sender, RoutedEventArgs e)
+        {
+            croupier.Reshuffle();
         }
     }
 }

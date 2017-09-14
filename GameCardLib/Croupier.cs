@@ -16,5 +16,10 @@ namespace GameCardLib
         {
             players[playerId].Hand.AddCard(deck.DrawNextCard());
         }
+
+        public void Reshuffle()
+        {
+            deck.Shuffle();
+        }
     }
 }
