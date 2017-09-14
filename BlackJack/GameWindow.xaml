@@ -12,7 +12,7 @@
             <TextBox Name="txtPlayers" MinWidth="32" MaxWidth="40"/>
             <Label Name="lblNumberOfDecks">Number of decks:</Label>
             <TextBox Name="txtNumberOfDecks" MinWidth="32" MaxWidth="40"/>
-            <Button Name="btnStart">Start</Button>
+            <Button Name="btnStart" Click="btnStart_Click">Start</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
         <StackPanel Name="Croupier" Orientation="Horizontal" VerticalAlignment="Top">

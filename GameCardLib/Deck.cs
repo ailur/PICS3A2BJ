@@ -20,15 +20,15 @@ namespace GameCardLib
         #endregion
         #region Methods()
         #region Constructors
-        public Deck()
+        public Deck() :this(1)
         {
         }
         public Deck(int deckMultiplier)
         {
             this.deckMultiplier = deckMultiplier;
-            Stack<Card> cards = new Stack<Card>();
+            cards = new Stack<Card>();
             FillDeckWithCards();
-            Shuffle();
+            cards = Shuffle();
         }
         #endregion
         public bool DiscardCards(int quantity)
@@ -52,7 +52,8 @@ namespace GameCardLib
                 {
                     foreach (int value in Enum.GetValues(typeof(EnumValue)))
                     {
-                        cards.Push(new Card(value, suite));
+                        Card card = new Card(value, suite);
+                        cards.Push(card);
                     }
                 }
             }

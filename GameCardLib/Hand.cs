@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
-    public class Hand
+    public class Hand : IEnumerable<Card>
     {
         #region fields
         private List<Card> cards;
@@ -38,7 +39,7 @@ namespace GameCardLib
         /// </summary>
         public Hand()
         {
-
+            cards = new List<Card>();
         }
         #endregion
         //Cambiar a bool
@@ -54,6 +55,18 @@ namespace GameCardLib
         {
             return base.ToString();
         }
+
+        public IEnumerator<Card> GetEnumerator()
+        {
+            return ((IEnumerable<Card>)cards).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<Card>)cards).GetEnumerator();
+        }
+
+
         #endregion
     }
 }

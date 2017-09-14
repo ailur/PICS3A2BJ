@@ -20,7 +20,7 @@ namespace GameCardLib
         #region Constructors
         public Player()
         {
-
+            Hand = new Hand();
         }
         public override string ToString()
         {

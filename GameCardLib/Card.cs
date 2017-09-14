@@ -14,6 +14,10 @@ namespace GameCardLib
         #endregion
         #region Properties
         public int Value { get; private set; }
+        public EnumValue ValueEnum
+        {
+            get { return (EnumValue)Value; }
+        }
         public EnumSuite Suite { get; private set; }
         #endregion
         #region Methods()

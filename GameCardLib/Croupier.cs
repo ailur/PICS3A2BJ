@@ -11,15 +11,33 @@ namespace GameCardLib
     {
         private Deck deck;
         private List<Player> players;
-
+        public Croupier()
+        {
+            players = new List<Player>();
+            players.Add(new Player());
+        }
+        public List<Player> Players
+        {
+            //Esto esta muy feo
+            get { return players; }
+        }
         public void GiveCard(int playerId)
         {
             players[playerId].Hand.AddCard(deck.DrawNextCard());
         }
-
         public void Reshuffle()
         {
             deck.Shuffle();
+        }
+        public void StartGame()
+        {
+            deck = new Deck();
+            for (int playerId=0; playerId < players.Count; playerId++)
+            {
+                GiveCard(playerId);
+                GiveCard(playerId);
+            }
+            this.Hand.AddCard(deck.DrawNextCard());
         }
     }
 }
