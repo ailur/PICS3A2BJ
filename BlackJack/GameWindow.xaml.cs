@@ -46,9 +46,7 @@ namespace BlackJack
             foreach (Card card in croupier.Hand)
             {
                 string src = "CardGUI/" + card.ToStringShort + ".png";
-
                 Image img = new Image();
-
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
                 img.Height = 96;
                 Croupier.Children.Add(img);
@@ -57,9 +55,7 @@ namespace BlackJack
             foreach (Card card in croupier.Players[0].Hand)
             {
                 string src = "CardGUI/" + card.ToStringShort + ".png";
-
                 Image img = new Image();
-
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
                 img.Height = 96;
                 PlayerDeck.Children.Add(img);
