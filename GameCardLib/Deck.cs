@@ -28,7 +28,7 @@ namespace GameCardLib
             this.deckMultiplier = deckMultiplier;
             cards = new Stack<Card>();
             FillDeckWithCards();
-            cards = Shuffle();
+            Shuffle();
         }
         #endregion
         public bool DiscardCards(int quantity)
@@ -60,10 +60,10 @@ namespace GameCardLib
             return true;
         }
         //utilities?
-        public Stack<Card> Shuffle()
+        public void Shuffle()
         {
             Random rnd = new Random();
-            return new Stack<Card>(cards.OrderBy(x => rnd.Next()));
+            cards = new Stack<Card>(cards.OrderBy(x => rnd.Next()));
         }
         public override string ToString()
         {
