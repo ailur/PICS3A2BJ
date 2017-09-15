@@ -52,7 +52,7 @@ namespace GameCardLib
                 {
                     foreach (int value in Enum.GetValues(typeof(EnumValue)))
                     {
-                        Card card = new Card(value, suite);
+                        Card card = new Card(value+1, suite);
                         cards.Push(card);
                     }
                 }

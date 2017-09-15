@@ -37,35 +37,43 @@ namespace BlackJack
         {
             croupier = new Croupier(int.Parse(txtPlayers.Text));
             croupier.StartGame();
-            updateCards();
+            updateCards(croupier);
+            updateCards(croupier.Players[0]);
         }
 
-        private void updateCards()
+        private void updateCards(Player player)
         {
-            Croupier.Children.Clear();
-            foreach (Card card in croupier.Hand)
+            if(player is Croupier)
             {
-                string src = "CardGUI/" + card.ToStringShort + ".png";
-                Image img = new Image();
-                img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
-                img.Height = 96;
-                Croupier.Children.Add(img);
+                Croupier.Children.Clear();
             }
-            PlayerDeck.Children.Clear();
-            foreach (Card card in croupier.Players[0].Hand)
+            else
+            {
+                PlayerDeck.Children.Clear();
+            }
+            foreach (Card card in player.Hand)
             {
                 string src = "CardGUI/" + card.ToStringShort + ".png";
                 Image img = new Image();
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
                 img.Height = 96;
-                PlayerDeck.Children.Add(img);
+                img.ToolTip = card.ToString() + "\n" + card.Value;
+                if (player is Croupier)
+                {
+                    Croupier.Children.Add(img);
+                }
+                else
+                {
+                    PlayerDeck.Children.Add(img);
+                }
             }
         }
 
         private void btnDrawCard_Click(object sender, RoutedEventArgs e)
         {
             croupier.GiveCard(0);
-            updateCards();
+            updateCards(croupier);
+            updateCards(croupier.Players[0]);
             txtDebug.Text = croupier.Deck.ToString();
         }
     }
