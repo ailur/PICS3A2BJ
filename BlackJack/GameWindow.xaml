@@ -22,7 +22,7 @@
             <Button Name="btnDrawCard" MinHeight="96" Click="btnDrawCard_Click">Draw a Card</Button>
             <StackPanel Name="PlayerDeck" Orientation="Horizontal">
             </StackPanel>
-            <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96">Stop Drawing</Button>
+            <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96" Click="btnStop_Click">Stop Drawing</Button>
             <TextBlock Name="txtDebug"></TextBlock>
         </StackPanel>
     </StackPanel>

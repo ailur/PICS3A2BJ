@@ -22,6 +22,7 @@ namespace BlackJack
     public partial class GameWindow : Window
     {
         private Croupier croupier;
+        private Player currentPlayer;
         public GameWindow()
         {
             InitializeComponent();
@@ -90,6 +91,11 @@ namespace BlackJack
             updateCards(croupier);
             updateCards(croupier.Players[0]);
             txtDebug.Text = croupier.Deck.ToString();
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            updateCards(croupier.Players[1]);
         }
     }
 }
