@@ -20,10 +20,8 @@ namespace GameCardLib
             //Esto esta muy feo
             get { return players; }
         }
-        public Croupier()
+        public Croupier() : this(1)
         {
-            players = new List<Player>();
-            players.Add(new Player());
         }
         public Croupier(int numberOfPlayers)
         {
@@ -41,9 +39,9 @@ namespace GameCardLib
         {
             deck.Shuffle();
         }
-        public void StartGame()
+        public void StartGame(int numberOfDecks = 1)
         {
-            deck = new Deck();
+            deck = new Deck(numberOfDecks);
             for (int playerId=0; playerId < players.Count; playerId++)
             {
                 GiveCard(playerId);

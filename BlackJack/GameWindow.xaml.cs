@@ -35,10 +35,25 @@ namespace BlackJack
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            croupier = new Croupier(int.Parse(txtPlayers.Text));
-            croupier.StartGame();
+            if (!string.IsNullOrWhiteSpace(txtPlayers.Text))
+            {
+                croupier = new Croupier(int.Parse(txtPlayers.Text));
+            }
+            else
+            {
+                croupier = new Croupier();
+            }
+            if (!string.IsNullOrWhiteSpace(txtNumberOfDecks.Text))
+            {
+                croupier.StartGame(int.Parse(txtNumberOfDecks.Text));
+            }
+            else
+            {
+                croupier.StartGame();
+            }
             updateCards(croupier);
             updateCards(croupier.Players[0]);
+            txtDebug.Text = croupier.Deck.ToString();
         }
 
         private void updateCards(Player player)
