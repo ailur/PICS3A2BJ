@@ -6,27 +6,37 @@
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
         Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="Height">
-    <!--<StackPanel Orientation="Vertical" Height="218">-->
-    <StackPanel Orientation="Vertical" Height="250">
+    <!--<StackPanel Orientation="Vertical" Height="234">-->
+    <StackPanel Orientation="Vertical" Height="275">
         <StackPanel Name="Options" Orientation="Horizontal">
             <Label Name="lblPlayers">Number of players:</Label>
-            <TextBox Name="txtPlayers" MinWidth="32" MaxWidth="40"/>
+            <TextBox Name="txtPlayers" Width="32" MaxWidth="40"/>
             <Label Name="lblNumberOfDecks">Number of decks:</Label>
-            <TextBox Name="txtNumberOfDecks" MinWidth="32" MaxWidth="40"/>
+            <TextBox Name="txtNumberOfDecks" Width="32" MaxWidth="40"/>
             <Button Name="btnStart" Click="btnStart_Click">Start</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
-        <StackPanel Name="CroupierZone" Orientation="Horizontal">
-            <TextBlock Name="txtCroupierScore" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
-            <Image Name ="imgDeck" Source="CardGUI/b2fv.png" MaxHeight="96" MouseLeftButtonUp="imgDeck_MouseLeftButtonUp"/>
-            <StackPanel Name="CroupierDeck" Orientation="Horizontal" HorizontalAlignment="Center"> </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Width="75"/>
+            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Discarded</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Deck</TextBlock>
         </StackPanel>
-        <StackPanel Name="PlayersZone" Orientation="Horizontal">
-            <TextBlock Name="txtPlayerScore" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
-            <Button Name="btnDrawCard" MinHeight="96" Click="btnDrawCard_Click">Draw a Card</Button>
-            <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96" Click="btnStop_Click">Stop Drawing</Button>
-            <StackPanel Name="PlayerDeck" Orientation="Horizontal"> </StackPanel>
-        </StackPanel>
+        <DockPanel Name="CroupierZone">
+            <TextBlock Name="txtCroupierScore" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
+            <Image Name="imgDiscard" Source="CardGUI/jb.png" Width="75" Height="96"/>
+            <Image Name="imgDeck" Source="CardGUI/b2fv.png" Width="75" Height="96" MouseLeftButtonUp="imgDeck_MouseLeftButtonUp"/>
+            <Border BorderThickness="1" BorderBrush="Black" Background="Green">
+                <StackPanel Name="CroupierDeck" Orientation="Horizontal" HorizontalAlignment="Center"> </StackPanel>
+            </Border>
+        </DockPanel>
+        <DockPanel Name="PlayersZone">
+            <TextBlock Name="txtPlayerScore" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
+            <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96" Width="75" Click="btnStop_Click">Stop Drawing</Button>
+            <Button Name="btnDrawCard" MinHeight="96" Width="75" Click="btnDrawCard_Click">Draw a Card</Button>
+            <Border BorderThickness="1" BorderBrush="Black" Background="Green">
+                <StackPanel Name="PlayerDeck" Orientation="Horizontal"  HorizontalAlignment="Center"></StackPanel>
+            </Border>
+        </DockPanel>
         <StackPanel>
         <TextBlock Name="txtDebug"></TextBlock>
         </StackPanel>

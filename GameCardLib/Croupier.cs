@@ -17,8 +17,21 @@ namespace GameCardLib
         #endregion
         #region Properties
         private Deck MyDeck { get => myDeck; set => myDeck = value; }
-        private Stack<Card> Discarded { get => discarded; set => discarded = value; }
         public string DeckString => MyDeck.ToString();
+        public Stack<Card> Discarded { get => discarded; private set => discarded = value; }
+        public string DiscardedString
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (Card card in Discarded)
+                {
+                    stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
+                }
+                stringBuilder.Remove(stringBuilder.Length - 2, 2);
+                return stringBuilder.ToString();
+            }
+        }
         private List<Player> Players { get => players; set => players = value; }
         private int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
         #endregion
@@ -48,6 +61,27 @@ namespace GameCardLib
             }
             Hand.AddCard(MyDeck.DrawNextCard());
         }
+
+        public void ContinueGame()
+        {
+            for (int playerId = 0; playerId < Players.Count; playerId++)
+            {
+                foreach (Card card in Players[playerId].Hand)
+                {
+                    Discarded.Push(card);
+                }
+                Players[playerId].Hand = new Hand();
+                GiveCard(playerId);
+                GiveCard(playerId);
+            }
+            foreach (Card card in Hand)
+            {
+                Discarded.Push(card);
+            }
+            Hand = new Hand();
+            Hand.AddCard(MyDeck.DrawNextCard());
+        }
+
         public Player GetPlayer()
         {
             return GetPlayer(CurrentPlayer);
@@ -61,6 +95,7 @@ namespace GameCardLib
             if(CurrentPlayer == Players.Count - 1)
             {
                 CroupierPicks();
+                //endgame
             }
             else { CurrentPlayer++; }
             return GetPlayer();

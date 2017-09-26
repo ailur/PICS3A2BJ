@@ -1,6 +1,7 @@
 ﻿using GameCardLib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,9 @@ namespace BlackJack
         {
             InitializeComponent();
             GameStarted = false;
+            btnDrawCard.IsEnabled = false;
+            imgDeck.IsEnabled = false;
+            imgDeck.Opacity = 0.5;
         }
 
         private void updateCards(Player player)
@@ -43,11 +47,20 @@ namespace BlackJack
                 Image img = new Image();
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
                 img.Height = 96;
+                img.Width = 75;
                 img.ToolTip = card.ToString() + "\n" + card.Value;
                 if (player is Croupier) { CroupierDeck.Children.Add(img); }
                 else { PlayerDeck.Children.Add(img); }
             }
             updateScores(player);
+        }
+
+        private void updateDiscarded()
+        {
+            if(Croupier.Discarded.Count > 0)
+            {
+                imgDiscard.Source = new ImageSourceConverter().ConvertFromString("CardGUI/" + Croupier.Discarded.Peek().ToStringShort + ".png") as ImageSource;
+            }
         }
 
         private void updateScores(Player player)
@@ -86,33 +99,40 @@ namespace BlackJack
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtPlayers.Text))
+            if (!GameStarted)
             {
-                Croupier = new Croupier(int.Parse(txtPlayers.Text));
+                int numberOfPlayers;
+                if (!string.IsNullOrWhiteSpace(txtPlayers.Text) && int.TryParse(txtPlayers.Text, out numberOfPlayers) && numberOfPlayers > 0) { Croupier = new Croupier(numberOfPlayers); }
+                else { Croupier = new Croupier(); }
+                int numberOfDecks;
+                if (!string.IsNullOrWhiteSpace(txtNumberOfDecks.Text) && int.TryParse(txtNumberOfDecks.Text, out numberOfDecks) && numberOfDecks > 0) { Croupier.StartGame(int.Parse(txtNumberOfDecks.Text)); }
+                else { Croupier.StartGame(); }
+                updateCards(Croupier);
+                updateCards(Croupier.GetPlayer());
+                updateDiscarded();
+                CheckDeck();
+                Debug();
+                GameStarted = true;
             }
             else
             {
-                Croupier = new Croupier();
+                Croupier.ContinueGame();
+                updateCards(Croupier);
+                updateCards(Croupier.GetPlayer());
+                updateDiscarded();
+                CheckDeck();
+                Debug();
             }
-            if (!string.IsNullOrWhiteSpace(txtNumberOfDecks.Text))
-            {
-                Croupier.StartGame(int.Parse(txtNumberOfDecks.Text));
-            }
-            else
-            {
-                Croupier.StartGame();
-            }
-            updateCards(Croupier);
-            updateCards(Croupier.GetPlayer());
-            if (Croupier.GetPlayer().Hand.Score >= 21) { btnDrawCard.IsEnabled = false; }
-            else { btnDrawCard.IsEnabled = true; }
-            Debug();
-            GameStarted = true;
         }
 
+        [ConditionalAttribute("DEBUG")]
         private void Debug()
         {
             txtDebug.Text = Croupier.DeckString;
+            if (Croupier.Discarded.Count > 0)
+            {
+                txtDebug.Text += "\n" + Croupier.DiscardedString;
+            }
         }
 
         private void btnReshuffle_Click(object sender, RoutedEventArgs e)
@@ -130,6 +150,7 @@ namespace BlackJack
             {
                 Croupier.GiveCard();
                 updateCards(Croupier.GetPlayer());
+                updateDiscarded();
                 CheckDeck();
                 Debug();
             }
@@ -142,6 +163,10 @@ namespace BlackJack
                 updateCards(Croupier.NextPlayer());
                 CheckDeck();
                 updateCards(Croupier);
+                updateDiscarded();
+                btnDrawCard.IsEnabled = false;
+                imgDeck.IsEnabled = false;
+                imgDeck.Opacity = 0.5;
             }
         }
 
