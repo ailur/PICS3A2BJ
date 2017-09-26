@@ -11,11 +11,13 @@ namespace GameCardLib
     {
         #region fields
         private Deck myDeck;
+        private Stack<Card> discarded;
         private List<Player> players;
         private int currentPlayer;
         #endregion
         #region Properties
         private Deck MyDeck { get => myDeck; set => myDeck = value; }
+        private Stack<Card> Discarded { get => discarded; set => discarded = value; }
         public string DeckString => MyDeck.ToString();
         private List<Player> Players { get => players; set => players = value; }
         private int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
@@ -38,12 +40,13 @@ namespace GameCardLib
         public void StartGame(int numberOfDecks = 1)
         {
             MyDeck = new Deck(numberOfDecks);
+            Discarded = new Stack<Card>();
             for (int playerId = 0; playerId < Players.Count; playerId++)
             {
                 GiveCard(playerId);
                 GiveCard(playerId);
             }
-            this.Hand.AddCard(MyDeck.DrawNextCard());
+            Hand.AddCard(MyDeck.DrawNextCard());
         }
         public Player GetPlayer()
         {
@@ -81,7 +84,7 @@ namespace GameCardLib
             }
             else
             {
-                MyDeck.Pop();
+                Discarded.Push(MyDeck.Pop());
                 GiveCard(playerId);
             }
         }
