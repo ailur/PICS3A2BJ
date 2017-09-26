@@ -9,45 +9,90 @@ namespace GameCardLib
 {
     public class Croupier:Player
     {
-        private Deck deck;
+        #region fields
+        private Deck myDeck;
         private List<Player> players;
-        public Deck Deck
-        {
-            get { return deck; }
-        }
-        public List<Player> Players
-        {
-            //Esto esta muy feo
-            get { return players; }
-        }
+        private int currentPlayer;
+        #endregion
+        #region Properties
+        private Deck MyDeck { get => myDeck; set => myDeck = value; }
+        public string DeckString => MyDeck.ToString();
+        private List<Player> Players { get => players; set => players = value; }
+        private int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
+        #endregion
+        #region Methods()
+        #region Constructors
         public Croupier() : this(1)
         {
         }
         public Croupier(int numberOfPlayers)
         {
-            players = new List<Player>();
+            Players = new List<Player>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                players.Add(new Player());
+                Players.Add(new Player());
+            }
+            CurrentPlayer = 0;
+        }
+        #endregion
+        public void StartGame(int numberOfDecks = 1)
+        {
+            MyDeck = new Deck(numberOfDecks);
+            for (int playerId = 0; playerId < Players.Count; playerId++)
+            {
+                GiveCard(playerId);
+                GiveCard(playerId);
+            }
+            this.Hand.AddCard(MyDeck.DrawNextCard());
+        }
+        public Player GetPlayer()
+        {
+            return GetPlayer(CurrentPlayer);
+        }
+        private Player GetPlayer(int player)
+        {
+            return Players[player];
+        }
+        public Player NextPlayer()
+        {
+            if(CurrentPlayer == Players.Count - 1)
+            {
+                CroupierPicks();
+            }
+            else { CurrentPlayer++; }
+            return GetPlayer();
+        }
+
+        private void CroupierPicks()
+        {
+            //Pedir con 16, plantarse con 17
+            while (true)
+            {
+                if (Hand.Score < 17) { Hand.AddCard(MyDeck.DrawNextCard()); }
+                else { break; }
             }
         }
-        public void GiveCard(int playerId)
+
+        private void GiveCard(int playerId)
         {
-            players[playerId].Hand.AddCard(deck.DrawNextCard());
+            if(Players[playerId].Hand.Where(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort).Any() == false)
+            {
+                Players[playerId].Hand.AddCard(MyDeck.DrawNextCard());
+            }
+            else
+            {
+                MyDeck.Pop();
+                GiveCard(playerId);
+            }
+        }
+        public void GiveCard()
+        {
+            GiveCard(CurrentPlayer);
         }
         public void Reshuffle()
         {
-            deck.Shuffle();
+            MyDeck.Shuffle();
         }
-        public void StartGame(int numberOfDecks = 1)
-        {
-            deck = new Deck(numberOfDecks);
-            for (int playerId=0; playerId < players.Count; playerId++)
-            {
-                GiveCard(playerId);
-                GiveCard(playerId);
-            }
-            this.Hand.AddCard(deck.DrawNextCard());
-        }
+        #endregion
     }
 }

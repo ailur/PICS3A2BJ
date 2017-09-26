@@ -22,51 +22,21 @@ namespace BlackJack
     public partial class GameWindow : Window
     {
         private Croupier croupier;
-        private Player currentPlayer;
+        private bool gameStarted;
+
+        private Croupier Croupier { get => croupier; set => croupier = value; }
+        private bool GameStarted { get => gameStarted; set => gameStarted = value; }
+
         public GameWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnReshuffle_Click(object sender, RoutedEventArgs e)
-        {
-            croupier.Reshuffle();
-            txtDebug.Text = croupier.Deck.ToString();
-        }
-
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(txtPlayers.Text))
-            {
-                croupier = new Croupier(int.Parse(txtPlayers.Text));
-            }
-            else
-            {
-                croupier = new Croupier();
-            }
-            if (!string.IsNullOrWhiteSpace(txtNumberOfDecks.Text))
-            {
-                croupier.StartGame(int.Parse(txtNumberOfDecks.Text));
-            }
-            else
-            {
-                croupier.StartGame();
-            }
-            updateCards(croupier);
-            updateCards(croupier.Players[0]);
-            txtDebug.Text = croupier.Deck.ToString();
+            GameStarted = false;
         }
 
         private void updateCards(Player player)
         {
-            if(player is Croupier)
-            {
-                Croupier.Children.Clear();
-            }
-            else
-            {
-                PlayerDeck.Children.Clear();
-            }
+            if (player is Croupier) { CroupierDeck.Children.Clear(); }
+            else { PlayerDeck.Children.Clear(); }
             foreach (Card card in player.Hand)
             {
                 string src = "CardGUI/" + card.ToStringShort + ".png";
@@ -74,28 +44,110 @@ namespace BlackJack
                 img.Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource;
                 img.Height = 96;
                 img.ToolTip = card.ToString() + "\n" + card.Value;
-                if (player is Croupier)
-                {
-                    Croupier.Children.Add(img);
-                }
-                else
-                {
-                    PlayerDeck.Children.Add(img);
-                }
+                if (player is Croupier) { CroupierDeck.Children.Add(img); }
+                else { PlayerDeck.Children.Add(img); }
+            }
+            updateScores(player);
+        }
+
+        private void updateScores(Player player)
+        {
+            TextBlock updatedTextBlock;
+            if (player is Croupier)
+            {
+                updatedTextBlock = txtCroupierScore;
+                updatedTextBlock.Text = "Croupier\nscore:\n" + player.Hand.Score.ToString();
+            }
+            else
+            {
+                updatedTextBlock = txtPlayerScore;
+                updatedTextBlock.Text = "Your score:\n" + player.Hand.Score.ToString();
+            }
+            updatedTextBlock.Foreground = Brushes.Black;
+            if (player.Hand.Score > 21) { updatedTextBlock.Foreground = Brushes.Red; }
+            else if (player.Hand.Score == 21) { updatedTextBlock.Foreground = Brushes.Green; }
+        }
+
+        private void CheckDeck()
+        {
+            if (Croupier.GetPlayer().Hand.Score >= 21)
+            {
+                btnDrawCard.IsEnabled = false;
+                imgDeck.IsEnabled = false;
+                imgDeck.Opacity = 0.5;
+            }
+            else
+            {
+                btnDrawCard.IsEnabled = true;
+                imgDeck.IsEnabled = true;
+                imgDeck.Opacity = 1;
+            }
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtPlayers.Text))
+            {
+                Croupier = new Croupier(int.Parse(txtPlayers.Text));
+            }
+            else
+            {
+                Croupier = new Croupier();
+            }
+            if (!string.IsNullOrWhiteSpace(txtNumberOfDecks.Text))
+            {
+                Croupier.StartGame(int.Parse(txtNumberOfDecks.Text));
+            }
+            else
+            {
+                Croupier.StartGame();
+            }
+            updateCards(Croupier);
+            updateCards(Croupier.GetPlayer());
+            if (Croupier.GetPlayer().Hand.Score >= 21) { btnDrawCard.IsEnabled = false; }
+            else { btnDrawCard.IsEnabled = true; }
+            Debug();
+            GameStarted = true;
+        }
+
+        private void Debug()
+        {
+            txtDebug.Text = Croupier.DeckString;
+        }
+
+        private void btnReshuffle_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameStarted)
+            {
+                Croupier.Reshuffle();
+                Debug();
             }
         }
 
         private void btnDrawCard_Click(object sender, RoutedEventArgs e)
         {
-            croupier.GiveCard(0);
-            updateCards(croupier);
-            updateCards(croupier.Players[0]);
-            txtDebug.Text = croupier.Deck.ToString();
+            if (GameStarted)
+            {
+                Croupier.GiveCard();
+                updateCards(Croupier.GetPlayer());
+                CheckDeck();
+                Debug();
+            }
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            updateCards(croupier.Players[1]);
+            if (GameStarted)
+            {
+                updateCards(Croupier.NextPlayer());
+                CheckDeck();
+                updateCards(Croupier);
+            }
+        }
+
+        private void imgDeck_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            btnDrawCard_Click(sender, e);
         }
     }
 }

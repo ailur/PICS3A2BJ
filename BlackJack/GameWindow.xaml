@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
         Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="Height">
-    <StackPanel Orientation="Vertical" Height="218">
+    <!--<StackPanel Orientation="Vertical" Height="218">-->
+    <StackPanel Orientation="Vertical" Height="250">
         <StackPanel Name="Options" Orientation="Horizontal">
             <Label Name="lblPlayers">Number of players:</Label>
             <TextBox Name="txtPlayers" MinWidth="32" MaxWidth="40"/>
@@ -15,15 +16,19 @@
             <Button Name="btnStart" Click="btnStart_Click">Start</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
-        <StackPanel Name="Croupier" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Image Source="CardGUI/b2fv.png" MaxHeight="96"/>
+        <StackPanel Name="CroupierZone" Orientation="Horizontal">
+            <TextBlock Name="txtCroupierScore" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
+            <Image Name ="imgDeck" Source="CardGUI/b2fv.png" MaxHeight="96" MouseLeftButtonUp="imgDeck_MouseLeftButtonUp"/>
+            <StackPanel Name="CroupierDeck" Orientation="Horizontal" HorizontalAlignment="Center"> </StackPanel>
         </StackPanel>
-        <StackPanel Name="Players" Orientation="Horizontal">
+        <StackPanel Name="PlayersZone" Orientation="Horizontal">
+            <TextBlock Name="txtPlayerScore" MinWidth="70" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
             <Button Name="btnDrawCard" MinHeight="96" Click="btnDrawCard_Click">Draw a Card</Button>
-            <StackPanel Name="PlayerDeck" Orientation="Horizontal">
-            </StackPanel>
             <Button Name="btnStop" VerticalContentAlignment="Center" MinHeight="96" Click="btnStop_Click">Stop Drawing</Button>
-            <TextBlock Name="txtDebug"></TextBlock>
+            <StackPanel Name="PlayerDeck" Orientation="Horizontal"> </StackPanel>
+        </StackPanel>
+        <StackPanel>
+        <TextBlock Name="txtDebug"></TextBlock>
         </StackPanel>
     </StackPanel>
 </Window>

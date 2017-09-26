@@ -67,13 +67,17 @@ namespace GameCardLib
         }
         public override string ToString()
         {
-            string result = "";
+            StringBuilder stringBuilder = new StringBuilder();
             foreach (Card card in cards)
             {
-                result += card.ToStringShort;
+                stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
             }
-            return result;
+            stringBuilder.Remove(stringBuilder.Length - 2, 2);
+            return stringBuilder.ToString();
         }
+
+        public Card Peek() => cards.Peek();
+        public Card Pop() => cards.Pop();
         #endregion
     }
 }
