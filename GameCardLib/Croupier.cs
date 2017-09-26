@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
-    public class Croupier:Player
+    public class Croupier : Player
     {
         #region fields
         private Deck myDeck;
@@ -74,6 +74,14 @@ namespace GameCardLib
                 if (Hand.Score < 17) { Hand.AddCard(MyDeck.DrawNextCard()); }
                 else { break; }
             }
+            ScoreCheck();
+        }
+
+        private void ScoreCheck()
+        {
+            List<Player> winners = (from player in Players where player.Hand.Score <=21 select player).ToList();
+            if(Hand.Score <= 21) { winners.Add(this); }
+            //throw new NotImplementedException();
         }
 
         private void GiveCard(int playerId)
