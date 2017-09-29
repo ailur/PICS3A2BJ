@@ -72,7 +72,7 @@ namespace GameCardLib
                     return true;
                 });
                 player.Hand.Clear();
-                GiveCard(Players.IndexOf(player));
+                GiveCard(Players.IndexOf(player), 2);
                 return true;
             });
             Hand.All(card =>
