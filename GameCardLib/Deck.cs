@@ -15,8 +15,10 @@ namespace GameCardLib
         #region Properties
         public int Count
         {
-            get { return cards.Count; }
+            get { return Cards.Count; }
         }
+
+        public Stack<Card> Cards { get => cards; set => cards = value; }
         #endregion
         #region Methods()
         #region Constructors
@@ -26,7 +28,7 @@ namespace GameCardLib
         public Deck(int deckMultiplier)
         {
             this.deckMultiplier = deckMultiplier;
-            cards = new Stack<Card>();
+            Cards = new Stack<Card>();
             FillDeckWithCards();
             Shuffle();
         }
@@ -35,13 +37,13 @@ namespace GameCardLib
         {
             for (int i = quantity; i > 0; i--)
             {
-                cards.Pop();
+                Cards.Pop();
             }
             return true;
         }
         public Card DrawNextCard()
         {
-            return cards.Pop();
+            return Cards.Pop();
         }
 
         private bool FillDeckWithCards()
@@ -53,7 +55,7 @@ namespace GameCardLib
                     foreach (int value in Enum.GetValues(typeof(EnumValue)))
                     {
                         Card card = new Card(value, suite);
-                        cards.Push(card);
+                        Cards.Push(card);
                     }
                 }
             }
@@ -63,12 +65,12 @@ namespace GameCardLib
         public void Shuffle()
         {
             Random rnd = new Random();
-            cards = new Stack<Card>(cards.OrderBy(x => rnd.Next()));
+            Cards = new Stack<Card>(Cards.OrderBy(x => rnd.Next()));
         }
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (Card card in cards)
+            foreach (Card card in Cards)
             {
                 stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
             }
@@ -76,8 +78,8 @@ namespace GameCardLib
             return stringBuilder.ToString();
         }
 
-        public Card Peek() => cards.Peek();
-        public Card Pop() => cards.Pop();
+        public Card Peek() => Cards.Peek();
+        public Card Pop() => Cards.Pop();
         #endregion
     }
 }

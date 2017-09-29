@@ -13,24 +13,9 @@ namespace GameCardLib
         private List<Card> cards;
         #endregion
         #region Properties
-        public int NumberOfCards {
-            get
-            {
-                return cards.Count;
-            }
-        }
-        public int Score
-        {
-            get
-            {
-                int sum = 0;
-                foreach (Card card in cards)
-                {
-                    sum = sum + card.Value;
-                }
-                return sum;
-            }
-        }
+        public int NumberOfCards => cards.Count;
+        public int Score => cards.Aggregate(0, (current, card) => current + card.Value);
+
         #endregion
         #region Methods()
         #region Constructors
@@ -65,8 +50,6 @@ namespace GameCardLib
         {
             return ((IEnumerable<Card>)cards).GetEnumerator();
         }
-
-
         #endregion
     }
 }

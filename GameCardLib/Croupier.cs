@@ -54,31 +54,29 @@ namespace GameCardLib
         {
             MyDeck = new Deck(numberOfDecks);
             Discarded = new Stack<Card>();
-            for (int playerId = 0; playerId < Players.Count; playerId++)
-            {
-                GiveCard(playerId);
-                GiveCard(playerId);
-            }
+            Players.ToList().ForEach(player => GiveCard(Players.IndexOf(player), 2));
             Hand.AddCard(MyDeck.DrawNextCard());
         }
 
         public void ContinueGame()
         {
-            for (int playerId = 0; playerId < Players.Count; playerId++)
+            Players.All(player => 
             {
-                foreach (Card card in Players[playerId].Hand)
+                player.Hand.All(card =>
                 {
                     Discarded.Push(card);
-                }
-                Players[playerId].Hand = new Hand();
-                GiveCard(playerId);
-                GiveCard(playerId);
-            }
-            foreach (Card card in Hand)
+                    return true;
+                });
+                player.Hand.Clear();
+                GiveCard(Players.IndexOf(player));
+                return true;
+            });
+            Hand.All(card =>
             {
                 Discarded.Push(card);
-            }
-            Hand = new Hand();
+                return true;
+            });
+            Hand.Clear();
             Hand.AddCard(MyDeck.DrawNextCard());
         }
 
@@ -119,18 +117,22 @@ namespace GameCardLib
             //throw new NotImplementedException();
         }
 
-        private void GiveCard(int playerId)
+        private void GiveCard(int playerId, int count = 1)
         {
-            if(Players[playerId].Hand.Where(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort).Any() == false)
+            for (int i = 0; i < count; i++)
             {
-                Players[playerId].Hand.AddCard(MyDeck.DrawNextCard());
-            }
-            else
-            {
-                Discarded.Push(MyDeck.Pop());
-                GiveCard(playerId);
+                if (Players[playerId].Hand.Where(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort).Any() == false)
+                {
+                    Players[playerId].Hand.AddCard(MyDeck.DrawNextCard());
+                }
+                else
+                {
+                    Discarded.Push(MyDeck.Pop());
+                    GiveCard(playerId);
+                }
             }
         }
+
         public void GiveCard()
         {
             GiveCard(CurrentPlayer);

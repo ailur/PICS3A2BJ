@@ -17,9 +17,9 @@
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="75"/>
-            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Discarded</TextBlock>
-            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">Deck</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Scores</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Discarded</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Deck</TextBlock>
         </StackPanel>
         <DockPanel Name="CroupierZone">
             <TextBlock Name="txtCroupierScore" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
