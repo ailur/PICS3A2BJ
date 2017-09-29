@@ -54,7 +54,11 @@ namespace GameCardLib
         {
             MyDeck = new Deck(numberOfDecks);
             Discarded = new Stack<Card>();
-            Players.ToList().ForEach(player => GiveCard(Players.IndexOf(player), 2));
+            Players.All(player =>
+            {
+                GiveCard(Players.IndexOf(player), 2);
+                return true;
+            });
             Hand.AddCard(MyDeck.DrawNextCard());
         }
 
