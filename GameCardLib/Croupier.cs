@@ -125,7 +125,7 @@ namespace GameCardLib
         {
             for (int i = 0; i < count; i++)
             {
-                if (Players[playerId].Hand.Where(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort).Any() == false)
+                if (Players[playerId].Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
                     Players[playerId].Hand.AddCard(MyDeck.DrawNextCard());
                 }
