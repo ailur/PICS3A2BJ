@@ -1,0 +1,20 @@
+﻿<Window x:Class="BlackJack.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlackJack"
+        mc:Ignorable="d"
+        Title="StartWindow" Height="300" Width="150">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="110" Name="lblPlayers">Number of players:</Label>
+            <TextBox HorizontalAlignment="Right" Name="txtPlayers" Width="32" MaxWidth="40"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="110" Name="lblNumberOfDecks">Number of decks:</Label>
+            <TextBox Name="txtNumberOfDecks" Width="32" MaxWidth="40"/>
+        </StackPanel>
+        <Button Name="btnCheck" Click="btnCheck_OnClick">Check</Button>
+    </StackPanel>
+</Window>

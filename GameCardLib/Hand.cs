@@ -27,7 +27,6 @@ namespace GameCardLib
             cards = new List<Card>();
         }
         #endregion
-        //Cambiar a bool
         public void AddCard(Card card)
         {
             cards.Add(card);
@@ -38,7 +37,14 @@ namespace GameCardLib
         }
         public override string ToString()
         {
-            return base.ToString();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Score {0}: ", Score);
+            foreach (Card card in cards)
+            {
+                sb.AppendFormat("{0}, ", card);
+            }
+            sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
         }
 
         public IEnumerator<Card> GetEnumerator()

@@ -24,7 +24,7 @@ namespace GameCardLib
         }
         public override string ToString()
         {
-            return base.ToString();
+            return Name;
         }
         #endregion
         #endregion
