@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="StartWindow" Height="300" Width="150">
+        Title="Black Jack Configuration" Width="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="110" Name="lblPlayers">Number of players:</Label>
@@ -16,5 +16,6 @@
             <TextBox Name="txtNumberOfDecks" Width="32" MaxWidth="40"/>
         </StackPanel>
         <Button Name="btnCheck" Click="btnCheck_OnClick">Check</Button>
+        <StackPanel Name="panelPlayers" Orientation="Vertical"/>
     </StackPanel>
 </Window>

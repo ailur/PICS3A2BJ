@@ -20,6 +20,9 @@ namespace BlackJack
     public partial class StartWindow : Window
     {
         private GameWindow mainWindow;
+
+        public int NumberOfDecks { get; set; }
+        public int NumberOfPlayers { get; set; }
         public StartWindow()
         {
             InitializeComponent();
@@ -27,35 +30,54 @@ namespace BlackJack
 
         private void btnCheck_OnClick(object sender, RoutedEventArgs e)
         {
-            CheckData();
+            if (CheckData())
+            {
+                for (int i = 0; i < NumberOfPlayers; i++)
+                {
+                    panelPlayers.Children.Add(new TextBox{ Name = "txtPlayerName" + i, Text = "Player" + i + "Name"});
+                }
+                Button btnStart = new Button { Name = "btnStart", Content = "Start Game" };
+                btnStart.Click += btnStart_Click;
+                panelPlayers.Children.Add(btnStart);
+            }
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow = new GameWindow(NumberOfPlayers, NumberOfDecks); //TODO: Lista jugadores
+            mainWindow.Show();
+            this.Close();
         }
 
         private bool CheckData()
         {
+            int numberOfPlayers = 0;
+            int numberOfDecks = 0;
             if (string.IsNullOrWhiteSpace(txtPlayers.Text) ||
-                !int.TryParse(txtPlayers.Text, out int numberOfPlayers) &&
+                !int.TryParse(txtPlayers.Text, out numberOfPlayers) &&
                 numberOfPlayers < 0)
             {
                 MessageBox.Show("Could not parse Number of players.", "Please, Check data", MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtNumberOfDecks.Text) &&
-                !int.TryParse(txtNumberOfDecks.Text, out int numberOfDecks) &&
+            NumberOfPlayers = numberOfPlayers;
+            if (string.IsNullOrWhiteSpace(txtNumberOfDecks.Text) ||
+                !int.TryParse(txtNumberOfDecks.Text, out numberOfDecks) ||
                 numberOfDecks < 0)
             {
                 MessageBox.Show("Could not parse Number of decks.", "Please, Check data", MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
                 return false;
             }
-
-            if (numberOfDecks * 13 * 4 < numberOfPlayers * 2 + 1)
+            NumberOfDecks = numberOfDecks;
+            if (numberOfDecks * 13 * 4 >= numberOfPlayers * 2 + 1)
             {
-                MessageBox.Show("Not enough decks for that number of players.", "Need more decks", MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation);
-                return false;
+                return true;
             }
-            return true;
+            MessageBox.Show("Not enough decks for that number of players.", "Need more decks", MessageBoxButton.OK,
+                MessageBoxImage.Exclamation);
+            return false;
         }
     }
 }

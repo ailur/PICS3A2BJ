@@ -9,11 +9,6 @@
     <!--<StackPanel Orientation="Vertical" Height="234">-->
     <StackPanel Orientation="Vertical" Height="275">
         <StackPanel Name="Options" Orientation="Horizontal">
-            <Label Name="lblPlayers">Number of players:</Label>
-            <TextBox Name="txtPlayers" Width="32" MaxWidth="40"/>
-            <Label Name="lblNumberOfDecks">Number of decks:</Label>
-            <TextBox Name="txtNumberOfDecks" Width="32" MaxWidth="40"/>
-            <Button Name="btnStart" Click="btnStart_Click">Start</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">

@@ -72,7 +72,7 @@ namespace GameCardLib
         #endregion
         public override string ToString()
         {
-            return ValueEnum.ToString() + " Of " + Suite.ToString();
+            return ValueEnum + " Of " + Suite;
         }
         #endregion
     }
