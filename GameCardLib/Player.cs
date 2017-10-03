@@ -22,11 +22,16 @@ namespace GameCardLib
         {
             Hand = new Hand();
         }
+
+        public Player(string name) : this()
+        {
+            Name = name;
+        }
+        #endregion
         public override string ToString()
         {
             return Name;
         }
-        #endregion
         #endregion
     }
 }

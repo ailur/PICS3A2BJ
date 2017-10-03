@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="Height">
-    <!--<StackPanel Orientation="Vertical" Height="234">-->
-    <StackPanel Orientation="Vertical" Height="275">
+        Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <StackPanel Orientation="Vertical">
         <StackPanel Name="Options" Orientation="Horizontal">
+            <Button Click="btnStop_Click">Next Player</Button>
+            <Button Name="btnContinue" Click="btnContinue_Click">Next Round</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
@@ -21,7 +22,7 @@
             <Image Name="imgDiscard" Source="CardGUI/jb.png" Width="75" Height="96"/>
             <Image Name="imgDeck" Source="CardGUI/b2fv.png" Width="75" Height="96" MouseLeftButtonUp="imgDeck_MouseLeftButtonUp"/>
             <Border BorderThickness="1" BorderBrush="Black" Background="Green">
-                <StackPanel Name="CroupierDeck" Orientation="Horizontal" HorizontalAlignment="Center"> </StackPanel>
+                <StackPanel Name="CroupierDeck" Orientation="Horizontal" HorizontalAlignment="Center"></StackPanel>
             </Border>
         </DockPanel>
         <DockPanel Name="PlayersZone">
@@ -33,7 +34,7 @@
             </Border>
         </DockPanel>
         <StackPanel>
-        <TextBlock Name="txtDebug"></TextBlock>
+            <TextBlock Name="txtDebug"></TextBlock>
         </StackPanel>
     </StackPanel>
 </Window>

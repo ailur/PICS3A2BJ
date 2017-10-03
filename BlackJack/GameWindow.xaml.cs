@@ -26,11 +26,13 @@ namespace BlackJack
         private bool gameStarted;
         private int numberOfPlayers;
         private int numberOfDecks;
+        private List<string> playerList;
 
         private Croupier Croupier { get => croupier; set => croupier = value; }
         private bool GameStarted { get => gameStarted; set => gameStarted = value; }
         private int NumberOfPlayers { get => numberOfPlayers; set => numberOfPlayers = value; }
         private int NumberOfDecks { get => numberOfDecks; set => numberOfDecks = value; }
+        private List<string> PlayerList { get => playerList; set => playerList = value; }
 
         public GameWindow() : this(1,1)
         {
@@ -45,6 +47,23 @@ namespace BlackJack
             imgDeck.Opacity = 0.5;
             NumberOfPlayers = numberOfPlayers;
             NumberOfDecks = numberOfDecks;
+
+            if(PlayerList!=null)
+                Croupier = new Croupier(PlayerList);
+            else
+                Croupier = new Croupier(NumberOfPlayers);
+            Croupier.StartGame(NumberOfDecks);
+            UpdateCards(Croupier);
+            UpdateCards(Croupier.GetPlayer());
+            UpdateDiscarded();
+            CheckDeck();
+            Debug();
+            GameStarted = true;
+        }
+
+        public GameWindow(List<string> playerList, int numberOfDecks) : this (playerList.Count, numberOfDecks)
+        {
+            PlayerList = playerList;
         }
 
         private void UpdateCards(Player player)
@@ -109,28 +128,14 @@ namespace BlackJack
             }
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            if (!GameStarted)
-            {
-                Croupier = new Croupier(NumberOfPlayers);
-                Croupier.StartGame(NumberOfDecks);
-                UpdateCards(Croupier);
-                UpdateCards(Croupier.GetPlayer());
-                UpdateDiscarded();
-                CheckDeck();
-                Debug();
-                GameStarted = true;
-            }
-            else
-            {
-                Croupier.ContinueGame();
-                UpdateCards(Croupier);
-                UpdateCards(Croupier.GetPlayer());
-                UpdateDiscarded();
-                CheckDeck();
-                Debug();
-            }
+            Croupier.ContinueGame();
+            UpdateCards(Croupier);
+            UpdateCards(Croupier.GetPlayer());
+            UpdateDiscarded();
+            CheckDeck();
+            Debug();
         }
 
         [ConditionalAttribute("DEBUG")]

@@ -34,17 +34,31 @@ namespace BlackJack
             {
                 for (int i = 0; i < NumberOfPlayers; i++)
                 {
-                    panelPlayers.Children.Add(new TextBox{ Name = "txtPlayerName" + i, Text = "Player" + i + "Name"});
+                    TextBox textBox = new TextBox {Name = "txtPlayerName" + i, Text = "Player" + i + "Name"};
+                    textBox.GotFocus += TextBoxOnGotFocus;
+                    panelPlayers.Children.Add(textBox);
                 }
                 Button btnStart = new Button { Name = "btnStart", Content = "Start Game" };
                 btnStart.Click += btnStart_Click;
-                panelPlayers.Children.Add(btnStart);
+                panelMain.Children.Add(btnStart);
             }
+        }
+
+        private void TextBoxOnGotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            tb.Text = string.Empty;
+            tb.GotFocus -= TextBoxOnGotFocus;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow = new GameWindow(NumberOfPlayers, NumberOfDecks); //TODO: Lista jugadores
+            List<string> playerList = new List<string>();
+            foreach (TextBox textBox in panelPlayers.Children)
+            {
+                playerList.Add(textBox.Text);
+            }
+            mainWindow = new GameWindow(playerList, NumberOfDecks); //TODO: Lista jugadores
             mainWindow.Show();
             this.Close();
         }

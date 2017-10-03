@@ -41,9 +41,13 @@ namespace GameCardLib
         {
         }
 
-        public Croupier(List<Player> playerList)
+        public Croupier(List<string> playerList)
         {
-            Players = playerList;
+            Players = new List<Player>();
+            foreach (string name in playerList)
+            {
+                Players.Add(new Player(name));
+            }
             currentPlayer = 0;
         }
         public Croupier(int numberOfPlayers)

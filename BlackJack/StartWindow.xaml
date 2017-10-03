@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
         Title="Black Jack Configuration" Width="150" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
-    <StackPanel>
+    <StackPanel Name="panelMain">
         <StackPanel Orientation="Horizontal">
             <Label Width="110" Name="lblPlayers">Number of players:</Label>
             <TextBox HorizontalAlignment="Right" Name="txtPlayers" Width="32" MaxWidth="40"/>
