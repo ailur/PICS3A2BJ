@@ -40,17 +40,19 @@ namespace GameCardLib
             get { return value + 1; }
             private set { this.value = value; }
         }
-        public EnumValue ValueEnum
+        private EnumValue ValueEnum
         {
-            get { return (EnumValue)value; }
+            get { return (EnumValue)Value; }
         }
-        public EnumSuite Suite { get; private set; }
+
+        private EnumSuite Suite
+        {
+            get { return suite; }
+            set { suite = value; }
+        }
         public string ToStringShort
         {
-            get
-            {
-                return suiteDict[this.Suite] + valueDict[this.ValueEnum];
-            }
+            get { return suiteDict[Suite] + valueDict[ValueEnum]; }
         }
         #endregion
         #region Methods()
@@ -65,8 +67,8 @@ namespace GameCardLib
         {
             if (Enum.IsDefined(typeof(EnumValue), (EnumValue)value) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
-                this.value = value;
-                this.Suite = suite;
+                Value = value;
+                Suite = suite;
             }
         }
         #endregion

@@ -68,7 +68,7 @@ namespace GameCardLib
             {
                 GiveCard(Players.IndexOf(player), 2);
             }
-            Hand.AddCard(MyDeck.DrawNextCard());
+            Hand.AddCard(MyDeck.Pop());
         }
 
         public void ContinueGame()
@@ -88,7 +88,7 @@ namespace GameCardLib
                 Discarded.Push(card);
             }
             Hand.Clear();
-            Hand.AddCard(MyDeck.DrawNextCard());
+            Hand.AddCard(MyDeck.Pop());
         }
 
         public Player GetPlayer()
@@ -115,7 +115,7 @@ namespace GameCardLib
             //Pedir con 16, plantarse con 17
             while (true)
             {
-                if (Hand.Score < 17) { Hand.AddCard(MyDeck.DrawNextCard()); }
+                if (Hand.Score < 17) { Hand.AddCard(MyDeck.Pop()); }
                 else { break; }
             }
             ScoreCheck();
@@ -134,7 +134,7 @@ namespace GameCardLib
             {
                 if (Players[playerId].Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
-                    Players[playerId].Hand.AddCard(MyDeck.DrawNextCard());
+                    Players[playerId].Hand.AddCard(MyDeck.Pop());
                 }
                 else
                 {

@@ -38,8 +38,6 @@
             <TextBlock Width="225" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
             <TextBlock Name="txtPlayerName" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">Player</TextBlock>
         </DockPanel>
-        <StackPanel>
-            <TextBlock Name="txtDebug"></TextBlock>
-        </StackPanel>
+        <TextBlock Name="txtDebug"></TextBlock>
     </StackPanel>
 </Window>

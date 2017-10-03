@@ -18,7 +18,8 @@ namespace GameCardLib
             get { return Cards.Count; }
         }
 
-        public Stack<Card> Cards { get => cards; set => cards = value; }
+        private Stack<Card> Cards { get => cards; set => cards = value; }
+        private int DeckMultiplier { get => deckMultiplier; set => deckMultiplier = value; }
         #endregion
         #region Methods()
         #region Constructors
@@ -27,7 +28,7 @@ namespace GameCardLib
         }
         public Deck(int deckMultiplier)
         {
-            this.deckMultiplier = deckMultiplier;
+            DeckMultiplier = deckMultiplier;
             Cards = new Stack<Card>();
             FillDeckWithCards();
             Shuffle();
@@ -41,14 +42,10 @@ namespace GameCardLib
             }
             return true;
         }
-        public Card DrawNextCard()
-        {
-            return Cards.Pop();
-        }
 
-        private bool FillDeckWithCards()
+        private void FillDeckWithCards()
         {
-            foreach (int deck in Enumerable.Range(1,deckMultiplier))
+            foreach (int deck in Enumerable.Range(1,DeckMultiplier))
             {
                 foreach (EnumSuite suite in Enum.GetValues(typeof(EnumSuite)))
                 {
@@ -59,7 +56,6 @@ namespace GameCardLib
                     }
                 }
             }
-            return true;
         }
         //utilities?
         public void Shuffle()
