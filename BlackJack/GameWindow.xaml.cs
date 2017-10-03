@@ -55,7 +55,7 @@ namespace BlackJack
             UpdateCards(Croupier);
             UpdateCards(Croupier.GetPlayer());
             UpdateDiscarded();
-            CheckDeck();
+            CheckHand();
             Debug();
             GameStarted = true;
         }
@@ -107,7 +107,7 @@ namespace BlackJack
             else if (player.Hand.Score == 21) { updatedTextBlock.Foreground = Brushes.Green; }
         }
 
-        private void CheckDeck()
+        private void CheckHand()
         {
             if (Croupier.GetPlayer().Hand.Score >= 21)
             {
@@ -129,7 +129,7 @@ namespace BlackJack
             UpdateCards(Croupier);
             UpdateCards(Croupier.GetPlayer());
             UpdateDiscarded();
-            CheckDeck();
+            CheckHand();
             Debug();
         }
 
@@ -159,7 +159,7 @@ namespace BlackJack
                 Croupier.GiveCard();
                 UpdateCards(Croupier.GetPlayer());
                 UpdateDiscarded();
-                CheckDeck();
+                CheckHand();
                 Debug();
             }
         }
@@ -169,7 +169,7 @@ namespace BlackJack
             if (GameStarted)
             {
                 UpdateCards(Croupier.NextPlayer());
-                CheckDeck();
+                CheckHand();
                 UpdateCards(Croupier);
                 UpdateDiscarded();
                 btnDrawCard.IsEnabled = false;
