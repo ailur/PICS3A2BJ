@@ -38,8 +38,9 @@ namespace BlackJack
         {
         }
 
-        public GameWindow(int numberOfPlayers, int numberOfDecks)
+        public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
+            PlayerList = playerList;
             InitializeComponent();
             GameStarted = false;
             btnDrawCard.IsEnabled = false;
@@ -48,10 +49,8 @@ namespace BlackJack
             NumberOfPlayers = numberOfPlayers;
             NumberOfDecks = numberOfDecks;
 
-            if(PlayerList!=null)
-                Croupier = new Croupier(PlayerList);
-            else
-                Croupier = new Croupier(NumberOfPlayers);
+            if (PlayerList != null) { Croupier = new Croupier(PlayerList); }
+            else { Croupier = new Croupier(NumberOfPlayers); }
             Croupier.StartGame(NumberOfDecks);
             UpdateCards(Croupier);
             UpdateCards(Croupier.GetPlayer());
@@ -59,11 +58,6 @@ namespace BlackJack
             CheckDeck();
             Debug();
             GameStarted = true;
-        }
-
-        public GameWindow(List<string> playerList, int numberOfDecks) : this (playerList.Count, numberOfDecks)
-        {
-            PlayerList = playerList;
         }
 
         private void UpdateCards(Player player)
@@ -104,6 +98,7 @@ namespace BlackJack
             }
             else
             {
+                txtPlayerName.Text = player.Name;
                 updatedTextBlock = txtPlayerScore;
                 updatedTextBlock.Text = "Your score:\n" + player.Hand.Score.ToString();
             }

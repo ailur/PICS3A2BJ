@@ -64,32 +64,29 @@ namespace GameCardLib
         {
             MyDeck = new Deck(numberOfDecks);
             Discarded = new Stack<Card>();
-            Players.All(player =>
+            foreach (Player player in Players)
             {
                 GiveCard(Players.IndexOf(player), 2);
-                return true;
-            });
+            }
             Hand.AddCard(MyDeck.DrawNextCard());
         }
 
         public void ContinueGame()
         {
-            Players.All(player => 
+            CurrentPlayer = 0;
+            foreach (Player player in Players)
             {
-                player.Hand.All(card =>
+                foreach (Card card in player.Hand)
                 {
                     Discarded.Push(card);
-                    return true;
-                });
+                }
                 player.Hand.Clear();
-                GiveCard(Players.IndexOf(player), 2);
-                return true;
-            });
-            Hand.All(card =>
+                GiveCard(Players.IndexOf(player));
+            }
+            foreach (Card card in Hand)
             {
                 Discarded.Push(card);
-                return true;
-            });
+            }
             Hand.Clear();
             Hand.AddCard(MyDeck.DrawNextCard());
         }

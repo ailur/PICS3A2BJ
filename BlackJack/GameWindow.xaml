@@ -12,11 +12,12 @@
             <Button Name="btnContinue" Click="btnContinue_Click">Next Round</Button>
             <Button Name="btnReshuffle" Click="btnReshuffle_Click">Reshuffle</Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Scores</TextBlock>
-            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Discarded</TextBlock>
-            <TextBlock Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Deck</TextBlock>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock Width="75" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Scores</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Discarded</TextBlock>
+            <TextBlock Width="75" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Deck</TextBlock>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">Croupier</TextBlock>
+        </DockPanel>
         <DockPanel Name="CroupierZone">
             <TextBlock Name="txtCroupierScore" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
             <Image Name="imgDiscard" Source="CardGUI/jb.png" Width="75" Height="96"/>
@@ -32,6 +33,10 @@
             <Border BorderThickness="1" BorderBrush="Black" Background="Green">
                 <StackPanel Name="PlayerDeck" Orientation="Horizontal"  HorizontalAlignment="Center"></StackPanel>
             </Border>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Width="225" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"></TextBlock>
+            <TextBlock Name="txtPlayerName" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">Player</TextBlock>
         </DockPanel>
         <StackPanel>
             <TextBlock Name="txtDebug"></TextBlock>

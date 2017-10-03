@@ -58,7 +58,7 @@ namespace BlackJack
             {
                 playerList.Add(textBox.Text);
             }
-            mainWindow = new GameWindow(playerList, NumberOfDecks); //TODO: Lista jugadores
+            mainWindow = new GameWindow(playerList.Count, NumberOfDecks, playerList); //TODO: Lista jugadores
             mainWindow.Show();
             this.Close();
         }
