@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
+    /// <summary>
+    /// Deck class
+    /// </summary>
     public class Deck
     {
         #region fields
@@ -13,19 +16,31 @@ namespace GameCardLib
         private int deckMultiplier;
         #endregion
         #region Properties
-        public int Count
-        {
-            get { return Cards.Count; }
-        }
-
+        /// <summary>
+        /// Stack of cards
+        /// </summary>
         private Stack<Card> Cards { get => cards; set => cards = value; }
+        /// <summary>
+        /// How many decks compose the main deck
+        /// </summary>
         private int DeckMultiplier { get => deckMultiplier; set => deckMultiplier = value; }
+        /// <summary>
+        /// Count of cards in the deck
+        /// </summary>
+        public int Count { get => Cards.Count; }
         #endregion
         #region Methods()
         #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Deck() :this(1)
         {
         }
+        /// <summary>
+        /// Constructor that takes one argument: deckMultiplier
+        /// </summary>
+        /// <param name="deckMultiplier">Number of decks to form the deck</param>
         public Deck(int deckMultiplier)
         {
             DeckMultiplier = deckMultiplier;
@@ -34,6 +49,11 @@ namespace GameCardLib
             Shuffle();
         }
         #endregion
+        /// <summary>
+        /// Discard the quantity of cards
+        /// </summary>
+        /// <param name="quantity">Quantity of cards to discard</param>
+        /// <returns></returns>
         public bool DiscardCards(int quantity)
         {
             for (int i = quantity; i > 0; i--)
@@ -43,6 +63,9 @@ namespace GameCardLib
             return true;
         }
 
+        /// <summary>
+        /// Make the deck
+        /// </summary>
         private void FillDeckWithCards()
         {
             foreach (int deck in Enumerable.Range(1,DeckMultiplier))
@@ -57,7 +80,8 @@ namespace GameCardLib
                 }
             }
         }
-        //utilities?
+
+
         public void Shuffle()
         {
             Random rnd = new Random();

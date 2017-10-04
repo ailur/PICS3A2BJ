@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
+    /// <summary>
+    /// Card class
+    /// </summary>
     public class Card
     {
         #region fields
@@ -36,20 +39,31 @@ namespace GameCardLib
         };
         #endregion
         #region Properties
+        /// <summary>
+        /// Value in int.
+        /// </summary>
         public int Value {
             get { return value + 1; }
             private set { this.value = value; }
         }
+        /// <summary>
+        /// Value in enum.
+        /// </summary>
         private EnumValue ValueEnum
         {
             get { return (EnumValue)Value; }
         }
-
+        /// <summary>
+        /// Suite of the card.
+        /// </summary>
         private EnumSuite Suite
         {
             get { return suite; }
             set { suite = value; }
         }
+        /// <summary>
+        /// Short name.
+        /// </summary>
         public string ToStringShort
         {
             get { return suiteDict[Suite] + valueDict[ValueEnum]; }
@@ -63,6 +77,12 @@ namespace GameCardLib
         public Card() : this(1, EnumSuite.Spades)
         {
         }
+
+        /// <summary>
+        /// Constructor that takes 2 arguments, Value and Suite.
+        /// </summary>
+        /// <param name="value">Value of the card.</param>
+        /// <param name="suite">Suite of the card.</param>
         public Card(int value, EnumSuite suite)
         {
             if (Enum.IsDefined(typeof(EnumValue), (EnumValue)value) && Enum.IsDefined(typeof(EnumSuite), suite))
@@ -72,6 +92,10 @@ namespace GameCardLib
             }
         }
         #endregion
+        /// <summary>
+        /// Card ToString method.
+        /// </summary>
+        /// <returns>Description of the card.</returns>
         public override string ToString()
         {
             return ValueEnum + " Of " + Suite;
