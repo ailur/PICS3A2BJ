@@ -141,6 +141,7 @@ namespace BlackJack
             {
                 txtDebug.Text += "\n" + Croupier.DiscardedString;
             }
+            txtDebug.Text = txtDebug.Text.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
         }
 
         private void btnReshuffle_Click(object sender, RoutedEventArgs e)

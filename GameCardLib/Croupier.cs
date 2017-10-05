@@ -28,10 +28,17 @@ namespace GameCardLib
         #endregion
         #region Methods()
         #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Croupier() : this(1)
         {
         }
 
+        /// <summary>
+        /// Constructor that takes a list of player names
+        /// </summary>
+        /// <param name="playerList">List of player names</param>
         public Croupier(List<string> playerList)
         {
             Players = new List<Player>();
@@ -41,6 +48,11 @@ namespace GameCardLib
             }
             currentPlayer = 0;
         }
+
+        /// <summary>
+        /// Constructor that takes number of players
+        /// </summary>
+        /// <param name="numberOfPlayers">The number of players that is going to play</param>
         public Croupier(int numberOfPlayers)
         {
             Players = new List<Player>(numberOfPlayers);
@@ -51,6 +63,10 @@ namespace GameCardLib
             CurrentPlayer = 0;
         }
         #endregion
+        /// <summary>
+        /// Start the game: instantiate deck and discarded deck and give cards to players and croupier.
+        /// </summary>
+        /// <param name="numberOfDecks">Number of decks that compose the deck</param>
         public void StartGame(int numberOfDecks = 1)
         {
             MyDeck = new Deck(numberOfDecks);
@@ -62,8 +78,12 @@ namespace GameCardLib
             Hand.AddCard(MyDeck.Pop());
         }
 
+        /// <summary>
+        /// Start a new round
+        /// </summary>
         public void ContinueGame()
         {
+            //TODO: Check if there are enough cards left in deck
             CurrentPlayer = 0;
             foreach (Player player in Players)
             {
@@ -82,14 +102,29 @@ namespace GameCardLib
             Hand.AddCard(MyDeck.Pop());
         }
 
+        /// <summary>
+        /// Get the current player
+        /// </summary>
+        /// <returns>Current player</returns>
         public Player GetPlayer()
         {
             return GetPlayer(CurrentPlayer);
         }
+        /// <summary>
+        /// Get a player
+        /// </summary>
+        /// <param name="player">Player to get</param>
+        /// <returns>Player</returns>
         private Player GetPlayer(int player)
         {
             return Players[player];
         }
+
+        /// <summary>
+        /// Change current player to next player.
+        /// If player is last player, finish game.
+        /// </summary>
+        /// <returns>Next player</returns>
         public Player NextPlayer()
         {
             if(CurrentPlayer == Players.Count - 1)
@@ -101,26 +136,36 @@ namespace GameCardLib
             return GetPlayer();
         }
 
+        /// <summary>
+        /// Croupier picks cards acording to rule
+        /// </summary>
         private void CroupierPicks()
         {
-            //Pedir con 16, plantarse con 17
-            while (true)
+            while (Hand.Score < 17)
             {
-                if (Hand.Score < 17) { Hand.AddCard(MyDeck.Pop()); }
-                else { break; }
+                Hand.AddCard(MyDeck.Pop());
             }
             ScoreCheck();
         }
 
+        /// <summary>
+        /// Make a list of winners
+        /// </summary>
         private void ScoreCheck()
         {
-            List<Player> winners = (from player in Players where player.Hand.Score <=21 select player).ToList();
-            if(Hand.Score <= 21) { winners.Add(this); }
+            List<Player> playersNotOver21 = (from player in Players where player.Hand.Score <=21 select player).ToList();
+            if(Hand.Score <= 21) { playersNotOver21.Add(this); }
             //throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Give a number of cards to a player
+        /// </summary>
+        /// <param name="playerId">Player that receives cards</param>
+        /// <param name="count">Number of cards the player receives</param>
         private void GiveCard(int playerId, int count = 1)
         {
+            //TODO: Comprobar si quedan suficientes cartas
             for (int i = 0; i < count; i++)
             {
                 if (Players[playerId].Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
@@ -135,10 +180,17 @@ namespace GameCardLib
             }
         }
 
+        /// <summary>
+        /// Give 1 card to current player
+        /// </summary>
         public void GiveCard()
         {
             GiveCard(CurrentPlayer);
         }
+
+        /// <summary>
+        /// Reshuffle the deck
+        /// </summary>
         public void Reshuffle()
         {
             MyDeck.Shuffle();

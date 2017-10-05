@@ -12,7 +12,7 @@ namespace GameCardLib
     public class Card
     {
         #region fields
-        private int value;
+        private EnumValue value;
         private EnumSuite suite;
         private Dictionary<EnumSuite, string> suiteDict = new Dictionary<EnumSuite, string>
         {
@@ -39,19 +39,28 @@ namespace GameCardLib
         };
         #endregion
         #region Properties
+
         /// <summary>
         /// Value in int.
         /// </summary>
-        public int Value {
-            get { return value + 1; }
-            private set { this.value = value; }
+        public int Value
+        {
+            get
+            {
+                int value = (int) ValueEnum;
+                if (value <= 8)
+                    return value + 1;
+                else
+                    return 10;
+            }
         }
         /// <summary>
         /// Value in enum.
         /// </summary>
         private EnumValue ValueEnum
         {
-            get { return (EnumValue)(Value - 1); }
+            get { return value; }
+            set { this.value = value; }
         }
         /// <summary>
         /// Suite of the card.
@@ -64,17 +73,14 @@ namespace GameCardLib
         /// <summary>
         /// Short name.
         /// </summary>
-        public string ToStringShort
-        {
-            get { return suiteDict[Suite] + valueDict[ValueEnum]; }
-        }
+        public string ToStringShort => suiteDict[Suite] + valueDict[ValueEnum];
         #endregion
         #region Methods()
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Card() : this(1, EnumSuite.Spades)
+        public Card() : this(EnumValue.Ace, EnumSuite.Spades)
         {
         }
 
@@ -83,11 +89,11 @@ namespace GameCardLib
         /// </summary>
         /// <param name="value">Value of the card.</param>
         /// <param name="suite">Suite of the card.</param>
-        public Card(int value, EnumSuite suite)
+        public Card(EnumValue value, EnumSuite suite)
         {
-            if (Enum.IsDefined(typeof(EnumValue), (EnumValue)value) && Enum.IsDefined(typeof(EnumSuite), suite))
+            if (Enum.IsDefined(typeof(EnumValue), ValueEnum) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
-                Value = value;
+                ValueEnum = value;
                 Suite = suite;
             }
         }

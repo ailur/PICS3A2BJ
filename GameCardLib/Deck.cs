@@ -72,7 +72,7 @@ namespace GameCardLib
             {
                 foreach (EnumSuite suite in Enum.GetValues(typeof(EnumSuite)))
                 {
-                    foreach (int value in Enum.GetValues(typeof(EnumValue)))
+                    foreach (EnumValue value in Enum.GetValues(typeof(EnumValue)))
                     {
                         Card card = new Card(value, suite);
                         Cards.Push(card);
@@ -120,7 +120,6 @@ namespace GameCardLib
         /// </summary>
         /// <param name="card">Card to push</param>
         public void Push(Card card) => Cards.Push(card);
-
         #endregion
     }
 }
