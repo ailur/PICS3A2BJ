@@ -57,6 +57,11 @@ namespace BlackJack
             UpdateDiscarded();
             CheckHand();
             Debug();
+            #if DEBUG
+            txtDebug.Visibility = Visibility.Visible;
+            #else
+            txtDebug.Visibility = Visibility.Collapsed;
+            #endif
             GameStarted = true;
         }
 
