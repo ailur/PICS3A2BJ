@@ -51,7 +51,7 @@ namespace GameCardLib
         /// </summary>
         private EnumValue ValueEnum
         {
-            get { return (EnumValue)Value; }
+            get { return (EnumValue)(Value - 1); }
         }
         /// <summary>
         /// Suite of the card.

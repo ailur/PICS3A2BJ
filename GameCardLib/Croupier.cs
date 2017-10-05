@@ -7,31 +7,22 @@ using System.Threading.Tasks;
 
 namespace GameCardLib
 {
+    /// <summary>
+    /// Croupier class
+    /// </summary>
     public class Croupier : Player
     {
         #region fields
         private Deck myDeck;
-        private Stack<Card> discarded;
+        private Deck discarded;
         private List<Player> players;
         private int currentPlayer;
         #endregion
         #region Properties
         private Deck MyDeck { get => myDeck; set => myDeck = value; }
         public string DeckString => MyDeck.ToString();
-        public Stack<Card> Discarded { get => discarded; private set => discarded = value; }
-        public string DiscardedString
-        {
-            get
-            {
-                StringBuilder stringBuilder = new StringBuilder();
-                foreach (Card card in Discarded)
-                {
-                    stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
-                }
-                stringBuilder.Remove(stringBuilder.Length - 2, 2);
-                return stringBuilder.ToString();
-            }
-        }
+        public Deck Discarded { get => discarded; private set => discarded = value; }
+        public string DiscardedString => Discarded.ToString();
         private List<Player> Players { get => players; set => players = value; }
         private int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
         #endregion
@@ -63,7 +54,7 @@ namespace GameCardLib
         public void StartGame(int numberOfDecks = 1)
         {
             MyDeck = new Deck(numberOfDecks);
-            Discarded = new Stack<Card>();
+            Discarded = new Deck(0);
             foreach (Player player in Players)
             {
                 GiveCard(Players.IndexOf(player), 2);

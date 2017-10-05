@@ -54,7 +54,7 @@ namespace GameCardLib
         /// </summary>
         /// <param name="quantity">Quantity of cards to discard</param>
         /// <returns></returns>
-        public bool DiscardCards(int quantity)
+        public bool DiscardCards(int quantity = 1)
         {
             for (int i = quantity; i > 0; i--)
             {
@@ -81,12 +81,19 @@ namespace GameCardLib
             }
         }
 
-
+        /// <summary>
+        /// Shuffle the deck
+        /// </summary>
         public void Shuffle()
         {
             Random rnd = new Random();
             Cards = new Stack<Card>(Cards.OrderBy(x => rnd.Next()));
         }
+
+        /// <summary>
+        /// Deck ToString method
+        /// </summary>
+        /// <returns>Deck cards</returns>
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -98,8 +105,22 @@ namespace GameCardLib
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Peek method for deck
+        /// </summary>
+        /// <returns>Show next card</returns>
         public Card Peek() => Cards.Peek();
+        /// <summary>
+        /// Pop method for deck
+        /// </summary>
+        /// <returns>Pop next card</returns>
         public Card Pop() => Cards.Pop();
+        /// <summary>
+        /// Push method for deck
+        /// </summary>
+        /// <param name="card">Card to push</param>
+        public void Push(Card card) => Cards.Push(card);
+
         #endregion
     }
 }
