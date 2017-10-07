@@ -27,7 +27,7 @@ namespace GameCardLib
         /// <summary>
         /// Score of the hand.
         /// </summary>
-        public int Score => Cards.Aggregate(0, (current, card) => current + card.Value);
+        public int Score => Cards.Sum(card => card.Value);
         #endregion
         #region Methods()
         #region Constructors

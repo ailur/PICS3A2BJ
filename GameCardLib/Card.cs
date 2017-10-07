@@ -39,7 +39,6 @@ namespace GameCardLib
         };
         #endregion
         #region Properties
-
         /// <summary>
         /// Value in int.
         /// </summary>
@@ -57,19 +56,11 @@ namespace GameCardLib
         /// <summary>
         /// Value in enum.
         /// </summary>
-        private EnumValue ValueEnum
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        private EnumValue ValueEnum { get => value; set => this.value = value; }
         /// <summary>
         /// Suite of the card.
         /// </summary>
-        private EnumSuite Suite
-        {
-            get { return suite; }
-            set { suite = value; }
-        }
+        private EnumSuite Suite { get => suite; set => suite = value; }
         /// <summary>
         /// Short name.
         /// </summary>

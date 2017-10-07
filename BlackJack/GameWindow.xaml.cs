@@ -87,9 +87,16 @@ namespace BlackJack
 
         private void UpdateDiscarded()
         {
-            if(Croupier.Discarded.Count > 0)
+            if (Croupier.DiscardedCount > 0)
             {
-                imgDiscard.Source = new ImageSourceConverter().ConvertFromString("CardGUI/" + Croupier.Discarded.Peek().ToStringShort + ".png") as ImageSource;
+                imgDiscard.Source =
+                    new ImageSourceConverter().ConvertFromString(
+                        "CardGUI/" + Croupier.LastCardDiscarded.ToStringShort + ".png") as ImageSource;
+            }
+            else
+            {
+                imgDiscard.Source =
+                    new ImageSourceConverter().ConvertFromString("CardGUI/jb.png") as ImageSource;
             }
         }
 
@@ -142,7 +149,7 @@ namespace BlackJack
         private void Debug()
         {
             txtDebug.Text = Croupier.DeckString;
-            if (Croupier.Discarded.Count > 0)
+            if (Croupier.DiscardedCount > 0)
             {
                 txtDebug.Text += "\n" + Croupier.DiscardedString;
             }

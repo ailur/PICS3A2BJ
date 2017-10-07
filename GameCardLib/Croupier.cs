@@ -19,11 +19,37 @@ namespace GameCardLib
         private int currentPlayer;
         #endregion
         #region Properties
+        /// <summary>
+        /// Deck: Remaining cards
+        /// </summary>
         private Deck MyDeck { get => myDeck; set => myDeck = value; }
+        /// <summary>
+        /// String describing deck reimaining cards
+        /// </summary>
         public string DeckString => MyDeck.ToString();
-        public Deck Discarded { get => discarded; private set => discarded = value; }
+        /// <summary>
+        /// Discarded cards stack
+        /// </summary>
+        private Deck Discarded { get => discarded; set => discarded = value; }
+        /// <summary>
+        /// Number of cards in discarded stack
+        /// </summary>
+        public int DiscardedCount => Discarded.Count;
+        /// <summary>
+        /// Get last card discarded
+        /// </summary>
+        public Card LastCardDiscarded => Discarded.Peek();
+        /// <summary>
+        /// String describing discarded cards
+        /// </summary>
         public string DiscardedString => Discarded.ToString();
+        /// <summary>
+        /// List of players
+        /// </summary>
         private List<Player> Players { get => players; set => players = value; }
+        /// <summary>
+        /// Current player
+        /// </summary>
         private int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
         #endregion
         #region Methods()
