@@ -19,15 +19,58 @@ namespace BlackJack
     /// </summary>
     public partial class StartWindow : Window
     {
+        #region fields
         private GameWindow mainWindow;
-
-        public int NumberOfDecks { get; set; }
-        public int NumberOfPlayers { get; set; }
+        #endregion
+        #region Properties
+        private int NumberOfDecks { get; set; }
+        private int NumberOfPlayers { get; set; }
+        #endregion
+        #region Methods()
+        #region Constructor
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public StartWindow()
         {
             InitializeComponent();
         }
-
+        #endregion
+        /// <summary>
+        /// Checks input data
+        /// </summary>
+        /// <returns>True if successful</returns>
+        private bool CheckData()
+        {
+            int numberOfPlayers = 0;
+            int numberOfDecks = 0;
+            if (string.IsNullOrWhiteSpace(txtPlayers.Text) ||
+                !int.TryParse(txtPlayers.Text, out numberOfPlayers) &&
+                numberOfPlayers < 0)
+            {
+                MessageBox.Show("Could not parse Number of players.", "Please, Check data", MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
+                return false;
+            }
+            NumberOfPlayers = numberOfPlayers;
+            if (string.IsNullOrWhiteSpace(txtNumberOfDecks.Text) ||
+                !int.TryParse(txtNumberOfDecks.Text, out numberOfDecks) ||
+                numberOfDecks < 0)
+            {
+                MessageBox.Show("Could not parse Number of decks.", "Please, Check data", MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
+                return false;
+            }
+            NumberOfDecks = numberOfDecks;
+            if (numberOfDecks * 13 * 4 >= numberOfPlayers * 2 + 1)
+            {
+                return true;
+            }
+            MessageBox.Show("Not enough decks for that number of players.", "Need more decks", MessageBoxButton.OK,
+                MessageBoxImage.Exclamation);
+            return false;
+        }
+        #region Events()
         private void btnCheck_OnClick(object sender, RoutedEventArgs e)
         {
             if (CheckData())
@@ -62,36 +105,7 @@ namespace BlackJack
             mainWindow.Show();
             this.Close();
         }
-
-        private bool CheckData()
-        {
-            int numberOfPlayers = 0;
-            int numberOfDecks = 0;
-            if (string.IsNullOrWhiteSpace(txtPlayers.Text) ||
-                !int.TryParse(txtPlayers.Text, out numberOfPlayers) &&
-                numberOfPlayers < 0)
-            {
-                MessageBox.Show("Could not parse Number of players.", "Please, Check data", MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation);
-                return false;
-            }
-            NumberOfPlayers = numberOfPlayers;
-            if (string.IsNullOrWhiteSpace(txtNumberOfDecks.Text) ||
-                !int.TryParse(txtNumberOfDecks.Text, out numberOfDecks) ||
-                numberOfDecks < 0)
-            {
-                MessageBox.Show("Could not parse Number of decks.", "Please, Check data", MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation);
-                return false;
-            }
-            NumberOfDecks = numberOfDecks;
-            if (numberOfDecks * 13 * 4 >= numberOfPlayers * 2 + 1)
-            {
-                return true;
-            }
-            MessageBox.Show("Not enough decks for that number of players.", "Need more decks", MessageBoxButton.OK,
-                MessageBoxImage.Exclamation);
-            return false;
-        }
+        #endregion
+        #endregion
     }
 }

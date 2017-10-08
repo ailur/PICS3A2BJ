@@ -118,7 +118,7 @@ namespace GameCardLib
                     Discarded.Push(card);
                 }
                 player.Hand.Clear();
-                GiveCard(Players.IndexOf(player));
+                GiveCard(Players.IndexOf(player),2);
             }
             foreach (Card card in Hand)
             {
