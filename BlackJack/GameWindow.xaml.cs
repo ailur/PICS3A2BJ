@@ -22,22 +22,35 @@ namespace BlackJack
     /// </summary>
     public partial class GameWindow : Window
     {
+        #region fields
         private Croupier croupier;
         private bool gameStarted;
         private int numberOfPlayers;
         private int numberOfDecks;
         private List<string> playerList;
-
+        #endregion
+        #region Properties
         private Croupier Croupier { get => croupier; set => croupier = value; }
         private bool GameStarted { get => gameStarted; set => gameStarted = value; }
         private int NumberOfPlayers { get => numberOfPlayers; set => numberOfPlayers = value; }
         private int NumberOfDecks { get => numberOfDecks; set => numberOfDecks = value; }
         private List<string> PlayerList { get => playerList; set => playerList = value; }
-
+        #endregion
+        #region Methods()
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public GameWindow() : this(1,1)
         {
         }
 
+        /// <summary>
+        /// Constructor with 2 parameters and 1 optional parameter
+        /// </summary>
+        /// <param name="numberOfPlayers">Number of players</param>
+        /// <param name="numberOfDecks">Number of decks</param>
+        /// <param name="playerList">(Optional)List with players' names</param>
         public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
             PlayerList = playerList;
@@ -64,7 +77,11 @@ namespace BlackJack
             #endif
             GameStarted = true;
         }
-
+        #endregion
+        /// <summary>
+        /// Update the images of player hand
+        /// </summary>
+        /// <param name="player">Player which cards will be drawn</param>
         private void UpdateCards(Player player)
         {
             if (player is Croupier) { CroupierDeck.Children.Clear(); }
@@ -85,6 +102,9 @@ namespace BlackJack
             UpdateScores(player);
         }
 
+        /// <summary>
+        /// Update images of discarded deck
+        /// </summary>
         private void UpdateDiscarded()
         {
             if (Croupier.DiscardedCount > 0)
@@ -100,6 +120,10 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Update scores to show
+        /// </summary>
+        /// <param name="player">Player whose score will be read</param>
         private void UpdateScores(Player player)
         {
             TextBlock updatedTextBlock;
@@ -119,6 +143,9 @@ namespace BlackJack
             else if (player.Hand.Score == 21) { updatedTextBlock.Foreground = Brushes.Green; }
         }
 
+        /// <summary>
+        /// Check if hand scores if greater than 21, if that is the case player can't draw cards
+        /// </summary>
         private void CheckHand()
         {
             if (Croupier.GetPlayer().Hand.Score >= 21)
@@ -135,16 +162,9 @@ namespace BlackJack
             }
         }
 
-        private void btnContinue_Click(object sender, RoutedEventArgs e)
-        {
-            Croupier.ContinueGame();
-            UpdateCards(Croupier);
-            UpdateCards(Croupier.GetPlayer());
-            UpdateDiscarded();
-            CheckHand();
-            Debug();
-        }
-
+        /// <summary>
+        /// DEBUG method. Shows cards in deck and dicarded deck.
+        /// </summary>
         [ConditionalAttribute("DEBUG")]
         private void Debug()
         {
@@ -156,6 +176,27 @@ namespace BlackJack
             txtDebug.Text = txtDebug.Text.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
         }
 
+        #region events
+        /// <summary>
+        /// Start next round, update all cards, discarded deck.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            Croupier.ContinueGame();
+            UpdateCards(Croupier);
+            UpdateCards(Croupier.GetPlayer());
+            UpdateDiscarded();
+            CheckHand();
+            Debug();
+        }
+
+        /// <summary>
+        /// Reshuffle the deck
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReshuffle_Click(object sender, RoutedEventArgs e)
         {
             if (GameStarted)
@@ -165,6 +206,11 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Give card to current player
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDrawCard_Click(object sender, RoutedEventArgs e)
         {
             if (GameStarted)
@@ -177,6 +223,11 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Go to next player
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             if (GameStarted)
@@ -191,9 +242,16 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Draw a card
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void imgDeck_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             btnDrawCard_Click(sender, e);
         }
+        #endregion
+        #endregion
     }
 }
