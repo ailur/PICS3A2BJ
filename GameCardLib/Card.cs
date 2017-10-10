@@ -93,10 +93,7 @@ namespace GameCardLib
         /// Card ToString method.
         /// </summary>
         /// <returns>Description of the card.</returns>
-        public override string ToString()
-        {
-            return ValueEnum + " Of " + Suite;
-        }
+        public override string ToString() => ValueEnum + " Of " + Suite;
         #endregion
     }
 }

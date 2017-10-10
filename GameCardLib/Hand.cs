@@ -34,27 +34,18 @@ namespace GameCardLib
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Hand()
-        {
-            Cards = new List<Card>();
-        }
+        public Hand() => Cards = new List<Card>();
         #endregion
         /// <summary>
         /// Add a card to the hand.
         /// </summary>
         /// <param name="card">Card to add</param>
-        public void AddCard(Card card)
-        {
-            Cards.Add(card);
-        }
+        public void AddCard(Card card) => Cards.Add(card);
 
         /// <summary>
         /// Clear the hand.
         /// </summary>
-        public void Clear()
-        {
-            Cards.Clear();
-        }
+        public void Clear() => Cards.Clear();
 
         /// <summary>
         /// Hand ToString method.

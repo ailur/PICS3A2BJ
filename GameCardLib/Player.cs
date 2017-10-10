@@ -30,29 +30,20 @@ namespace GameCardLib
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Player()
-        {
-            Hand = new Hand();
-        }
+        public Player() => Hand = new Hand();
 
         /// <summary>
         /// Constructor that takes one argument, name.
         /// </summary>
         /// <param name="name"></param>
-        public Player(string name) : this()
-        {
-            Name = name;
-        }
+        public Player(string name) : this() => Name = name;
         #endregion
 
         /// <summary>
         /// Player ToString method.
         /// </summary>
         /// <returns>Name, score and card collection.</returns>
-        public override string ToString()
-        {
-            return Name + Hand;
-        }
+        public override string ToString() => Name + Hand;
         #endregion
     }
 }
