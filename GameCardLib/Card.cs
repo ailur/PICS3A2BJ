@@ -12,16 +12,16 @@ namespace GameCardLib
     public class Card
     {
         #region fields
-        private EnumValue value;
+        private EnumValue cardValue;
         private EnumSuite suite;
-        private Dictionary<EnumSuite, string> suiteDict = new Dictionary<EnumSuite, string>
+        private readonly Dictionary<EnumSuite, string> suiteDict = new Dictionary<EnumSuite, string>
         {
             { EnumSuite.Clubs, "c" },
             { EnumSuite.Diamonds, "d" },
             { EnumSuite.Hearts, "h" },
             { EnumSuite.Spades, "s" }
         };
-        private Dictionary<EnumValue, string> valueDict = new Dictionary<EnumValue, string>
+        private readonly Dictionary<EnumValue, string> valueDict = new Dictionary<EnumValue, string>
         {
             { EnumValue.Ace, "1"},
             { EnumValue.Two, "2"},
@@ -39,16 +39,18 @@ namespace GameCardLib
         };
         #endregion
         #region Properties
+
+        public int Id { get; set; }
         /// <summary>
         /// Value in int.
         /// </summary>
-        public int Value
+        public int CardValue
         {
             get
             {
-                int value = (int) ValueEnum;
-                if (value <= 8)
-                    return value + 1;
+                int cardValue = (int) ValueEnum;
+                if (cardValue <= 8)
+                    return cardValue + 1;
                 else
                     return 10;
             }
@@ -56,7 +58,7 @@ namespace GameCardLib
         /// <summary>
         /// Value in enum.
         /// </summary>
-        private EnumValue ValueEnum { get => value; set => this.value = value; }
+        private EnumValue ValueEnum { get => cardValue; set => cardValue = value; }
         /// <summary>
         /// Suite of the card.
         /// </summary>

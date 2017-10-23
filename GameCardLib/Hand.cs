@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameCardLib
 {
@@ -13,13 +14,19 @@ namespace GameCardLib
     public class Hand : IEnumerable<Card>
     {
         #region fields
+        [Key]
+        public int IdHand { get; set; }
         private List<Card> cards;
+
+        public int IdPlayer { get; set; }
+        [Required, ForeignKey("IdPlayer")]
+        public virtual Player Player { get; set; }
         #endregion
         #region Properties
         /// <summary>
         /// Cards of the Hand
         /// </summary>
-        private List<Card> Cards { get => cards; set => cards = value; }
+        public List<Card> Cards { get => cards; set => cards = value; }
         /// <summary>
         /// Number of cards the hand have.
         /// </summary>
@@ -27,7 +34,7 @@ namespace GameCardLib
         /// <summary>
         /// Score of the hand.
         /// </summary>
-        public int Score => Cards.Sum(card => card.Value);
+        public int Score => Cards.Sum(card => card.CardValue);
         #endregion
         #region Methods()
         #region Constructors

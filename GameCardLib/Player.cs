@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,15 +19,22 @@ namespace GameCardLib
         private string name;
         private Hand hand;
         #endregion
-        #region Properties
+        #region
+        [Key]
+        public int IdPlayer { get; set; }
         /// <summary>
         /// Name of the player
         /// </summary>
         public string Name { get => name; private set => name = value; }
+        public int IdHand { get; set; }
         /// <summary>
         /// Hand of the player
         /// </summary>
+        [ForeignKey("IdHand")]
         public Hand Hand { get => hand; private set => hand = value; }
+
+        public bool IsCroupier => this is Croupier;
+
         #endregion
         #region Methods()
         #region Constructors

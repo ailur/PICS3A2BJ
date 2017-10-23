@@ -1,19 +1,10 @@
 ﻿using GameCardLib;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BlackJack
 {
@@ -23,14 +14,14 @@ namespace BlackJack
     public partial class GameWindow : Window
     {
         #region fields
-        private Croupier croupier;
+        private Game game;
         private bool gameStarted;
         private int numberOfPlayers;
         private int numberOfDecks;
         private List<string> playerList;
         #endregion
         #region Properties
-        private Croupier Croupier { get => croupier; set => croupier = value; }
+        private Game Game { get => game; set => game = value; }
         private bool GameStarted { get => gameStarted; set => gameStarted = value; }
         private int NumberOfPlayers { get => numberOfPlayers; set => numberOfPlayers = value; }
         private int NumberOfDecks { get => numberOfDecks; set => numberOfDecks = value; }
@@ -53,29 +44,31 @@ namespace BlackJack
         /// <param name="playerList">(Optional)List with players' names</param>
         public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
-            PlayerList = playerList;
-            InitializeComponent();
-            GameStarted = false;
-            btnDrawCard.IsEnabled = false;
-            imgDeck.IsEnabled = false;
-            imgDeck.Opacity = 0.5;
-            NumberOfPlayers = numberOfPlayers;
-            NumberOfDecks = numberOfDecks;
+            using (var context = new BJDBContext())
+            {
+                PlayerList = playerList;
+                InitializeComponent();
+                GameStarted = false;
+                btnDrawCard.IsEnabled = false;
+                imgDeck.IsEnabled = false;
+                imgDeck.Opacity = 0.5;
+                NumberOfPlayers = numberOfPlayers;
+                NumberOfDecks = numberOfDecks;
 
-            if (PlayerList != null) { Croupier = new Croupier(PlayerList); }
-            else { Croupier = new Croupier(NumberOfPlayers); }
-            Croupier.StartGame(NumberOfDecks);
-            UpdateCards(Croupier);
-            UpdateCards(Croupier.GetPlayer());
-            UpdateDiscarded();
-            CheckHand();
-            Debug();
-            #if DEBUG
-            txtDebug.Visibility = Visibility.Visible;
-            #else
-            txtDebug.Visibility = Visibility.Collapsed;
-            #endif
-            GameStarted = true;
+                Game = PlayerList == null ? new Game(NumberOfPlayers) : new Game(PlayerList);
+                Game.StartGame(NumberOfDecks);
+                UpdateCards(Game.Croupier);
+                UpdateCards(Game.GetPlayer());
+                UpdateDiscarded();
+                CheckHand();
+                Debug();
+                #if DEBUG
+                txtDebug.Visibility = Visibility.Visible;
+                #else
+                txtDebug.Visibility = Visibility.Collapsed;
+                #endif
+                GameStarted = true;
+            }
         }
         #endregion
         /// <summary>
@@ -94,7 +87,7 @@ namespace BlackJack
                     Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource,
                     Height = 96,
                     Width = 75,
-                    ToolTip = card + "\n" + card.Value
+                    ToolTip = card + "\n" + card.CardValue
                 };
                 if (player is Croupier) { CroupierDeck.Children.Add(img); }
                 else { PlayerDeck.Children.Add(img); }
@@ -107,11 +100,11 @@ namespace BlackJack
         /// </summary>
         private void UpdateDiscarded()
         {
-            if (Croupier.DiscardedCount > 0)
+            if (Game.DiscardedCount > 0)
             {
                 imgDiscard.Source =
                     new ImageSourceConverter().ConvertFromString(
-                        "CardGUI/" + Croupier.LastCardDiscarded.ToStringShort + ".png") as ImageSource;
+                        "CardGUI/" + Game.LastCardDiscarded.ToStringShort + ".png") as ImageSource;
             }
             else
             {
@@ -148,7 +141,7 @@ namespace BlackJack
         /// </summary>
         private void CheckHand()
         {
-            if (Croupier.GetPlayer().Hand.Score >= 21)
+            if (Game.GetPlayer().Hand.Score >= 21)
             {
                 btnDrawCard.IsEnabled = false;
                 imgDeck.IsEnabled = false;
@@ -168,10 +161,10 @@ namespace BlackJack
         [ConditionalAttribute("DEBUG")]
         private void Debug()
         {
-            txtDebug.Text = Croupier.DeckString;
-            if (Croupier.DiscardedCount > 0)
+            txtDebug.Text = Game.DeckString;
+            if (Game.DiscardedCount > 0)
             {
-                txtDebug.Text += "\n" + Croupier.DiscardedString;
+                txtDebug.Text += "\n" + Game.DiscardedString;
             }
             txtDebug.Text = txtDebug.Text.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
         }
@@ -184,9 +177,9 @@ namespace BlackJack
         /// <param name="e"></param>
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            Croupier.ContinueGame();
-            UpdateCards(Croupier);
-            UpdateCards(Croupier.GetPlayer());
+            Game.ContinueGame();
+            UpdateCards(Game.Croupier);
+            UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
             CheckHand();
             Debug();
@@ -201,7 +194,7 @@ namespace BlackJack
         {
             if (GameStarted)
             {
-                Croupier.Reshuffle();
+                Game.Reshuffle();
                 Debug();
             }
         }
@@ -215,8 +208,8 @@ namespace BlackJack
         {
             if (GameStarted)
             {
-                Croupier.GiveCard();
-                UpdateCards(Croupier.GetPlayer());
+                Game.GiveCard();
+                UpdateCards(Game.GetPlayer());
                 UpdateDiscarded();
                 CheckHand();
                 Debug();
@@ -232,9 +225,9 @@ namespace BlackJack
         {
             if (GameStarted)
             {
-                UpdateCards(Croupier.NextPlayer());
+                UpdateCards(Game.NextPlayer());
                 CheckHand();
-                UpdateCards(Croupier);
+                UpdateCards(Game.Croupier);
                 UpdateDiscarded();
                 btnDrawCard.IsEnabled = false;
                 imgDeck.IsEnabled = false;
