@@ -65,7 +65,7 @@ namespace BlackJack
             {
                 for (int i = 0; i < NumberOfPlayers; i++)
                 {
-                    TextBox textBox = new TextBox {Name = "txtPlayerName" + i, Text = "Player" + i + "Name"};
+                    TextBox textBox = new TextBox {Name = "txtPlayerName" + i, Text = "Player " + i + " Name"};
                     textBox.GotFocus += TextBoxOnGotFocus;
                     panelPlayers.Children.Add(textBox);
                 }

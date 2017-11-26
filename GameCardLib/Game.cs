@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,11 @@ namespace GameCardLib
 {
     public class Game
     {
-        private DateTime DateStarted;
-        private Croupier croupier;
-        public Croupier Croupier
+        private BJDBContext Context;
+        public DateTime DateStarted { get; set; }
+        public int GameId { get; set; }
+        private Player croupier;
+        public Player Croupier
         {
             get
             {
@@ -19,11 +22,9 @@ namespace GameCardLib
             private set
             {
                 croupier = value;
-                //OnPropertyChanged();
             }
         }
-
-        private List<Player> players;
+        public List<Player> players;
         private List<Player> Players
         {
             get
@@ -33,7 +34,6 @@ namespace GameCardLib
             set
             {
                 players = value;
-                //OnPropertyChanged();
             }
         }
         private Deck myDeck;
@@ -46,7 +46,6 @@ namespace GameCardLib
             set
             {
                 myDeck = value;
-                //OnPropertyChanged();
             }
         }
         private Deck discarded;
@@ -59,7 +58,6 @@ namespace GameCardLib
             set
             {
                 discarded = value;
-                //OnPropertyChanged();
             }
         }
         private int currentPlayer;
@@ -75,7 +73,6 @@ namespace GameCardLib
             set
             {
                 currentPlayer = value;
-                //OnPropertyChanged();
             }
         }
         /// <summary>
@@ -96,25 +93,19 @@ namespace GameCardLib
         public string DiscardedString => Discarded.ToString();
 
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Game() :this(1)
-        {
-        }
-
-        /// <summary>
         /// Constructor that takes a list of player names
         /// </summary>
         /// <param name="playerList">List of player names</param>
         public Game(List<string> playerList)
         {
-            Players = new List<Player>();
-            foreach (string name in playerList)
-            {
-                Players.Add(new Player(name));
-            }
-            Croupier = new Croupier();
-            currentPlayer = 0;
+                DateStarted = DateTime.Now;
+                Players = new List<Player>();
+                foreach (string name in playerList)
+                {
+                    Players.Add(new Player(name));
+                }
+                Croupier = new Player();
+                currentPlayer = 0;
         }
 
         /// <summary>
@@ -128,7 +119,7 @@ namespace GameCardLib
             {
                 Players.Add(new Player());
             }
-            Croupier = new Croupier();
+            Croupier = new Player();
             CurrentPlayer = 0;
         }
 
@@ -155,28 +146,21 @@ namespace GameCardLib
         private void GiveCard(int playerId, int count = 1)
         {
             //TODO: Comprobar si quedan suficientes cartas
-            if (playerId == -1)
-            {
-                if (Croupier.Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
-                {
-                    Croupier.Hand.AddCard(MyDeck.Pop());
-                }
-                else
-                {
-                    Discarded.Push(MyDeck.Pop());
-                    GiveCard(-1);
-                }
-                return;
-            }
+            Player player = playerId == -1 ? Croupier : Players[playerId];
             for (int i = 0; i < count; i++)
             {
-                if (Players[playerId].Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
+                if (player.Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
-                    Players[playerId].Hand.AddCard(MyDeck.Pop());
+                    Card card = myDeck.Pop();
+                    card.inDeck = false;
+                    player.AddCard(card);
                 }
                 else
                 {
-                    Discarded.Push(MyDeck.Pop());
+                    Card card = myDeck.Pop();
+                    card.inDeck = false;
+                    card.Discarded = true;
+                    Discarded.Push(card);
                     GiveCard(playerId);
                 }
             }
@@ -198,6 +182,7 @@ namespace GameCardLib
         {
             return GetPlayer(CurrentPlayer);
         }
+
         /// <summary>
         /// Get a player
         /// </summary>
@@ -229,9 +214,9 @@ namespace GameCardLib
         /// </summary>
         private void CroupierPicks()
         {
-            while (Croupier.Hand.Score < 17)
+            while (Croupier.Score < 17)
             {
-                Croupier.Hand.AddCard(MyDeck.Pop());
+                Croupier.AddCard(MyDeck.Pop());
             }
             ScoreCheck();
         }
@@ -242,8 +227,8 @@ namespace GameCardLib
         /// </summary>
         private void ScoreCheck()
         {
-            List<Player> playersNotOver21 = (from player in Players where player.Hand.Score <= 21 select player).ToList();
-            if (Croupier.Hand.Score <= 21) { playersNotOver21.Add(Croupier); }
+            List<Player> playersNotOver21 = (from player in Players where player.Score <= 21 select player).ToList();
+            if (Croupier.Score <= 21) { playersNotOver21.Add(Croupier); }
             //throw new NotImplementedException();
         }
 
@@ -268,15 +253,15 @@ namespace GameCardLib
                 {
                     Discarded.Push(card);
                 }
-                player.Hand.Clear();
+                player.Clear();
                 GiveCard(Players.IndexOf(player), 2);
             }
             foreach (Card card in Croupier.Hand)
             {
                 Discarded.Push(card);
             }
-            Croupier.Hand.Clear();
-            Croupier.Hand.AddCard(MyDeck.Pop());
+            Croupier.Clear();
+            Croupier.AddCard(MyDeck.Pop());
         }
     }
 }

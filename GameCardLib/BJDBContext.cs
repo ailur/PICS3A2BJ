@@ -10,6 +10,9 @@ namespace GameCardLib
     public class BJDBContext : DbContext
     {
         public BJDBContext() : base("DefaultConnection") { }
+        public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Deck> Decks { get; set; }
+        public DbSet<Card> Cards { get; set; }
     }
 }

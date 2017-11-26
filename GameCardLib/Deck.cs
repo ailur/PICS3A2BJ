@@ -11,10 +11,12 @@ namespace GameCardLib
     public class Deck
     {
         #region fields
+        public int Id { get; set; }
         private Stack<Card> cards;
         private int deckMultiplier;
         #endregion
         #region Properties
+        public int DeckId { get; set; }
         /// <summary>
         /// Stack of cards
         /// </summary>
@@ -57,7 +59,9 @@ namespace GameCardLib
         {
             for (int i = quantity; i > 0; i--)
             {
-                Cards.Pop();
+                Card card = Cards.Pop();
+                card.Discarded = true;
+                card.inDeck = false;
             }
             return true;
         }
@@ -74,6 +78,8 @@ namespace GameCardLib
                     foreach (EnumValue value in Enum.GetValues(typeof(EnumValue)))
                     {
                         Card card = new Card(value, suite);
+                        card.inDeck = true;
+                        card.Discarded = false;
                         Cards.Push(card);
                     }
                 }

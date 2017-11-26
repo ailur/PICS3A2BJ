@@ -83,18 +83,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BJDBContext.cs" />
-    <Compile Include="Migrations\201710232208146_start.cs" />
-    <Compile Include="Migrations\201710232208146_start.Designer.cs">
-      <DependentUpon>201710232208146_start.cs</DependentUpon>
+    <Compile Include="Migrations\201711261827028_init1.cs" />
+    <Compile Include="Migrations\201711261827028_init1.Designer.cs">
+      <DependentUpon>201711261827028_init1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710232210542_start1.cs" />
-    <Compile Include="Migrations\201710232210542_start1.Designer.cs">
-      <DependentUpon>201710232210542_start1.cs</DependentUpon>
+    <Compile Include="Migrations\201711261841023_init2.cs" />
+    <Compile Include="Migrations\201711261841023_init2.Designer.cs">
+      <DependentUpon>201711261841023_init2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710232226597_start2.cs" />
-    <Compile Include="Migrations\201710232226597_start2.Designer.cs">
-      <DependentUpon>201710232226597_start2.cs</DependentUpon>
+    <Compile Include="Migrations\201711261852034_init21.cs" />
+    <Compile Include="Migrations\201711261852034_init21.Designer.cs">
+      <DependentUpon>201711261852034_init21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711261902565_init3.cs" />
+    <Compile Include="Migrations\201711261902565_init3.Designer.cs">
+      <DependentUpon>201711261902565_init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711262046148_init4.cs" />
+    <Compile Include="Migrations\201711262046148_init4.Designer.cs">
+      <DependentUpon>201711262046148_init4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711262322522_init5.cs" />
+    <Compile Include="Migrations\201711262322522_init5.Designer.cs">
+      <DependentUpon>201711262322522_init5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StartWindow.xaml.cs">
@@ -131,14 +142,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201710232208146_start.resx">
-      <DependentUpon>201710232208146_start.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711261827028_init1.resx">
+      <DependentUpon>201711261827028_init1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710232210542_start1.resx">
-      <DependentUpon>201710232210542_start1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711261841023_init2.resx">
+      <DependentUpon>201711261841023_init2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710232226597_start2.resx">
-      <DependentUpon>201710232226597_start2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711261852034_init21.resx">
+      <DependentUpon>201711261852034_init21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711261902565_init3.resx">
+      <DependentUpon>201711261902565_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262046148_init4.resx">
+      <DependentUpon>201711262046148_init4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262322522_init5.resx">
+      <DependentUpon>201711262322522_init5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -156,6 +176,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseLib\DatabaseLib.csproj">
+      <Project>{AEDFA5BF-1DE5-4BC8-B036-347E086D7951}</Project>
+      <Name>DatabaseLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameCardLib\GameCardLib.csproj">
       <Project>{36033be6-ce8e-4135-8cc8-d3096b17d52d}</Project>
       <Name>GameCardLib</Name>

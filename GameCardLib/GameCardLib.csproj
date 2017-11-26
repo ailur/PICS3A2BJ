@@ -43,6 +43,7 @@
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,10 +55,8 @@
     <Compile Include="BJDBContext.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
-    <Compile Include="Croupier.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Names.cs" />
-    <Compile Include="Hand.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

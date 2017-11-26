@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,34 +41,38 @@ namespace GameCardLib
         };
         #endregion
         #region Properties
-
-        public int Id { get; set; }
+        public int CardId { get; set; }
+        public bool inDeck { get; set; }
+        public bool Discarded { get; set; }
         /// <summary>
         /// Value in int.
         /// </summary>
-        public int CardValue
+        public int CardScore
         {
             get
             {
-                int cardValue = (int) ValueEnum;
+                int cardValue = (int) Value;
                 if (cardValue <= 8)
                     return cardValue + 1;
-                else
-                    return 10;
+                return 10;
+            }
+            private set
+            {
+                
             }
         }
         /// <summary>
         /// Value in enum.
         /// </summary>
-        private EnumValue ValueEnum { get => cardValue; set => cardValue = value; }
+        public EnumValue Value { get => cardValue; private set => cardValue = value; }
         /// <summary>
         /// Suite of the card.
         /// </summary>
-        private EnumSuite Suite { get => suite; set => suite = value; }
+        public EnumSuite Suite { get => suite; private set => suite = value; }
         /// <summary>
         /// Short name.
         /// </summary>
-        public string ToStringShort => suiteDict[Suite] + valueDict[ValueEnum];
+        public string ToStringShort => suiteDict[Suite] + valueDict[Value];
         #endregion
         #region Methods()
         #region Constructors
@@ -84,9 +90,9 @@ namespace GameCardLib
         /// <param name="suite">Suite of the card.</param>
         public Card(EnumValue value, EnumSuite suite)
         {
-            if (Enum.IsDefined(typeof(EnumValue), ValueEnum) && Enum.IsDefined(typeof(EnumSuite), suite))
+            if (Enum.IsDefined(typeof(EnumValue), Value) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
-                ValueEnum = value;
+                Value = value;
                 Suite = suite;
             }
         }
@@ -95,7 +101,7 @@ namespace GameCardLib
         /// Card ToString method.
         /// </summary>
         /// <returns>Description of the card.</returns>
-        public override string ToString() => ValueEnum + " Of " + Suite;
+        public override string ToString() => Value + " Of " + Suite;
         #endregion
     }
 }
