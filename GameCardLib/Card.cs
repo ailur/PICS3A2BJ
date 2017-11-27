@@ -39,11 +39,17 @@ namespace GameCardLib
             { EnumValue.Queen, "q"},
             { EnumValue.King, "k"}
         };
+        private ICollection<Card> parent;
         #endregion
         #region Properties
         public int CardId { get; set; }
-        public bool inDeck { get; set; }
-        public bool Discarded { get; set; }
+        public Type inDeck
+        {
+            get
+            {
+                return parent.GetType();
+            }
+        }
         /// <summary>
         /// Value in int.
         /// </summary>
@@ -77,24 +83,22 @@ namespace GameCardLib
         #region Methods()
         #region Constructors
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Card() : this(EnumValue.Ace, EnumSuite.Spades)
-        {
-        }
-
-        /// <summary>
         /// Constructor that takes 2 arguments, Value and Suite.
         /// </summary>
         /// <param name="value">Value of the card.</param>
         /// <param name="suite">Suite of the card.</param>
-        public Card(EnumValue value, EnumSuite suite)
+        public Card(EnumValue value, EnumSuite suite, ICollection<Card> parent)
         {
             if (Enum.IsDefined(typeof(EnumValue), Value) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
                 Value = value;
                 Suite = suite;
+                this.parent = parent;
             }
+        }
+        public void ChangeParent(ICollection<Card> parent)
+        {
+            this.parent = parent;
         }
         #endregion
         /// <summary>

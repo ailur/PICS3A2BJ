@@ -8,15 +8,15 @@ namespace GameCardLib
     /// <summary>
     /// Deck class
     /// </summary>
-    public class Deck
+    public class Deck : Stack<Card>
     {
         #region fields
-        public int Id { get; set; }
         private Stack<Card> cards;
         private int deckMultiplier;
         #endregion
         #region Properties
         public int DeckId { get; set; }
+        public bool IsDiscardedDeck { get; private set; }
         /// <summary>
         /// Stack of cards
         /// </summary>
@@ -28,7 +28,7 @@ namespace GameCardLib
         /// <summary>
         /// Count of cards in the deck
         /// </summary>
-        public int Count { get => Cards.Count; }
+        public new int Count { get => Cards.Count; }
         #endregion
         #region Methods()
         #region Constructors
@@ -42,9 +42,10 @@ namespace GameCardLib
         /// Constructor that takes one argument: deckMultiplier
         /// </summary>
         /// <param name="deckMultiplier">Number of decks to form the deck</param>
-        public Deck(int deckMultiplier)
+        public Deck(int deckMultiplier, bool isDiscardedDeck = false)
         {
             DeckMultiplier = deckMultiplier;
+            IsDiscardedDeck = isDiscardedDeck;
             Cards = new Stack<Card>();
             FillDeckWithCards();
             Shuffle();
@@ -60,8 +61,6 @@ namespace GameCardLib
             for (int i = quantity; i > 0; i--)
             {
                 Card card = Cards.Pop();
-                card.Discarded = true;
-                card.inDeck = false;
             }
             return true;
         }
@@ -77,9 +76,7 @@ namespace GameCardLib
                 {
                     foreach (EnumValue value in Enum.GetValues(typeof(EnumValue)))
                     {
-                        Card card = new Card(value, suite);
-                        card.inDeck = true;
-                        card.Discarded = false;
+                        Card card = new Card(value, suite, this as ICollection<Card>);
                         Cards.Push(card);
                     }
                 }
@@ -114,17 +111,17 @@ namespace GameCardLib
         /// Peek method for deck
         /// </summary>
         /// <returns>Show next card</returns>
-        public Card Peek() => Cards.Peek();
+        public new Card Peek() => Cards.Peek();
         /// <summary>
         /// Pop method for deck
         /// </summary>
         /// <returns>Pop next card</returns>
-        public Card Pop() => Cards.Pop();
+        public new Card Pop() => Cards.Pop();
         /// <summary>
         /// Push method for deck
         /// </summary>
         /// <param name="card">Card to push</param>
-        public void Push(Card card) => Cards.Push(card);
+        public new void Push(Card card) => Cards.Push(card);
         #endregion
     }
 }

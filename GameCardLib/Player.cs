@@ -71,7 +71,11 @@ namespace GameCardLib
         /// Add a card to the hand.
         /// </summary>
         /// <param name="card">Card to add</param>
-        public void AddCard(Card card) => Hand.Add(card);
+        public void AddCard(Card card)
+        {
+            card.ChangeParent(Hand);
+            Hand.Add(card);
+        }
         /// <summary>
         /// Clear the hand.
         /// </summary>

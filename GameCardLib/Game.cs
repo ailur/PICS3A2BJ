@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameCardLib
 {
     public class Game
     {
-        private BJDBContext Context;
         public DateTime DateStarted { get; set; }
         public int GameId { get; set; }
         private Player croupier;
@@ -98,14 +94,14 @@ namespace GameCardLib
         /// <param name="playerList">List of player names</param>
         public Game(List<string> playerList)
         {
-                DateStarted = DateTime.Now;
-                Players = new List<Player>();
-                foreach (string name in playerList)
-                {
-                    Players.Add(new Player(name));
-                }
-                Croupier = new Player();
-                currentPlayer = 0;
+            DateStarted = DateTime.Now;
+            Players = new List<Player>();
+            foreach (string name in playerList)
+            {
+                Players.Add(new Player(name));
+            }
+            Croupier = new Player();
+            currentPlayer = 0;
         }
 
         /// <summary>
@@ -152,14 +148,11 @@ namespace GameCardLib
                 if (player.Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
                     Card card = myDeck.Pop();
-                    card.inDeck = false;
                     player.AddCard(card);
                 }
                 else
                 {
                     Card card = myDeck.Pop();
-                    card.inDeck = false;
-                    card.Discarded = true;
                     Discarded.Push(card);
                     GiveCard(playerId);
                 }

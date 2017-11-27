@@ -107,6 +107,14 @@
     <Compile Include="Migrations\201711262322522_init5.Designer.cs">
       <DependentUpon>201711262322522_init5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711271409289_init6.cs" />
+    <Compile Include="Migrations\201711271409289_init6.Designer.cs">
+      <DependentUpon>201711271409289_init6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711271414560_init7.cs" />
+    <Compile Include="Migrations\201711271414560_init7.Designer.cs">
+      <DependentUpon>201711271414560_init7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
@@ -159,6 +167,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711262322522_init5.resx">
       <DependentUpon>201711262322522_init5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711271409289_init6.resx">
+      <DependentUpon>201711271409289_init6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711271414560_init7.resx">
+      <DependentUpon>201711271414560_init7.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
