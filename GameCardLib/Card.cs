@@ -45,9 +45,10 @@ namespace GameCardLib
         public int CardId { get; set; }
         public Type inDeck
         {
-            get
+            get { return parent?.GetType() ?? typeof(bool); }
+            private set
             {
-                return parent.GetType();
+
             }
         }
         /// <summary>
@@ -93,7 +94,7 @@ namespace GameCardLib
             {
                 Value = value;
                 Suite = suite;
-                this.parent = parent;
+                ChangeParent(parent);
             }
         }
         public void ChangeParent(ICollection<Card> parent)

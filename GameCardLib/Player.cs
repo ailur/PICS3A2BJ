@@ -21,7 +21,6 @@ namespace GameCardLib
         #endregion
         #region Properties
         public int PlayerId { get; set; }
-        public int GameId { get; set; }
         /// <summary>
         /// Name of the player
         /// </summary>
