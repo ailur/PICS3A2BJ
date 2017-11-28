@@ -4,10 +4,10 @@
     {
         private readonly BJDBContext _context;
 
-        public ICardRepository Cards { get; private set; }
-        public IDeckRepository Decks { get; private set; }
-        public IGameRepository Games { get; private set; }
-        public IPlayerRepository Players { get; private set; }
+        public ICardRepository Cards { get; }
+        public IDeckRepository Decks { get; }
+        public IGameRepository Games { get; }
+        public IPlayerRepository Players { get; }
 
         public UnitOfWork(BJDBContext context)
         {

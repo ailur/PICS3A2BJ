@@ -190,10 +190,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseLib\DatabaseLib.csproj">
-      <Project>{AEDFA5BF-1DE5-4BC8-B036-347E086D7951}</Project>
-      <Name>DatabaseLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameCardLib\GameCardLib.csproj">
       <Project>{36033be6-ce8e-4135-8cc8-d3096b17d52d}</Project>
       <Name>GameCardLib</Name>

@@ -1,4 +1,4 @@
-﻿namespace GameCardLib.DatabaseLib.Repositories
+﻿namespace GameCardLib
 {
     public interface ICardRepository : IRepository<Card>
     {

@@ -63,6 +63,8 @@ namespace GameCardLib
         /// <param name="name"></param>
         public Player(bool isCroupier = true) : this()
         {
+            if(isCroupier)
+                Name = "Croupier";
             IsCroupier = isCroupier;
         }
 

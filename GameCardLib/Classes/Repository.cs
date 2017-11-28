@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace GameCardLib
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
 

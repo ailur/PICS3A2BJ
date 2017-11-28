@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using GameCardLib.DatabaseLib.UnitOfWork;
 
 namespace BlackJack
 {
@@ -30,26 +29,22 @@ namespace BlackJack
         /// <param name="playerList">(Optional)List with players' names</param>
         public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
-            using (var unitOfWork = new UnitOfWork(new BJDBContext()))
-            {
-                InitializeComponent();
-                gameStarted = false;
-                CanDraw(false);
-                Game = playerList == null ? new Game(numberOfPlayers) : new Game(playerList);
-                Game.StartGame(numberOfDecks);
-                unitOfWork.Games.Add(Game);
-                UpdateCards(Game.Croupier);
-                UpdateCards(Game.GetPlayer());
-                UpdateDiscarded();
-                CheckHand();
-                Debug();
+            InitializeComponent();
+            gameStarted = false;
+            CanDraw(false);
+            Game = playerList == null ? new Game(numberOfPlayers) : new Game(playerList);
+            Game.StartGame(numberOfDecks);
+            UpdateCards(Game.Croupier);
+            UpdateCards(Game.GetPlayer());
+            UpdateDiscarded();
+            CheckHand();
+            Debug();
 #if DEBUG
-                txtDebug.Visibility = Visibility.Visible;
+            txtDebug.Visibility = Visibility.Visible;
 #else
-                txtDebug.Visibility = Visibility.Collapsed;
+            txtDebug.Visibility = Visibility.Collapsed;
 #endif
-                gameStarted = true;
-            }
+            gameStarted = true;
         }
         #endregion
         private void CanDraw(bool can)

@@ -54,8 +54,15 @@
   <ItemGroup>
     <Compile Include="BJDBContext.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="Classes\Repositories.cs" />
+    <Compile Include="Classes\Repository.cs" />
+    <Compile Include="Classes\Services.cs" />
+    <Compile Include="Classes\UnitOfWork.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Interfaces\IRepositories.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Names.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
