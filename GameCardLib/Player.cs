@@ -51,20 +51,14 @@ namespace GameCardLib
         /// Constructor that takes one argument, name.
         /// </summary>
         /// <param name="name"></param>
-        public Player(string name, bool isCroupier = false) : this()
+        public Player(string name ="", bool isCroupier = true) : this()
         {
-            Name = name;
-            IsCroupier = isCroupier;
-        }
-
-        /// <summary>
-        /// Constructor that takes one argument, name.
-        /// </summary>
-        /// <param name="name"></param>
-        public Player(bool isCroupier = true) : this()
-        {
+            if (!string.IsNullOrWhiteSpace(name))
+                isCroupier = false;
             if(isCroupier)
                 Name = "Croupier";
+            else
+                Name = name;
             IsCroupier = isCroupier;
         }
 
