@@ -6,7 +6,7 @@ namespace GameCardLib
 {
     public class Game
     {
-        private BJDBContext context;
+        private UnitOfWork unitOfWork = new UnitOfWork(new BJDBContext());
         public DateTime DateStarted { get; set; }
         public int GameId { get; set; }
         private Player croupier;
@@ -95,21 +95,18 @@ namespace GameCardLib
         /// <param name="playerList">List of player names</param>
         public Game(List<string> playerList)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork(context = new BJDBContext()))
+            DateStarted = DateTime.Now;
+            Players = new List<Player>();
+            foreach (string name in playerList)
             {
-                DateStarted = DateTime.Now;
-                Players = new List<Player>();
-                foreach (string name in playerList)
-                {
-                    Players.Add(new Player(name));
-                }
-                unitOfWork.Players.AddRange(Players);
-                Croupier = new Player();
-                unitOfWork.Players.Add(Croupier);
-                currentPlayer = 0;
-                unitOfWork.Games.Add(this);
-                unitOfWork.Complete();
+                Players.Add(new Player(name));
             }
+            unitOfWork.Players.AddRange(Players);
+            Croupier = new Player();
+            unitOfWork.Players.Add(Croupier);
+            currentPlayer = 0;
+            unitOfWork.Games.Add(this);
+            unitOfWork.Complete();
         }
 
         /// <summary>
@@ -118,20 +115,17 @@ namespace GameCardLib
         /// <param name="numberOfPlayers">The number of players that is going to play</param>
         public Game(int numberOfPlayers)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork(context = new BJDBContext()))
+            Players = new List<Player>(numberOfPlayers);
+            for (int i = 0; i < numberOfPlayers; i++)
             {
-                Players = new List<Player>(numberOfPlayers);
-                for (int i = 0; i < numberOfPlayers; i++)
-                {
-                    Players.Add(new Player());
-                }
-                unitOfWork.Players.AddRange(Players);
-                Croupier = new Player();
-                unitOfWork.Players.Add(Croupier);
-                CurrentPlayer = 0;
-                unitOfWork.Games.Add(this);
-                unitOfWork.Complete();
+                Players.Add(new Player());
             }
+            unitOfWork.Players.AddRange(Players);
+            Croupier = new Player();
+            unitOfWork.Players.Add(Croupier);
+            CurrentPlayer = 0;
+            unitOfWork.Games.Add(this);
+            unitOfWork.Complete();
         }
 
         /// <summary>
@@ -140,19 +134,16 @@ namespace GameCardLib
         /// <param name="numberOfDecks">Number of decks that compose the deck</param>
         public void StartGame(int numberOfDecks = 1)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork(context))
+            MyDeck = new Deck(numberOfDecks);
+            unitOfWork.Decks.Add(MyDeck);
+            Discarded = new Deck(0);
+            unitOfWork.Decks.Add(Discarded);
+            unitOfWork.Complete();
+            foreach (Player player in Players)
             {
-                MyDeck = new Deck(numberOfDecks);
-                unitOfWork.Decks.Add(MyDeck);
-                Discarded = new Deck(0);
-                unitOfWork.Decks.Add(Discarded);
-                unitOfWork.Complete();
-                foreach (Player player in Players)
-                {
-                    GiveCard(Players.IndexOf(player), 2);
-                }
-                GiveCard(-1);
+                GiveCard(Players.IndexOf(player), 2);
             }
+            GiveCard(-1);
         }
 
         /// <summary>
@@ -169,13 +160,19 @@ namespace GameCardLib
                 if (player.Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
                     Card card = myDeck.Pop();
+                    card.ChangeParent(player.Hand);
                     player.AddCard(card);
+                    unitOfWork.Cards.Update(card);
+                    unitOfWork.Complete();
                 }
                 else
                 {
                     Card card = myDeck.Pop();
+                    card.ChangeParent(Discarded);
                     Discarded.Push(card);
                     GiveCard(playerId);
+                    unitOfWork.Cards.Update(card);
+                    unitOfWork.Complete();
                 }
             }
         }

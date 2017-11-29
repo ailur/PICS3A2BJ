@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Objects.DataClasses;
@@ -39,16 +40,19 @@ namespace GameCardLib
             { EnumValue.Queen, "q"},
             { EnumValue.King, "k"}
         };
-        private ICollection<Card> parent;
+        private ICollection parent;
         #endregion
         #region Properties
         public int CardId { get; set; }
-        public Type inDeck
+        public string inDeck
         {
-            get { return parent?.GetType() ?? typeof(bool); }
+            get
+            {
+                Type type = parent?.GetType() ?? null;
+                return type.ToString() ?? "";
+            }
             private set
             {
-
             }
         }
         /// <summary>
@@ -64,8 +68,7 @@ namespace GameCardLib
                 return 10;
             }
             private set
-            {
-                
+            {  
             }
         }
         /// <summary>
@@ -88,7 +91,7 @@ namespace GameCardLib
         /// </summary>
         /// <param name="value">Value of the card.</param>
         /// <param name="suite">Suite of the card.</param>
-        public Card(EnumValue value, EnumSuite suite, ICollection<Card> parent)
+        public Card(EnumValue value, EnumSuite suite, ICollection parent)
         {
             if (Enum.IsDefined(typeof(EnumValue), Value) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
@@ -97,7 +100,7 @@ namespace GameCardLib
                 ChangeParent(parent);
             }
         }
-        public void ChangeParent(ICollection<Card> parent)
+        public void ChangeParent(ICollection parent)
         {
             this.parent = parent;
         }

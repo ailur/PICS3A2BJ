@@ -3,7 +3,7 @@ namespace BlackJack.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init9 : DbMigration
+    public partial class initialb : DbMigration
     {
         public override void Up()
         {

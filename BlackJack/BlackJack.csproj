@@ -83,45 +83,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201711261827028_init1.cs" />
-    <Compile Include="Migrations\201711261827028_init1.Designer.cs">
-      <DependentUpon>201711261827028_init1.cs</DependentUpon>
+    <Compile Include="Migrations\201711291419305_initial.cs" />
+    <Compile Include="Migrations\201711291419305_initial.Designer.cs">
+      <DependentUpon>201711291419305_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711261841023_init2.cs" />
-    <Compile Include="Migrations\201711261841023_init2.Designer.cs">
-      <DependentUpon>201711261841023_init2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711261852034_init21.cs" />
-    <Compile Include="Migrations\201711261852034_init21.Designer.cs">
-      <DependentUpon>201711261852034_init21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711261902565_init3.cs" />
-    <Compile Include="Migrations\201711261902565_init3.Designer.cs">
-      <DependentUpon>201711261902565_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711262046148_init4.cs" />
-    <Compile Include="Migrations\201711262046148_init4.Designer.cs">
-      <DependentUpon>201711262046148_init4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711262322522_init5.cs" />
-    <Compile Include="Migrations\201711262322522_init5.Designer.cs">
-      <DependentUpon>201711262322522_init5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711271409289_init6.cs" />
-    <Compile Include="Migrations\201711271409289_init6.Designer.cs">
-      <DependentUpon>201711271409289_init6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711271414560_init7.cs" />
-    <Compile Include="Migrations\201711271414560_init7.Designer.cs">
-      <DependentUpon>201711271414560_init7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711281506579_init8.cs" />
-    <Compile Include="Migrations\201711281506579_init8.Designer.cs">
-      <DependentUpon>201711281506579_init8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711281521216_init9.cs" />
-    <Compile Include="Migrations\201711281521216_init9.Designer.cs">
-      <DependentUpon>201711281521216_init9.cs</DependentUpon>
+    <Compile Include="Migrations\201711291442379_initialb.cs" />
+    <Compile Include="Migrations\201711291442379_initialb.Designer.cs">
+      <DependentUpon>201711291442379_initialb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StartWindow.xaml.cs">
@@ -158,35 +126,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201711261827028_init1.resx">
-      <DependentUpon>201711261827028_init1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711291419305_initial.resx">
+      <DependentUpon>201711291419305_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711261841023_init2.resx">
-      <DependentUpon>201711261841023_init2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711261852034_init21.resx">
-      <DependentUpon>201711261852034_init21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711261902565_init3.resx">
-      <DependentUpon>201711261902565_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711262046148_init4.resx">
-      <DependentUpon>201711262046148_init4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711262322522_init5.resx">
-      <DependentUpon>201711262322522_init5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711271409289_init6.resx">
-      <DependentUpon>201711271409289_init6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711271414560_init7.resx">
-      <DependentUpon>201711271414560_init7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711281506579_init8.resx">
-      <DependentUpon>201711281506579_init8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711281521216_init9.resx">
-      <DependentUpon>201711281521216_init9.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711291442379_initialb.resx">
+      <DependentUpon>201711291442379_initialb.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

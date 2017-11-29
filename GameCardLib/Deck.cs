@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace GameCardLib
         /// How many decks compose the main deck
         /// </summary>
         private int DeckMultiplier { get => deckMultiplier; set => deckMultiplier = value; }
+
         /// <summary>
         /// Count of cards in the deck
         /// </summary>
@@ -70,13 +72,13 @@ namespace GameCardLib
         /// </summary>
         private void FillDeckWithCards()
         {
-            foreach (int deck in Enumerable.Range(1,DeckMultiplier))
+            foreach (int deck in Enumerable.Range(1, DeckMultiplier))
             {
                 foreach (EnumSuite suite in Enum.GetValues(typeof(EnumSuite)))
                 {
                     foreach (EnumValue value in Enum.GetValues(typeof(EnumValue)))
                     {
-                        Card card = new Card(value, suite, this as ICollection<Card>);
+                        Card card = new Card(value, suite, this as ICollection);
                         Cards.Push(card);
                     }
                 }
