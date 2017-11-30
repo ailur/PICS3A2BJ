@@ -199,9 +199,6 @@ namespace BlackJack
                 CheckHand();
                 UpdateCards(Game.GetCroupier());
                 UpdateDiscarded();
-                btnDrawCard.IsEnabled = false;
-                imgDeck.IsEnabled = false;
-                imgDeck.Opacity = 0.5;
             }
         }
 

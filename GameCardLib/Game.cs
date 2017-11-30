@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UtilitiesLib;
 
 namespace GameCardLib
 {
@@ -111,7 +112,7 @@ namespace GameCardLib
         {
             DateStarted = DateTime.Now;
             unitOfWork.Players.AddRange(Players);
-            CurrentPlayer = 0;
+            CurrentPlayer = players.IndexOf(GetCroupier())+1;
             unitOfWork.Games.Add(this);
             unitOfWork.Complete();
         }
@@ -224,7 +225,7 @@ namespace GameCardLib
             Player croupier = GetCroupier();
             while (croupier.Score < 17)
             {
-                croupier.AddCard(MyDeck.Pop());
+                GiveCard(players.IndexOf(GetCroupier()));
             }
             ScoreCheck();
         }
@@ -255,7 +256,7 @@ namespace GameCardLib
         public void ContinueGame()
         {
             //TODO: Check if there are enough cards left in deck
-            CurrentPlayer = 0;
+            CurrentPlayer = players.IndexOf(GetCroupier()) + 1;
             foreach (Player player in Players)
             {
                 if (player.IsCroupier)
@@ -263,17 +264,22 @@ namespace GameCardLib
                 foreach (Card card in player.Hand)
                 {
                     Discarded.Push(card);
+                    unitOfWork.Cards.Update(card);
                 }
                 player.Clear();
+                unitOfWork.Players.Update(player);
                 GiveCard(Players.IndexOf(player), 2);
             }
             Player croupier = GetCroupier();
             foreach (Card card in croupier.Hand)
             {
                 Discarded.Push(card);
+                unitOfWork.Cards.Update(card);
             }
             croupier.Clear();
-            croupier.AddCard(MyDeck.Pop());
+            unitOfWork.Players.Update(croupier);
+            GiveCard(players.IndexOf(GetCroupier()));
+            unitOfWork.Complete();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GameCardLib
+﻿namespace UtilitiesLib
 {
     public class UnitOfWork : IUnitOfWork
     {

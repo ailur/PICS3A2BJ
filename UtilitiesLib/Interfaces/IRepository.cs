@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace GameCardLib
+namespace UtilitiesLib
 {
     public interface IRepository<TEntity> where TEntity : class
     {
