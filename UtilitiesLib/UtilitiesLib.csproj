@@ -54,15 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BJDBContext.cs" />
-    <Compile Include="Classes\Repositories.cs" />
-    <Compile Include="Classes\Repository.cs" />
-    <Compile Include="Classes\UnitOfWork.cs" />
-    <Compile Include="Entities.cs" />
-    <Compile Include="Interfaces\IRepositories.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Names.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UtilitiesLib
+namespace GameCardLib
 {
     public interface IUnitOfWork : IDisposable
     {

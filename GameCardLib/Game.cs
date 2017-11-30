@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UtilitiesLib;
 
 namespace GameCardLib
 {
@@ -131,7 +130,7 @@ namespace GameCardLib
             unitOfWork.Complete();
             foreach (Card card in MyDeck.Cards)
             {
-                card.GameId = this.GameId;
+                card.GameId = GameId;
             }
             unitOfWork.Cards.AddRange(MyDeck.Cards);
             unitOfWork.Complete();
