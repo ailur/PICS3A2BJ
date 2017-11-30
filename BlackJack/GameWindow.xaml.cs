@@ -34,7 +34,7 @@ namespace BlackJack
             CanDraw(false);
             Game = playerList == null ? new Game(numberOfPlayers) : new Game(playerList);
             Game.StartGame(numberOfDecks);
-            UpdateCards(Game.Croupier);
+            UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
             CheckHand();
@@ -148,7 +148,7 @@ namespace BlackJack
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             Game.ContinueGame();
-            UpdateCards(Game.Croupier);
+            UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
             CheckHand();
@@ -197,7 +197,7 @@ namespace BlackJack
             {
                 UpdateCards(Game.NextPlayer());
                 CheckHand();
-                UpdateCards(Game.Croupier);
+                UpdateCards(Game.GetCroupier());
                 UpdateDiscarded();
                 btnDrawCard.IsEnabled = false;
                 imgDeck.IsEnabled = false;

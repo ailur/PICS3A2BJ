@@ -20,6 +20,8 @@ namespace GameCardLib
         private List<Card> hand;
         #endregion
         #region Properties
+
+
         public int PlayerId { get; set; }
         /// <summary>
         /// Name of the player
@@ -29,6 +31,10 @@ namespace GameCardLib
         /// Hand of the player
         /// </summary>
         public virtual List<Card> Hand { get => hand; private set => hand = value; }
+
+        [ForeignKey("Game")]
+        public int GameId { get; set; }
+        public virtual Game Game { get; private set; }
         /// <summary>
         /// Number of cards the hand have.
         /// </summary>
@@ -68,7 +74,6 @@ namespace GameCardLib
         /// <param name="card">Card to add</param>
         public void AddCard(Card card)
         {
-            card.ChangeParent(Hand);
             Hand.Add(card);
         }
         /// <summary>

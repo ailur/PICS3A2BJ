@@ -27,7 +27,6 @@ namespace BlackJack.Migrations
                 c => new
                     {
                         DeckId = c.Int(nullable: false, identity: true),
-                        IsDiscardedDeck = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.DeckId);
             
@@ -37,15 +36,12 @@ namespace BlackJack.Migrations
                     {
                         GameId = c.Int(nullable: false, identity: true),
                         DateStarted = c.DateTime(nullable: false),
-                        Croupier_PlayerId = c.Int(),
                         Discarded_DeckId = c.Int(),
                         MyDeck_DeckId = c.Int(),
                     })
                 .PrimaryKey(t => t.GameId)
-                .ForeignKey("dbo.Players", t => t.Croupier_PlayerId)
                 .ForeignKey("dbo.Decks", t => t.Discarded_DeckId)
                 .ForeignKey("dbo.Decks", t => t.MyDeck_DeckId)
-                .Index(t => t.Croupier_PlayerId)
                 .Index(t => t.Discarded_DeckId)
                 .Index(t => t.MyDeck_DeckId);
             
@@ -55,21 +51,24 @@ namespace BlackJack.Migrations
                     {
                         PlayerId = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        GameId = c.Int(nullable: false),
                         IsCroupier = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.PlayerId);
+                .PrimaryKey(t => t.PlayerId)
+                .ForeignKey("dbo.Games", t => t.GameId, cascadeDelete: true)
+                .Index(t => t.GameId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Cards", "Player_PlayerId", "dbo.Players");
+            DropForeignKey("dbo.Players", "GameId", "dbo.Games");
             DropForeignKey("dbo.Games", "MyDeck_DeckId", "dbo.Decks");
             DropForeignKey("dbo.Games", "Discarded_DeckId", "dbo.Decks");
-            DropForeignKey("dbo.Games", "Croupier_PlayerId", "dbo.Players");
-            DropForeignKey("dbo.Cards", "Player_PlayerId", "dbo.Players");
+            DropIndex("dbo.Players", new[] { "GameId" });
             DropIndex("dbo.Games", new[] { "MyDeck_DeckId" });
             DropIndex("dbo.Games", new[] { "Discarded_DeckId" });
-            DropIndex("dbo.Games", new[] { "Croupier_PlayerId" });
             DropIndex("dbo.Cards", new[] { "Player_PlayerId" });
             DropTable("dbo.Players");
             DropTable("dbo.Games");

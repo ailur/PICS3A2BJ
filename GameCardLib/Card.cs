@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
 using System.Text;
@@ -40,21 +41,10 @@ namespace GameCardLib
             { EnumValue.Queen, "q"},
             { EnumValue.King, "k"}
         };
-        private ICollection parent;
         #endregion
         #region Properties
+        [Key]
         public int CardId { get; set; }
-        public string inDeck
-        {
-            get
-            {
-                Type type = parent?.GetType() ?? null;
-                return type.ToString() ?? "";
-            }
-            private set
-            {
-            }
-        }
         /// <summary>
         /// Value in int.
         /// </summary>
@@ -71,6 +61,9 @@ namespace GameCardLib
             {  
             }
         }
+        [ForeignKey("Game")]
+        public int GameId { get; set; }
+        public virtual Game Game { get; private set; }
         /// <summary>
         /// Value in enum.
         /// </summary>
@@ -91,18 +84,13 @@ namespace GameCardLib
         /// </summary>
         /// <param name="value">Value of the card.</param>
         /// <param name="suite">Suite of the card.</param>
-        public Card(EnumValue value, EnumSuite suite, ICollection parent)
+        public Card(EnumValue value, EnumSuite suite)
         {
             if (Enum.IsDefined(typeof(EnumValue), Value) && Enum.IsDefined(typeof(EnumSuite), suite))
             {
                 Value = value;
                 Suite = suite;
-                ChangeParent(parent);
             }
-        }
-        public void ChangeParent(ICollection parent)
-        {
-            this.parent = parent;
         }
         #endregion
         /// <summary>

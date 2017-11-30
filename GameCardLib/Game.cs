@@ -9,18 +9,6 @@ namespace GameCardLib
         private UnitOfWork unitOfWork = new UnitOfWork(new BJDBContext());
         public DateTime DateStarted { get; set; }
         public int GameId { get; set; }
-        private Player croupier;
-        public Player Croupier
-        {
-            get
-            {
-                return croupier;
-            }
-            private set
-            {
-                croupier = value;
-            }
-        }
         public List<Player> players;
         private List<Player> Players
         {
@@ -72,6 +60,8 @@ namespace GameCardLib
                 currentPlayer = value;
             }
         }
+
+
         /// <summary>
         /// String describing deck reimaining cards
         /// </summary>
@@ -95,18 +85,12 @@ namespace GameCardLib
         /// <param name="playerList">List of player names</param>
         public Game(List<string> playerList)
         {
-            DateStarted = DateTime.Now;
-            Players = new List<Player>();
+            Players = new List<Player> {new Player()};
             foreach (string name in playerList)
             {
                 Players.Add(new Player(name));
             }
-            unitOfWork.Players.AddRange(Players);
-            Croupier = new Player();
-            unitOfWork.Players.Add(Croupier);
-            currentPlayer = 0;
-            unitOfWork.Games.Add(this);
-            unitOfWork.Complete();
+            Initialize();
         }
 
         /// <summary>
@@ -115,14 +99,18 @@ namespace GameCardLib
         /// <param name="numberOfPlayers">The number of players that is going to play</param>
         public Game(int numberOfPlayers)
         {
-            Players = new List<Player>(numberOfPlayers);
+            Players = new List<Player>(numberOfPlayers) {new Player()};
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                Players.Add(new Player());
+                Players.Add(new Player(i.ToString(),false));
             }
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            DateStarted = DateTime.Now;
             unitOfWork.Players.AddRange(Players);
-            Croupier = new Player();
-            unitOfWork.Players.Add(Croupier);
             CurrentPlayer = 0;
             unitOfWork.Games.Add(this);
             unitOfWork.Complete();
@@ -138,12 +126,18 @@ namespace GameCardLib
             unitOfWork.Decks.Add(MyDeck);
             Discarded = new Deck(0);
             unitOfWork.Decks.Add(Discarded);
+            unitOfWork.Games.Update(this);
+            unitOfWork.Complete();
+            foreach (Card card in MyDeck.Cards)
+            {
+                card.GameId = this.GameId;
+            }
+            unitOfWork.Cards.AddRange(MyDeck.Cards);
             unitOfWork.Complete();
             foreach (Player player in Players)
             {
-                GiveCard(Players.IndexOf(player), 2);
+                GiveCard(Players.IndexOf(player), player.IsCroupier?1:2);
             }
-            GiveCard(-1);
         }
 
         /// <summary>
@@ -154,27 +148,24 @@ namespace GameCardLib
         private void GiveCard(int playerId, int count = 1)
         {
             //TODO: Comprobar si quedan suficientes cartas
-            Player player = playerId == -1 ? Croupier : Players[playerId];
+            Player player = Players[playerId];
             for (int i = 0; i < count; i++)
             {
-                if (player.Hand.Any(Card => Card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
+                if (player.Hand.Any(card => card.ToStringShort == MyDeck.Peek().ToStringShort) == false)
                 {
                     Card card = myDeck.Pop();
-                    card.ChangeParent(player.Hand);
                     player.AddCard(card);
                     unitOfWork.Cards.Update(card);
-                    unitOfWork.Complete();
                 }
                 else
                 {
                     Card card = myDeck.Pop();
-                    card.ChangeParent(Discarded);
                     Discarded.Push(card);
                     GiveCard(playerId);
                     unitOfWork.Cards.Update(card);
-                    unitOfWork.Complete();
                 }
             }
+            unitOfWork.Complete();
         }
 
         /// <summary>
@@ -192,6 +183,11 @@ namespace GameCardLib
         public Player GetPlayer()
         {
             return GetPlayer(CurrentPlayer);
+        }
+
+        public Player GetCroupier()
+        {
+            return Players.First(p => p.IsCroupier);
         }
 
         /// <summary>
@@ -225,9 +221,10 @@ namespace GameCardLib
         /// </summary>
         private void CroupierPicks()
         {
-            while (Croupier.Score < 17)
+            Player croupier = GetCroupier();
+            while (croupier.Score < 17)
             {
-                Croupier.AddCard(MyDeck.Pop());
+                croupier.AddCard(MyDeck.Pop());
             }
             ScoreCheck();
         }
@@ -239,7 +236,8 @@ namespace GameCardLib
         private void ScoreCheck()
         {
             List<Player> playersNotOver21 = (from player in Players where player.Score <= 21 select player).ToList();
-            if (Croupier.Score <= 21) { playersNotOver21.Add(Croupier); }
+            Player croupier = GetCroupier();
+            if (croupier.Score <= 21) { playersNotOver21.Add(croupier); }
             //throw new NotImplementedException();
         }
 
@@ -260,6 +258,8 @@ namespace GameCardLib
             CurrentPlayer = 0;
             foreach (Player player in Players)
             {
+                if (player.IsCroupier)
+                    continue;
                 foreach (Card card in player.Hand)
                 {
                     Discarded.Push(card);
@@ -267,12 +267,13 @@ namespace GameCardLib
                 player.Clear();
                 GiveCard(Players.IndexOf(player), 2);
             }
-            foreach (Card card in Croupier.Hand)
+            Player croupier = GetCroupier();
+            foreach (Card card in croupier.Hand)
             {
                 Discarded.Push(card);
             }
-            Croupier.Clear();
-            Croupier.AddCard(MyDeck.Pop());
+            croupier.Clear();
+            croupier.AddCard(MyDeck.Pop());
         }
     }
 }

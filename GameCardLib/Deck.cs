@@ -17,11 +17,10 @@ namespace GameCardLib
         #endregion
         #region Properties
         public int DeckId { get; set; }
-        public bool IsDiscardedDeck { get; private set; }
         /// <summary>
         /// Stack of cards
         /// </summary>
-        private Stack<Card> Cards { get => cards; set => cards = value; }
+        public Stack<Card> Cards { get => cards; set => cards = value; }
         /// <summary>
         /// How many decks compose the main deck
         /// </summary>
@@ -35,19 +34,12 @@ namespace GameCardLib
         #region Methods()
         #region Constructors
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Deck() :this(1)
-        {
-        }
-        /// <summary>
         /// Constructor that takes one argument: deckMultiplier
         /// </summary>
         /// <param name="deckMultiplier">Number of decks to form the deck</param>
-        public Deck(int deckMultiplier, bool isDiscardedDeck = false)
+        public Deck(int deckMultiplier)
         {
             DeckMultiplier = deckMultiplier;
-            IsDiscardedDeck = isDiscardedDeck;
             Cards = new Stack<Card>();
             FillDeckWithCards();
             Shuffle();
@@ -78,7 +70,7 @@ namespace GameCardLib
                 {
                     foreach (EnumValue value in Enum.GetValues(typeof(EnumValue)))
                     {
-                        Card card = new Card(value, suite, this as ICollection);
+                        Card card = new Card(value, suite);
                         Cards.Push(card);
                     }
                 }
