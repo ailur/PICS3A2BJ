@@ -6,7 +6,13 @@ namespace GameCardLib
 {
     public class Game
     {
-        private UnitOfWork unitOfWork = new UnitOfWork(new BJDBContext());
+        private BJDBContext Context { get; set; }
+        
+        private UnitOfWork unitOfWork { get; set; }
+        public BJDBContext GetContext()
+        {
+            return Context;
+        }
         public DateTime DateStarted { get; set; }
         public int GameId { get; set; }
         public List<Player> players;
@@ -109,6 +115,8 @@ namespace GameCardLib
 
         private void Initialize()
         {
+            Context = new BJDBContext();
+            unitOfWork = new UnitOfWork(Context);
             DateStarted = DateTime.Now;
             unitOfWork.Players.AddRange(Players);
             CurrentPlayer = players.IndexOf(GetCroupier())+1;

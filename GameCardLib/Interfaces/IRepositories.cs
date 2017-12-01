@@ -1,4 +1,6 @@
-﻿namespace GameCardLib
+﻿using UtilitiesLib;
+
+namespace GameCardLib
 {
     public interface ICardRepository : IRepository<Card>
     {

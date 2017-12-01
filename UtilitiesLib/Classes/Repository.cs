@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace GameCardLib
+namespace UtilitiesLib
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

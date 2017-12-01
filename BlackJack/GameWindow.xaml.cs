@@ -1,5 +1,7 @@
 ﻿using GameCardLib;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,6 +47,7 @@ namespace BlackJack
             txtDebug.Visibility = Visibility.Collapsed;
 #endif
             gameStarted = true;
+            DataBaseShow.DataContext = Game.GetContext();
         }
         #endregion
         private void CanDraw(bool can)
