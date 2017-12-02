@@ -1,8 +1,10 @@
-﻿using GameCardLib;
+﻿using System;
+using GameCardLib;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,6 +19,14 @@ namespace BlackJack
     {
         #region fields
         private bool gameStarted;
+
+        private enum cmbDbSets
+        {
+            Games,
+            Cards,
+            Decks,
+            Players
+        }
         #endregion
         #region Properties
         private Game Game { get; }
@@ -47,7 +57,9 @@ namespace BlackJack
             txtDebug.Visibility = Visibility.Collapsed;
 #endif
             gameStarted = true;
-            DataBaseShow.DataContext = Game.GetContext();
+            cmbDbSet.ItemsSource = Enum.GetValues(typeof(cmbDbSets));
+            cmbDbSet.SelectedItem = cmbDbSets.Cards;
+            DataBaseShow.ItemsSource = Game.GetContext().Cards.Local.ToList();
         }
         #endregion
         private void CanDraw(bool can)
@@ -134,12 +146,16 @@ namespace BlackJack
         [ConditionalAttribute("DEBUG")]
         private void Debug()
         {
-            txtDebug.Text = Game.DeckString;
+            string txtDeck = "Deck: " + Game.DeckString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥")
+                .Replace("s", "♠").ToUpper();
+            txtDebug.Text = txtDeck;
             if (Game.DiscardedCount > 0)
             {
-                txtDebug.Text += "\n" + Game.DiscardedString;
+                string txtDiscarded = "";
+                txtDiscarded = "Discarded: " + Game.DiscardedString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥")
+                                   .Replace("s", "♠").ToUpper();
+                txtDebug.Text += "\n" + txtDiscarded;
             }
-            txtDebug.Text = txtDebug.Text.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
         }
 
         #region events
@@ -156,6 +172,7 @@ namespace BlackJack
             UpdateDiscarded();
             CheckHand();
             Debug();
+            DataBaseShow.Items.Refresh();
         }
 
         /// <summary>
@@ -169,6 +186,7 @@ namespace BlackJack
             {
                 Game.Reshuffle();
                 Debug();
+                DataBaseShow.Items.Refresh();
             }
         }
 
@@ -186,6 +204,7 @@ namespace BlackJack
                 UpdateDiscarded();
                 CheckHand();
                 Debug();
+                DataBaseShow.Items.Refresh();
             }
         }
 
@@ -202,6 +221,7 @@ namespace BlackJack
                 CheckHand();
                 UpdateCards(Game.GetCroupier());
                 UpdateDiscarded();
+                DataBaseShow.Items.Refresh();
             }
         }
 
@@ -214,7 +234,27 @@ namespace BlackJack
         {
             btnDrawCard_Click(sender, e);
         }
+
+        private void cmbDbSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch ((cmbDbSets)cmbDbSet.SelectedItem)
+            {
+                case cmbDbSets.Cards:
+                    DataBaseShow.ItemsSource = Game.GetContext().Cards.Local.ToList();
+                    break;
+                case cmbDbSets.Decks:
+                    DataBaseShow.ItemsSource = Game.GetContext().Decks.Local.ToList();
+                    break;
+                case cmbDbSets.Games:
+                    DataBaseShow.ItemsSource = Game.GetContext().Games.Local.ToList();
+                    break;
+                case cmbDbSets.Players:
+                    DataBaseShow.ItemsSource = Game.GetContext().Players.Local.ToList();
+                    break;
+            }
+        }
         #endregion
+
         #endregion
     }
 }

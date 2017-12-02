@@ -92,20 +92,30 @@ namespace GameCardLib
         /// <returns>Deck cards</returns>
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (Card card in Cards)
+            if (Count > 0)
             {
-                stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (Card card in Cards)
+                {
+                    stringBuilder.AppendFormat("{0}, ", card.ToStringShort);
+                }
+                stringBuilder.Remove(stringBuilder.Length - 2, 2);
+                return stringBuilder.ToString();
             }
-            stringBuilder.Remove(stringBuilder.Length - 2, 2);
-            return stringBuilder.ToString();
+            return "";
         }
 
         /// <summary>
         /// Peek method for deck
         /// </summary>
         /// <returns>Show next card</returns>
-        public new Card Peek() => Cards.Peek();
+        public new Card Peek()
+        {
+            if (Count > 0)
+                return Cards.Peek();
+            else
+                return null;
+        }
         /// <summary>
         /// Pop method for deck
         /// </summary>

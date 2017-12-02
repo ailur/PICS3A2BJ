@@ -39,9 +39,10 @@
             <TextBlock Width="225" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="txtPlayerName" TextAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Player"/></TextBlock>
         </DockPanel>
-        <DockPanel x:Name="DataBaseZone">
-            <DataGrid x:Name="DataBaseShow" Height="100"/>
-        </DockPanel>
+        <StackPanel x:Name="DataBaseZone">
+            <ComboBox x:Name="cmbDbSet" SelectionChanged="cmbDbSet_SelectionChanged"/>
+            <DataGrid x:Name="DataBaseShow" Height="100" IsReadOnly="True"/>
+        </StackPanel>
         <TextBlock x:Name="txtDebug"/>
     </StackPanel>
 </Window>
