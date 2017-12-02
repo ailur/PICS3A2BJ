@@ -151,74 +151,210 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CardGUI\b1fh.png" />
-    <Resource Include="CardGUI\b1fv.png" />
-    <Resource Include="CardGUI\b1pb.png" />
-    <Resource Include="CardGUI\b1pl.png" />
-    <Resource Include="CardGUI\b1pr.png" />
-    <Resource Include="CardGUI\b1pt.png" />
-    <Resource Include="CardGUI\b2fh.png" />
-    <Resource Include="CardGUI\b2fv.png" />
-    <Resource Include="CardGUI\b2pb.png" />
-    <Resource Include="CardGUI\b2pl.png" />
-    <Resource Include="CardGUI\b2pr.png" />
-    <Resource Include="CardGUI\b2pt.png" />
-    <Resource Include="CardGUI\c1.png" />
-    <Resource Include="CardGUI\c10.png" />
-    <Resource Include="CardGUI\c2.png" />
-    <Resource Include="CardGUI\c3.png" />
-    <Resource Include="CardGUI\c4.png" />
-    <Resource Include="CardGUI\c5.png" />
-    <Resource Include="CardGUI\c6.png" />
-    <Resource Include="CardGUI\c7.png" />
-    <Resource Include="CardGUI\c8.png" />
-    <Resource Include="CardGUI\c9.png" />
-    <Resource Include="CardGUI\cj.png" />
-    <Resource Include="CardGUI\ck.png" />
-    <Resource Include="CardGUI\cq.png" />
-    <Resource Include="CardGUI\d1.png" />
-    <Resource Include="CardGUI\d10.png" />
-    <Resource Include="CardGUI\d2.png" />
-    <Resource Include="CardGUI\d3.png" />
-    <Resource Include="CardGUI\d4.png" />
-    <Resource Include="CardGUI\d5.png" />
-    <Resource Include="CardGUI\d6.png" />
-    <Resource Include="CardGUI\d7.png" />
-    <Resource Include="CardGUI\d8.png" />
-    <Resource Include="CardGUI\d9.png" />
-    <Resource Include="CardGUI\dj.png" />
-    <Resource Include="CardGUI\dk.png" />
-    <Resource Include="CardGUI\dq.png" />
-    <Resource Include="CardGUI\ec.png" />
-    <Resource Include="CardGUI\h1.png" />
-    <Resource Include="CardGUI\h10.png" />
-    <Resource Include="CardGUI\h2.png" />
-    <Resource Include="CardGUI\h3.png" />
-    <Resource Include="CardGUI\h4.png" />
-    <Resource Include="CardGUI\h5.png" />
-    <Resource Include="CardGUI\h6.png" />
-    <Resource Include="CardGUI\h7.png" />
-    <Resource Include="CardGUI\h8.png" />
-    <Resource Include="CardGUI\h9.png" />
-    <Resource Include="CardGUI\hj.png" />
-    <Resource Include="CardGUI\hk.png" />
-    <Resource Include="CardGUI\hq.png" />
-    <Content Include="CardGUI\index.html" />
-    <Resource Include="CardGUI\jb.png" />
-    <Resource Include="CardGUI\jr.png" />
-    <Resource Include="CardGUI\s1.png" />
-    <Resource Include="CardGUI\s10.png" />
-    <Resource Include="CardGUI\s2.png" />
-    <Resource Include="CardGUI\s3.png" />
-    <Resource Include="CardGUI\s4.png" />
-    <Resource Include="CardGUI\s5.png" />
-    <Resource Include="CardGUI\s6.png" />
-    <Resource Include="CardGUI\s7.png" />
-    <Resource Include="CardGUI\s8.png" />
-    <Resource Include="CardGUI\s9.png" />
-    <Resource Include="CardGUI\sj.png" />
-    <Resource Include="CardGUI\sk.png" />
-    <Resource Include="CardGUI\sq.png" />
+    <Content Include="CardGUI\b1fh.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b1fv.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b1pb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b1pl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b1pr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b1pt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2fh.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2fv.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2pb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2pl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2pr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\b2pt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\c9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\cj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\ck.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\cq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\d9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\dj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\dk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\dq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\ec.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\h9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\hj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\hk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\hq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\jb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\jr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\s9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\sj.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\sk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CardGUI\sq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -233,4 +369,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
