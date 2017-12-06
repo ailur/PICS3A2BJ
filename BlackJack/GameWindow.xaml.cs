@@ -1,14 +1,14 @@
 ﻿using System;
-using GameCardLib;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using GameCardLib;
+using UtilitiesLib;
+using cmbDbSets = GameCardLib.cmbDbSets;
 
 namespace BlackJack
 {
@@ -19,14 +19,6 @@ namespace BlackJack
     {
         #region fields
         private bool gameStarted;
-
-        private enum cmbDbSets
-        {
-            Games,
-            Cards,
-            Decks,
-            Players
-        }
         #endregion
         #region Properties
         private Game Game { get; }
@@ -34,18 +26,17 @@ namespace BlackJack
         #region Methods()
         #region Constructors
         /// <summary>
-        /// Constructor with 2 parameters and 1 optional parameter
+        /// Constructor with 2 parameters and 1 optional parameter.
         /// </summary>
-        /// <param name="numberOfPlayers">Number of players</param>
-        /// <param name="numberOfDecks">Number of decks</param>
-        /// <param name="playerList">(Optional)List with players' names</param>
+        /// <param name="numberOfPlayers">Number of players.</param>
+        /// <param name="numberOfDecks">Number of decks.</param>
+        /// <param name="playerList">(Optional)List with players' names.</param>
         public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
             InitializeComponent();
             gameStarted = false;
             CanDraw(false);
-            Game = playerList == null ? new Game(numberOfPlayers) : new Game(playerList);
-            Game.StartGame(numberOfDecks);
+            Game = playerList == null ? new Game(numberOfPlayers, numberOfDecks) : new Game(playerList, numberOfDecks);
             UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
@@ -62,16 +53,21 @@ namespace BlackJack
             DataBaseShow.ItemsSource = Game.GetContext().Cards.Local.ToList();
         }
         #endregion
+        /// <summary>
+        /// If current player cannot draw anymore cards, disable drawing options and change deck opacity.
+        /// </summary>
+        /// <param name="can">Wether current player can draw more cards or not.</param>
         private void CanDraw(bool can)
         {
             btnDrawCard.IsEnabled = can;
             imgDeck.IsEnabled = can;
             imgDeck.Opacity = can ? 1 : 0.5;
         }
+
         /// <summary>
-        /// Update the images of player hand
+        /// Update the images of player hand.
         /// </summary>
-        /// <param name="player">Player which cards will be drawn</param>
+        /// <param name="player">Player which cards will be drawn.</param>
         private void UpdateCards(Player player)
         {
             UIElementCollection elementCollection = player.IsCroupier ? CroupierDeck.Children : PlayerDeck.Children;
@@ -92,7 +88,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Update images of discarded deck
+        /// Update images of discarded deck.
         /// </summary>
         private void UpdateDiscarded()
         {
@@ -110,7 +106,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Update scores to show
+        /// Update scores to show.
         /// </summary>
         /// <param name="player">Player whose score will be read</param>
         private void UpdateScores(Player player)
@@ -119,13 +115,13 @@ namespace BlackJack
             if (player.IsCroupier)
             {
                 updatedTextBlock = txtCroupierScore;
-                updatedTextBlock.Text = "Croupier\nscore:\n" + player.Score.ToString();
+                updatedTextBlock.Text = "Croupier\nscore:\n" + player.Score;
             }
             else
             {
                 txtPlayerName.Text = player.Name;
                 updatedTextBlock = txtPlayerScore;
-                updatedTextBlock.Text = "Your score:\n" + player.Score.ToString();
+                updatedTextBlock.Text = "Your score:\n" + player.Score;
             }
             updatedTextBlock.Foreground = Brushes.Black;
             if (player.Score > 21) { updatedTextBlock.Foreground = Brushes.Red; }
@@ -133,7 +129,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Check if hand scores if greater than 21, if that is the case player can't draw cards
+        /// Check if hand scores if greater than 21, if that is the case player can't draw cards.
         /// </summary>
         private void CheckHand()
         {
@@ -143,19 +139,14 @@ namespace BlackJack
         /// <summary>
         /// DEBUG method. Shows cards in deck and dicarded deck.
         /// </summary>
-        [ConditionalAttribute("DEBUG")]
+        [Conditional("DEBUG")]
         private void Debug()
         {
-            string txtDeck = "Deck: " + Game.DeckString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥")
-                .Replace("s", "♠").ToUpper();
+            string txtDeck = "Deck: " + Game.DeckString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
             txtDebug.Text = txtDeck;
-            if (Game.DiscardedCount > 0)
-            {
-                string txtDiscarded = "";
-                txtDiscarded = "Discarded: " + Game.DiscardedString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥")
-                                   .Replace("s", "♠").ToUpper();
-                txtDebug.Text += "\n" + txtDiscarded;
-            }
+            if (Game.DiscardedCount == 0) return;
+            string txtDiscarded = "Discarded: " + Game.DiscardedString.Replace("c", "♣").Replace("d", "♦").Replace("h", "♥").Replace("s", "♠").ToUpper();
+            txtDebug.Text += "\n" + txtDiscarded;
         }
 
         #region events
@@ -176,7 +167,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Reshuffle the deck
+        /// Reshuffle the deck.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -191,7 +182,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Give card to current player
+        /// Give card to current player.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -209,7 +200,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Go to next player
+        /// Go to next player.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -226,7 +217,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Draw a card
+        /// Draw a card.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -235,6 +226,11 @@ namespace BlackJack
             btnDrawCard_Click(sender, e);
         }
 
+        /// <summary>
+        /// On combobox selection changed, change set of the database shower.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbDbSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch ((cmbDbSets)cmbDbSet.SelectedItem)
@@ -254,7 +250,6 @@ namespace BlackJack
             }
         }
         #endregion
-
         #endregion
     }
 }

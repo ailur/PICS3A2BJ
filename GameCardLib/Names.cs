@@ -1,5 +1,12 @@
 ﻿namespace GameCardLib
 {
+    public enum cmbDbSets
+    {
+        Games,
+        Cards,
+        Decks,
+        Players
+    }
     public enum EnumSuite
     {
         Clubs,

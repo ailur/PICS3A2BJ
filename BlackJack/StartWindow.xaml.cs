@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -59,10 +60,16 @@ namespace BlackJack
             return false;
         }
         #region Events()
+        /// <summary>
+        /// When check button is clicked, if Data is ok, show textboxes for name inputs and a button to start the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCheck_OnClick(object sender, RoutedEventArgs e)
         {
             if (CheckData())
             {
+                panelPlayers.Children.Clear();
                 for (int i = 0; i < NumberOfPlayers; i++)
                 {
                     TextBox textBox = new TextBox {Name = "txtPlayerName" + i, Text = "Player " + i + " Name"};
@@ -71,10 +78,15 @@ namespace BlackJack
                 }
                 Button btnStart = new Button { Name = "btnStart", Content = "Start Game" };
                 btnStart.Click += btnStart_Click;
-                panelMain.Children.Add(btnStart);
+                panelPlayers.Children.Add(btnStart);
             }
         }
 
+        /// <summary>
+        /// When a textbox got focus, empty default name.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxOnGotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -82,10 +94,15 @@ namespace BlackJack
             tb.GotFocus -= TextBoxOnGotFocus;
         }
 
+        /// <summary>
+        /// Start a new game with the names entered on the textboxes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             List<string> playerList = new List<string>();
-            foreach (TextBox textBox in panelPlayers.Children)
+            foreach (TextBox textBox in panelPlayers.Children.OfType<TextBox>())
             {
                 playerList.Add(textBox.Text);
             }
