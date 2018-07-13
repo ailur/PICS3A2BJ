@@ -6,8 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using DAL;
 using GameCardLib;
-using UtilitiesLib;
 using cmbDbSets = GameCardLib.cmbDbSets;
 
 namespace BlackJack
@@ -21,6 +21,9 @@ namespace BlackJack
         private bool gameStarted;
         #endregion
         #region Properties
+        private BJDBContext Context { get; set; }
+
+        private UnitOfWork unitOfWork { get; set; }
         private Game Game { get; }
         #endregion
         #region Methods()
@@ -34,9 +37,17 @@ namespace BlackJack
         public GameWindow(int numberOfPlayers, int numberOfDecks, List<string> playerList = null)
         {
             InitializeComponent();
+            Initialize();
             gameStarted = false;
             CanDraw(false);
             Game = playerList == null ? new Game(numberOfPlayers, numberOfDecks) : new Game(playerList, numberOfDecks);
+            unitOfWork.Players.AddRange(Game.Players);
+            unitOfWork.Decks.Add(Game.MyDeck);
+            unitOfWork.Decks.Add(Game.Discarded);
+            unitOfWork.Games.Add(Game);
+            Game.StartGame();
+            unitOfWork.Cards.AddRange(Game.MyDeck.Cards);
+            unitOfWork.Complete();
             UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
@@ -50,9 +61,18 @@ namespace BlackJack
             gameStarted = true;
             cmbDbSet.ItemsSource = Enum.GetValues(typeof(cmbDbSets));
             cmbDbSet.SelectedItem = cmbDbSets.Cards;
-            DataBaseShow.ItemsSource = Game.GetContext().Cards.Local.ToList();
+            DataBaseShow.ItemsSource = GetContext().Cards.Local.ToList();
         }
         #endregion
+        private void Initialize()
+        {
+            Context = new BJDBContext();
+            unitOfWork = new UnitOfWork(Context);
+        }
+        public BJDBContext GetContext()
+        {
+            return Context;
+        }
         /// <summary>
         /// If current player cannot draw anymore cards, disable drawing options and change deck opacity.
         /// </summary>
@@ -158,6 +178,17 @@ namespace BlackJack
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
             Game.ContinueGame();
+            foreach (var gamePlayer in Game.Players)
+            {
+                unitOfWork.Players.Update(gamePlayer);
+            }
+            foreach (var discardedCard in Game.Discarded)
+            {
+                unitOfWork.Cards.Update(discardedCard);
+            }
+
+            unitOfWork.Complete();
+
             UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
@@ -191,6 +222,11 @@ namespace BlackJack
             if (gameStarted)
             {
                 Game.GiveCard();
+                foreach (var card in Game.GetPlayer().Hand)
+                {
+                    unitOfWork.Cards.Update(card);
+                }
+                unitOfWork.Complete();
                 UpdateCards(Game.GetPlayer());
                 UpdateDiscarded();
                 CheckHand();
@@ -209,6 +245,11 @@ namespace BlackJack
             if (gameStarted)
             {
                 UpdateCards(Game.NextPlayer());
+                foreach (var card in Game.GetPlayer().Hand)
+                {
+                    unitOfWork.Cards.Update(card);
+                }
+                unitOfWork.Complete();
                 CheckHand();
                 UpdateCards(Game.GetCroupier());
                 UpdateDiscarded();
@@ -236,16 +277,16 @@ namespace BlackJack
             switch ((cmbDbSets)cmbDbSet.SelectedItem)
             {
                 case cmbDbSets.Cards:
-                    DataBaseShow.ItemsSource = Game.GetContext().Cards.Local.ToList();
+                    DataBaseShow.ItemsSource = GetContext().Cards.Local.ToList();
                     break;
                 case cmbDbSets.Decks:
-                    DataBaseShow.ItemsSource = Game.GetContext().Decks.Local.ToList();
+                    DataBaseShow.ItemsSource = GetContext().Decks.Local.ToList();
                     break;
                 case cmbDbSets.Games:
-                    DataBaseShow.ItemsSource = Game.GetContext().Games.Local.ToList();
+                    DataBaseShow.ItemsSource = GetContext().Games.Local.ToList();
                     break;
                 case cmbDbSets.Players:
-                    DataBaseShow.ItemsSource = Game.GetContext().Players.Local.ToList();
+                    DataBaseShow.ItemsSource = GetContext().Players.Local.ToList();
                     break;
             }
         }

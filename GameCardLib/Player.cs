@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GameCardLib
 {
@@ -21,7 +16,9 @@ namespace GameCardLib
         #endregion
         #region Properties
 
-
+        /// <summary>
+        /// The ID of this player object
+        /// </summary>
         public int PlayerId { get; set; }
         /// <summary>
         /// Name of the player
@@ -43,6 +40,9 @@ namespace GameCardLib
         /// Score of the hand.
         /// </summary>
         public int Score => Hand.Sum(card => card.CardScore);
+        /// <summary>
+        /// Wether this player is croupier or not
+        /// </summary>
         public bool IsCroupier { get; private set; }
         #endregion
         #region Methods()
@@ -60,10 +60,7 @@ namespace GameCardLib
         {
             if (!string.IsNullOrWhiteSpace(name))
                 isCroupier = false;
-            if(isCroupier)
-                Name = "Croupier";
-            else
-                Name = name;
+            Name = isCroupier ? "Croupier" : name;
             IsCroupier = isCroupier;
         }
 

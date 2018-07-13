@@ -61,9 +61,9 @@ namespace GameCardLib
             {  
             }
         }
-        [ForeignKey("Game")]
-        public int GameId { get; set; }
-        public virtual Game Game { get; private set; }
+        [ForeignKey("Deck")]
+        public int DeckId { get; set; }
+        public virtual Deck Deck { get; set; }
         /// <summary>
         /// Value in enum.
         /// </summary>

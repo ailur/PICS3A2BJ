@@ -1,6 +1,6 @@
-﻿using UtilitiesLib;
+﻿using GameCardLib;
 
-namespace GameCardLib
+namespace DAL
 {
     public class CardRepository : Repository<Card>, ICardRepository
     {

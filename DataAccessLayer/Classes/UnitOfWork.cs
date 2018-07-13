@@ -1,4 +1,4 @@
-﻿namespace GameCardLib
+﻿namespace DAL
 {
     public class UnitOfWork : IUnitOfWork
     {

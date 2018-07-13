@@ -6,46 +6,39 @@ namespace GameCardLib
 {
     public class Game
     {
-        private BJDBContext Context { get; set; }
-        
-        private UnitOfWork unitOfWork { get; set; }
-        public BJDBContext GetContext()
-        {
-            return Context;
-        }
         public DateTime DateStarted { get; set; }
         public int GameId { get; set; }
         public List<Player> players;
-        private List<Player> Players
+        /// <summary>
+        /// Collection of players playing the game
+        /// </summary>
+        public List<Player> Players
         {
-            get
-            {
-                return players;
-            }
+            get { return players; }
             set
             {
                 players = value;
             }
         }
         private Deck myDeck;
-        private Deck MyDeck
+        /// <summary>
+        /// Deck of cards in the game
+        /// </summary>
+        public Deck MyDeck
         {
-            get
-            {
-                return myDeck;
-            }
+            get { return myDeck; }
             set
             {
                 myDeck = value;
             }
         }
         private Deck discarded;
-        private Deck Discarded
+        /// <summary>
+        /// The deck of discarded cards
+        /// </summary>
+        public Deck Discarded
         {
-            get
-            {
-                return discarded;
-            }
+            get { return discarded; }
             set
             {
                 discarded = value;
@@ -89,59 +82,48 @@ namespace GameCardLib
         /// Constructor that takes a list of player names
         /// </summary>
         /// <param name="playerList">List of player names</param>
-        public Game(List<string> playerList)
+        public Game(List<string> playerList, int numberOfDecks = 1)
         {
             Players = new List<Player> {new Player()};
             foreach (string name in playerList)
             {
                 Players.Add(new Player(name));
             }
-            Initialize();
+            Initialize(numberOfDecks);
         }
 
         /// <summary>
         /// Constructor that takes number of players
         /// </summary>
         /// <param name="numberOfPlayers">The number of players that is going to play</param>
-        public Game(int numberOfPlayers)
+        public Game(int numberOfPlayers, int numberOfDecks = 1)
         {
             Players = new List<Player>(numberOfPlayers) {new Player()};
             for (int i = 0; i < numberOfPlayers; i++)
             {
                 Players.Add(new Player(i.ToString(),false));
             }
-            Initialize();
+            Initialize(numberOfDecks);
         }
 
-        private void Initialize()
+        private void Initialize(int numberOfDecks)
         {
-            Context = new BJDBContext();
-            unitOfWork = new UnitOfWork(Context);
             DateStarted = DateTime.Now;
-            unitOfWork.Players.AddRange(Players);
             CurrentPlayer = players.IndexOf(GetCroupier())+1;
-            unitOfWork.Games.Add(this);
-            unitOfWork.Complete();
+            MyDeck = new Deck(numberOfDecks);
+            Discarded = new Deck(0);
         }
 
         /// <summary>
         /// Start the game: instantiate deck and discarded deck and give cards to players and croupier.
         /// </summary>
         /// <param name="numberOfDecks">Number of decks that compose the deck</param>
-        public void StartGame(int numberOfDecks = 1)
+        public void StartGame()
         {
-            MyDeck = new Deck(numberOfDecks);
-            unitOfWork.Decks.Add(MyDeck);
-            Discarded = new Deck(0);
-            unitOfWork.Decks.Add(Discarded);
-            unitOfWork.Games.Update(this);
-            unitOfWork.Complete();
             foreach (Card card in MyDeck.Cards)
             {
-                card.GameId = GameId;
+                card.Deck = MyDeck;
             }
-            unitOfWork.Cards.AddRange(MyDeck.Cards);
-            unitOfWork.Complete();
             foreach (Player player in Players)
             {
                 GiveCard(Players.IndexOf(player), player.IsCroupier?1:2);
@@ -163,17 +145,15 @@ namespace GameCardLib
                 {
                     Card card = myDeck.Pop();
                     player.AddCard(card);
-                    unitOfWork.Cards.Update(card);
                 }
                 else
                 {
                     Card card = myDeck.Pop();
                     Discarded.Push(card);
+                    card.Deck = Discarded;
                     GiveCard(playerId);
-                    unitOfWork.Cards.Update(card);
                 }
             }
-            unitOfWork.Complete();
         }
 
         /// <summary>
@@ -271,22 +251,19 @@ namespace GameCardLib
                 foreach (Card card in player.Hand)
                 {
                     Discarded.Push(card);
-                    unitOfWork.Cards.Update(card);
+                    card.Deck = Discarded;
                 }
                 player.Clear();
-                unitOfWork.Players.Update(player);
                 GiveCard(Players.IndexOf(player), 2);
             }
             Player croupier = GetCroupier();
             foreach (Card card in croupier.Hand)
             {
                 Discarded.Push(card);
-                unitOfWork.Cards.Update(card);
+                card.Deck = Discarded;
             }
             croupier.Clear();
-            unitOfWork.Players.Update(croupier);
             GiveCard(players.IndexOf(GetCroupier()));
-            unitOfWork.Complete();
         }
     }
 }

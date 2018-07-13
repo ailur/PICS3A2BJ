@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using GameCardLib;
 
-namespace GameCardLib
+namespace DAL
 {
     public class BJDBContext : DbContext
     {
-        public BJDBContext() : base("DefaultConnection") { }
+        public BJDBContext() : base("LocalDB") { }
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Deck> Decks { get; set; }

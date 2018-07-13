@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,7 @@ namespace GameCardLib
         private int deckMultiplier;
         #endregion
         #region Properties
+        [Key]
         public int DeckId { get; set; }
         /// <summary>
         /// Stack of cards
