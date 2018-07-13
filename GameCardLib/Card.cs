@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UtilitiesLib;
 
 namespace GameCardLib
 {
@@ -11,35 +12,21 @@ namespace GameCardLib
     public class Card
     {
         #region fields
+        /// <summary>
+        /// Card value
+        /// </summary>
         private EnumValue cardValue;
+        /// <summary>
+        /// Suit value
+        /// </summary>
         private EnumSuite suite;
-        private readonly Dictionary<EnumSuite, string> suiteDict = new Dictionary<EnumSuite, string>
-        {
-            { EnumSuite.Clubs, "c" },
-            { EnumSuite.Diamonds, "d" },
-            { EnumSuite.Hearts, "h" },
-            { EnumSuite.Spades, "s" }
-        };
-        private readonly Dictionary<EnumValue, string> valueDict = new Dictionary<EnumValue, string>
-        {
-            { EnumValue.Ace, "1"},
-            { EnumValue.Two, "2"},
-            { EnumValue.Three, "3"},
-            { EnumValue.Four, "4"},
-            { EnumValue.Five, "5"},
-            { EnumValue.Six, "6"},
-            { EnumValue.Seven, "7"},
-            { EnumValue.Eight, "8"},
-            { EnumValue.Nine, "9"},
-            { EnumValue.Ten, "10"},
-            { EnumValue.Jack, "j"},
-            { EnumValue.Queen, "q"},
-            { EnumValue.King, "k"}
-        };
         #endregion
         #region Properties
+        /// <summary>
+        /// Card Database Id
+        /// </summary>
         [Key]
-        public int CardId { get; set; }
+        public int CardId { get; }
         /// <summary>
         /// Value in int.
         /// </summary>
@@ -56,8 +43,14 @@ namespace GameCardLib
             {  
             }
         }
+        /// <summary>
+        /// ID of the deck the card is in
+        /// </summary>
         [ForeignKey("Deck")]
-        public int DeckId { get; set; }
+        public int DeckId { get; }
+        /// <summary>
+        /// Dech the card is in
+        /// </summary>
         public virtual Deck Deck { get; set; }
         /// <summary>
         /// Value in enum.
@@ -70,7 +63,7 @@ namespace GameCardLib
         /// <summary>
         /// Short name.
         /// </summary>
-        public string ToStringShort => suiteDict[Suite] + valueDict[Value];
+        public string ToStringShort => CardDictionaries.suiteDict[Suite] + CardDictionaries.valueDict[Value];
         #endregion
         #region Methods()
         #region Constructors

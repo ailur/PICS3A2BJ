@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using UtilitiesLib;
 
 namespace GameCardLib
 {
@@ -12,12 +13,21 @@ namespace GameCardLib
     public class Deck : Stack<Card>
     {
         #region fields
+        /// <summary>
+        /// Collection of cards the deck have
+        /// </summary>
         private Stack<Card> cards;
+        /// <summary>
+        /// Deck multiplier to initialize the deck
+        /// </summary>
         private int deckMultiplier;
         #endregion
         #region Properties
+        /// <summary>
+        /// Deck database Id
+        /// </summary>
         [Key]
-        public int DeckId { get; set; }
+        public int DeckId { get; }
         /// <summary>
         /// Stack of cards
         /// </summary>
@@ -30,7 +40,8 @@ namespace GameCardLib
         /// <summary>
         /// Count of cards in the deck
         /// </summary>
-        public new int Count { get => Cards.Count; }
+        public new int Count => Cards.Count;
+
         #endregion
         #region Methods()
         #region Constructors
@@ -112,10 +123,7 @@ namespace GameCardLib
         /// <returns>Show next card</returns>
         public new Card Peek()
         {
-            if (Count > 0)
-                return Cards.Peek();
-            else
-                return null;
+            return Count > 0 ? Cards.Peek() : null;
         }
         /// <summary>
         /// Pop method for deck

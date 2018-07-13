@@ -1,14 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace GameCardLib
 {
     public class Game
     {
-        public DateTime DateStarted { get; set; }
-        public int GameId { get; set; }
-        public List<Player> players;
+        #region fields
+        /// <summary>
+        /// List of players the game have
+        /// </summary>
+        private List<Player> players;
+        /// <summary>
+        /// Deck of cards in the game
+        /// </summary>
+        private Deck myDeck;
+        /// <summary>
+        /// The deck of discarded cards
+        /// </summary>
+        private Deck discarded;
+        /// <summary>
+        /// Current player
+        /// </summary>
+        private int currentPlayer;
+        #endregion
+        #region Properties
+        /// <summary>
+        /// Time the game started
+        /// </summary>
+        public DateTime DateStarted { get; private set; }
+        /// <summary>
+        /// Game Database Id
+        /// </summary>
+        [Key]
+        public int GameId { get; }
         /// <summary>
         /// Collection of players playing the game
         /// </summary>
@@ -20,7 +46,6 @@ namespace GameCardLib
                 players = value;
             }
         }
-        private Deck myDeck;
         /// <summary>
         /// Deck of cards in the game
         /// </summary>
@@ -32,7 +57,6 @@ namespace GameCardLib
                 myDeck = value;
             }
         }
-        private Deck discarded;
         /// <summary>
         /// The deck of discarded cards
         /// </summary>
@@ -44,16 +68,12 @@ namespace GameCardLib
                 discarded = value;
             }
         }
-        private int currentPlayer;
         /// <summary>
         /// Current player
         /// </summary>
         private int CurrentPlayer
         {
-            get
-            {
-                return currentPlayer;
-            }
+            get { return currentPlayer; }
             set
             {
                 currentPlayer = value;
@@ -77,7 +97,9 @@ namespace GameCardLib
         /// String describing discarded cards
         /// </summary>
         public string DiscardedString => Discarded.ToString();
-
+        #endregion
+        #region Methods
+        #region Constructors
         /// <summary>
         /// Constructor that takes a list of player names
         /// </summary>
@@ -105,7 +127,12 @@ namespace GameCardLib
             }
             Initialize(numberOfDecks);
         }
+        #endregion
 
+        /// <summary>
+        /// Initializes the game
+        /// </summary>
+        /// <param name="numberOfDecks"></param>
         private void Initialize(int numberOfDecks)
         {
             DateStarted = DateTime.Now;
@@ -173,6 +200,10 @@ namespace GameCardLib
             return GetPlayer(CurrentPlayer);
         }
 
+        /// <summary>
+        /// Get the croupier player
+        /// </summary>
+        /// <returns>Returns croupier player</returns>
         public Player GetCroupier()
         {
             return Players.First(p => p.IsCroupier);
@@ -265,5 +296,6 @@ namespace GameCardLib
             croupier.Clear();
             GiveCard(players.IndexOf(GetCroupier()));
         }
+        #endregion
     }
 }

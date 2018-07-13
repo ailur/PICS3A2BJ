@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using DAL;
 using GameCardLib;
-using cmbDbSets = GameCardLib.cmbDbSets;
+using cmbDbSets = UtilitiesLib.cmbDbSets;
 
 namespace BlackJack
 {
@@ -18,12 +18,23 @@ namespace BlackJack
     public partial class GameWindow : Window
     {
         #region fields
+        /// <summary>
+        /// Wether the game is started or not
+        /// </summary>
         private bool gameStarted;
         #endregion
         #region Properties
+        /// <summary>
+        /// DB Context
+        /// </summary>
         private BJDBContext Context { get; set; }
-
-        private UnitOfWork unitOfWork { get; set; }
+        /// <summary>
+        /// Unit of work
+        /// </summary>
+        private UnitOfWork UnitOfWork { get; set; }
+        /// <summary>
+        /// Game instance
+        /// </summary>
         private Game Game { get; }
         #endregion
         #region Methods()
@@ -41,13 +52,13 @@ namespace BlackJack
             gameStarted = false;
             CanDraw(false);
             Game = playerList == null ? new Game(numberOfPlayers, numberOfDecks) : new Game(playerList, numberOfDecks);
-            unitOfWork.Players.AddRange(Game.Players);
-            unitOfWork.Decks.Add(Game.MyDeck);
-            unitOfWork.Decks.Add(Game.Discarded);
-            unitOfWork.Games.Add(Game);
+            UnitOfWork.Players.AddRange(Game.Players);
+            UnitOfWork.Decks.Add(Game.MyDeck);
+            UnitOfWork.Decks.Add(Game.Discarded);
+            UnitOfWork.Games.Add(Game);
             Game.StartGame();
-            unitOfWork.Cards.AddRange(Game.MyDeck.Cards);
-            unitOfWork.Complete();
+            UnitOfWork.Cards.AddRange(Game.MyDeck.Cards);
+            UnitOfWork.Complete();
             UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
             UpdateDiscarded();
@@ -61,18 +72,18 @@ namespace BlackJack
             gameStarted = true;
             cmbDbSet.ItemsSource = Enum.GetValues(typeof(cmbDbSets));
             cmbDbSet.SelectedItem = cmbDbSets.Cards;
-            DataBaseShow.ItemsSource = GetContext().Cards.Local.ToList();
+            DataBaseShow.ItemsSource = Context.Cards.Local.ToList();
         }
         #endregion
+        /// <summary>
+        /// Initializes context and unit of work
+        /// </summary>
         private void Initialize()
         {
             Context = new BJDBContext();
-            unitOfWork = new UnitOfWork(Context);
+            UnitOfWork = new UnitOfWork(Context);
         }
-        public BJDBContext GetContext()
-        {
-            return Context;
-        }
+
         /// <summary>
         /// If current player cannot draw anymore cards, disable drawing options and change deck opacity.
         /// </summary>
@@ -169,7 +180,7 @@ namespace BlackJack
             txtDebug.Text += "\n" + txtDiscarded;
         }
 
-        #region events
+        #region events handlers
         /// <summary>
         /// Start next round, update all cards, discarded deck.
         /// </summary>
@@ -180,14 +191,14 @@ namespace BlackJack
             Game.ContinueGame();
             foreach (var gamePlayer in Game.Players)
             {
-                unitOfWork.Players.Update(gamePlayer);
+                UnitOfWork.Players.Update(gamePlayer);
             }
             foreach (var discardedCard in Game.Discarded)
             {
-                unitOfWork.Cards.Update(discardedCard);
+                UnitOfWork.Cards.Update(discardedCard);
             }
 
-            unitOfWork.Complete();
+            UnitOfWork.Complete();
 
             UpdateCards(Game.GetCroupier());
             UpdateCards(Game.GetPlayer());
@@ -224,9 +235,9 @@ namespace BlackJack
                 Game.GiveCard();
                 foreach (var card in Game.GetPlayer().Hand)
                 {
-                    unitOfWork.Cards.Update(card);
+                    UnitOfWork.Cards.Update(card);
                 }
-                unitOfWork.Complete();
+                UnitOfWork.Complete();
                 UpdateCards(Game.GetPlayer());
                 UpdateDiscarded();
                 CheckHand();
@@ -247,9 +258,9 @@ namespace BlackJack
                 UpdateCards(Game.NextPlayer());
                 foreach (var card in Game.GetPlayer().Hand)
                 {
-                    unitOfWork.Cards.Update(card);
+                    UnitOfWork.Cards.Update(card);
                 }
-                unitOfWork.Complete();
+                UnitOfWork.Complete();
                 CheckHand();
                 UpdateCards(Game.GetCroupier());
                 UpdateDiscarded();
@@ -277,16 +288,16 @@ namespace BlackJack
             switch ((cmbDbSets)cmbDbSet.SelectedItem)
             {
                 case cmbDbSets.Cards:
-                    DataBaseShow.ItemsSource = GetContext().Cards.Local.ToList();
+                    DataBaseShow.ItemsSource = Context.Cards.Local.ToList();
                     break;
                 case cmbDbSets.Decks:
-                    DataBaseShow.ItemsSource = GetContext().Decks.Local.ToList();
+                    DataBaseShow.ItemsSource = Context.Decks.Local.ToList();
                     break;
                 case cmbDbSets.Games:
-                    DataBaseShow.ItemsSource = GetContext().Games.Local.ToList();
+                    DataBaseShow.ItemsSource = Context.Games.Local.ToList();
                     break;
                 case cmbDbSets.Players:
-                    DataBaseShow.ItemsSource = GetContext().Players.Local.ToList();
+                    DataBaseShow.ItemsSource = Context.Players.Local.ToList();
                     break;
             }
         }

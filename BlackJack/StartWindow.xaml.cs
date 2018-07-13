@@ -10,11 +10,15 @@ namespace BlackJack
     /// </summary>
     public partial class StartWindow : Window
     {
-        #region fields
-        private GameWindow mainWindow;
-        #endregion
         #region Properties
+        /// <summary>
+        /// Number of decks the user wants to play with
+        /// </summary>
         private int NumberOfDecks { get; set; }
+
+        /// <summary>
+        /// Number of players that is going to play
+        /// </summary>
         private int NumberOfPlayers { get; set; }
         #endregion
         #region Methods()
@@ -106,7 +110,7 @@ namespace BlackJack
             {
                 playerList.Add(textBox.Text);
             }
-            mainWindow = new GameWindow(playerList.Count, NumberOfDecks, playerList);
+            GameWindow mainWindow = new GameWindow(playerList.Count, NumberOfDecks, playerList);
             mainWindow.Show();
             Close();
         }

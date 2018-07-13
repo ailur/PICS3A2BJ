@@ -11,7 +11,13 @@ namespace GameCardLib
     public class Player
     {
         #region fields
+        /// <summary>
+        /// Name of the player
+        /// </summary>
         private string name;
+        /// <summary>
+        /// Hand of the player
+        /// </summary>
         private List<Card> hand;
         #endregion
         #region Properties
@@ -19,7 +25,7 @@ namespace GameCardLib
         /// <summary>
         /// The ID of this player object
         /// </summary>
-        public int PlayerId { get; set; }
+        public int PlayerId { get; }
         /// <summary>
         /// Name of the player
         /// </summary>
@@ -29,8 +35,14 @@ namespace GameCardLib
         /// </summary>
         public virtual List<Card> Hand { get => hand; private set => hand = value; }
 
+        /// <summary>
+        /// Id of the game the player is in
+        /// </summary>
         [ForeignKey("Game")]
         public int GameId { get; set; }
+        /// <summary>
+        /// The game the player is in
+        /// </summary>
         public virtual Game Game { get; private set; }
         /// <summary>
         /// Number of cards the hand have.
