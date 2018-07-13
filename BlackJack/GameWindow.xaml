@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
-        xmlns:GameCardLib="clr-namespace:GameCardLib;assembly=GameCardLib" x:Class="BlackJack.GameWindow"
+        x:Class="BlackJack.GameWindow"
         mc:Ignorable="d"
         Title="BlackJack" Width="1024" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <StackPanel Orientation="Vertical">
