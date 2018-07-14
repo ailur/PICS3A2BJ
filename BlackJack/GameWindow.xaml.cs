@@ -10,7 +10,7 @@ using DAL;
 using GameCardLib;
 using UtilitiesLib;
 using Brushes = System.Windows.Media.Brushes;
-using cmbDbSets = UtilitiesLib.cmbDbSets;
+using cmbDbSets = UtilitiesLib.Names.cmbDbSets;
 using Image = System.Windows.Controls.Image;
 
 namespace BlackJack

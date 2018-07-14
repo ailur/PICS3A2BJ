@@ -66,6 +66,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardDictionaries.cs" />
     <Compile Include="ImageUtilities.cs" />
     <Compile Include="Names.cs" />
     <Compile Include="NotEnoughCardsException.cs" />

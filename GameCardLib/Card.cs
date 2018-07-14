@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using UtilitiesLib;
+using EnumValue = UtilitiesLib.Names.EnumValue;
+using EnumSuite = UtilitiesLib.Names.EnumSuite;
 
 namespace GameCardLib
 {

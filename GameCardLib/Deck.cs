@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using UtilitiesLib;
+using EnumValue = UtilitiesLib.Names.EnumValue;
+using EnumSuite = UtilitiesLib.Names.EnumSuite;
 
 namespace GameCardLib
 {

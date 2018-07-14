@@ -1,78 +1,45 @@
-﻿using System.Collections.Generic;
-
-namespace UtilitiesLib
+﻿namespace UtilitiesLib
 {
-    /// <summary>
-    /// Db sets to show on combobox
-    /// </summary>
-    public enum cmbDbSets
-    {
-        Games,
-        Cards,
-        Decks,
-        Players
-    }
-    /// <summary>
-    /// Card suites
-    /// </summary>
-    public enum EnumSuite
-    {
-        Clubs,
-        Diamonds,
-        Hearts,
-        Spades
-    }
-    /// <summary>
-    /// Card values (figures)
-    /// </summary>
-    public enum EnumValue
-    {
-        Ace,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six,
-        Seven,
-        Eight,
-        Nine,
-        Ten,
-        Jack,
-        Queen,
-        King
-    }
-
-    public class CardDictionaries
+    public static class Names
     {
         /// <summary>
-        /// Dictionary for short names of suites
+        /// Db sets to show on combobox
         /// </summary>
-        public static readonly Dictionary<EnumSuite, string> suiteDict = new Dictionary<EnumSuite, string>
+        public enum cmbDbSets
         {
-            { EnumSuite.Clubs, "c" },
-            { EnumSuite.Diamonds, "d" },
-            { EnumSuite.Hearts, "h" },
-            { EnumSuite.Spades, "s" }
-        };
-
+            Games,
+            Cards,
+            Decks,
+            Players
+        }
         /// <summary>
-        /// Dictionary for short names of values
+        /// Card suites
         /// </summary>
-        public static readonly Dictionary<EnumValue, string> valueDict = new Dictionary<EnumValue, string>
+        public enum EnumSuite
         {
-            {EnumValue.Ace, "1"},
-            {EnumValue.Two, "2"},
-            {EnumValue.Three, "3"},
-            {EnumValue.Four, "4"},
-            {EnumValue.Five, "5"},
-            {EnumValue.Six, "6"},
-            {EnumValue.Seven, "7"},
-            {EnumValue.Eight, "8"},
-            {EnumValue.Nine, "9"},
-            {EnumValue.Ten, "10"},
-            {EnumValue.Jack, "j"},
-            {EnumValue.Queen, "q"},
-            {EnumValue.King, "k"}
-        };
+            Clubs,
+            Diamonds,
+            Hearts,
+            Spades
+        }
+        /// <summary>
+        /// Card values (figures)
+        /// </summary>
+        public enum EnumValue
+        {
+            Ace,
+            Two,
+            Three,
+            Four,
+            Five,
+            Six,
+            Seven,
+            Eight,
+            Nine,
+            Ten,
+            Jack,
+            Queen,
+            King
+        }
     }
 }
