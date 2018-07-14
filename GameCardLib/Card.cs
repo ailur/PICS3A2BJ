@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using UtilitiesLib;
@@ -26,7 +25,7 @@ namespace GameCardLib
         /// Card Database Id
         /// </summary>
         [Key]
-        public int CardId { get; }
+        public int CardId { get; set; }
         /// <summary>
         /// Value in int.
         /// </summary>
@@ -47,7 +46,7 @@ namespace GameCardLib
         /// ID of the deck the card is in
         /// </summary>
         [ForeignKey("Deck")]
-        public int DeckId { get; }
+        public int DeckId { get; set; }
         /// <summary>
         /// Dech the card is in
         /// </summary>

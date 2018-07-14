@@ -34,7 +34,7 @@ namespace GameCardLib
         /// Game Database Id
         /// </summary>
         [Key]
-        public int GameId { get; }
+        public int GameId { get; set; }
         /// <summary>
         /// Collection of players playing the game
         /// </summary>

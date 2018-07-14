@@ -27,7 +27,10 @@ namespace GameCardLib
         /// Deck database Id
         /// </summary>
         [Key]
-        public int DeckId { get; }
+        public int DeckId { get; set; }
+#if RELEASEFILE
+        public int Foo { get; set; }
+#endif
         /// <summary>
         /// Stack of cards
         /// </summary>

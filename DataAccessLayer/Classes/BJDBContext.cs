@@ -6,7 +6,7 @@ namespace DAL
 {
     public class BJDBContext : DbContext
     {
-        public BJDBContext() : base(ConfigurationManager.ConnectionStrings["LocalDB"].ConnectionString) { }
+        public BJDBContext() : base(ConfigurationManager.ConnectionStrings["Default"].ConnectionString) { }
         /// <summary>
         /// Games DbSet
         /// </summary>

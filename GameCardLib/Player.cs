@@ -25,7 +25,7 @@ namespace GameCardLib
         /// <summary>
         /// The ID of this player object
         /// </summary>
-        public int PlayerId { get; }
+        public int PlayerId { get; set; }
         /// <summary>
         /// Name of the player
         /// </summary>
