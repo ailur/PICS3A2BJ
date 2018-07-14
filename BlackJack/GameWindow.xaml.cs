@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using DAL;
 using GameCardLib;
+using UtilitiesLib;
+using Brushes = System.Windows.Media.Brushes;
 using cmbDbSets = UtilitiesLib.cmbDbSets;
+using Image = System.Windows.Controls.Image;
 
 namespace BlackJack
 {
@@ -105,12 +108,11 @@ namespace BlackJack
             elementCollection.Clear();
             foreach (Card card in player.Hand)
             {
-                string src = "CardGUI/" + card.ToStringShort + ".png";
                 Image img = new Image
                 {
-                    Source = new ImageSourceConverter().ConvertFromString(src) as ImageSource,
-                    Height = 96,
-                    Width = 75,
+                    Source = ImageUtilities.ToWpfBitmap((Bitmap) Properties.Resources.ResourceManager.GetObject(card.ToStringShort)),
+                    Height = 94,
+                    Width = 74,
                     ToolTip = card + "\n" + card.CardScore
                 };
                 elementCollection.Add(img);
@@ -123,17 +125,9 @@ namespace BlackJack
         /// </summary>
         private void UpdateDiscarded()
         {
-            if (Game.DiscardedCount > 0)
-            {
-                imgDiscard.Source =
-                    new ImageSourceConverter().ConvertFromString(
-                        "CardGUI/" + Game.LastCardDiscarded.ToStringShort + ".png") as ImageSource;
-            }
-            else
-            {
-                imgDiscard.Source =
-                    new ImageSourceConverter().ConvertFromString("CardGUI/jb.png") as ImageSource;
-            }
+            imgDiscard.Source = Game.DiscardedCount > 0
+                ? ImageUtilities.ToWpfBitmap((Bitmap) Properties.Resources.ResourceManager.GetObject(Game.LastCardDiscarded.ToStringShort))
+                : ImageUtilities.ToWpfBitmap((Bitmap) Properties.Resources.ResourceManager.GetObject("jb"));
         }
 
         /// <summary>
