@@ -9,14 +9,6 @@ namespace DAL
         /// </summary>
         /// <param name="context">Context to initialize</param>
         public CardRepository(BJDBContext context) : base(context) { }
-
-        /// <summary>
-        /// Get Context
-        /// </summary>
-        public BJDBContext BJDBContext
-        {
-            get { return Context as BJDBContext; }
-        }
     }
 
     public class DeckRepository : Repository<Deck>, IDeckRepository
@@ -26,14 +18,6 @@ namespace DAL
         /// </summary>
         /// <param name="context">Context to initialize</param>
         public DeckRepository(BJDBContext context) : base(context) { }
-
-        /// <summary>
-        /// Get Context
-        /// </summary>
-        public BJDBContext BJDBContext
-        {
-            get { return Context as BJDBContext; }
-        }
     }
 
     public class GameRepository : Repository<Game>, IGameRepository
@@ -43,14 +27,6 @@ namespace DAL
         /// </summary>
         /// <param name="context">Context to initialize</param>
         public GameRepository(BJDBContext context) : base(context) { }
-
-        /// <summary>
-        /// Get Context
-        /// </summary>
-        public BJDBContext BJDBContext
-        {
-            get { return Context as BJDBContext; }
-        }
     }
 
     public class PlayerRepository : Repository<Player>, IPlayerRepository
@@ -60,13 +36,5 @@ namespace DAL
         /// </summary>
         /// <param name="context">Context to initialize</param>
         public PlayerRepository(BJDBContext context) : base(context) { }
-
-        /// <summary>
-        /// Get Context
-        /// </summary>
-        public BJDBContext BJDBContext
-        {
-            get { return Context as BJDBContext; }
-        }
     }
 }

@@ -104,5 +104,13 @@ namespace DAL
         {
             Context.SaveChanges();
         }
+
+        /// <summary>
+        /// Get Context
+        /// </summary>
+        public BJDBContext BJDBContext
+        {
+            get { return Context as BJDBContext; }
+        }
     }
 }

@@ -79,12 +79,14 @@ namespace BlackJack
         }
         #endregion
         /// <summary>
-        /// Initializes context and unit of work
+        /// Initializes context, unit of work and images
         /// </summary>
         private void Initialize()
         {
             Context = new BJDBContext();
             UnitOfWork = new UnitOfWork(Context);
+            imgDeck.Source = ImageUtilities.ToWpfBitmap(Properties.Resources.b2fv);
+            imgDiscard.Source = ImageUtilities.ToWpfBitmap(Properties.Resources.jb);
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace BlackJack
                 {
                     Source = ImageUtilities.ToWpfBitmap((Bitmap) Properties.Resources.ResourceManager.GetObject(card.ToStringShort)),
                     Height = 94,
-                    Width = 74,
+                    Width = 71,
                     ToolTip = card + "\n" + card.CardScore
                 };
                 elementCollection.Add(img);
