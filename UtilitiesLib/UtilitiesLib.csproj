@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="ImageUtilities.cs" />
     <Compile Include="Names.cs" />
+    <Compile Include="NotEnoughCardsException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

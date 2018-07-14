@@ -59,7 +59,14 @@ namespace BlackJack
             UnitOfWork.Decks.Add(Game.MyDeck);
             UnitOfWork.Decks.Add(Game.Discarded);
             UnitOfWork.Games.Add(Game);
-            Game.StartGame();
+            try
+            {
+                Game.StartGame();
+            }
+            catch (NotEnoughCardsException)
+            {
+                MessageBox.Show("There are not enough cards in the deck\nStart a new game", "Not enough cards", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             UnitOfWork.Cards.AddRange(Game.MyDeck.Cards);
             UnitOfWork.Complete();
             UpdateCards(Game.GetCroupier());
@@ -184,7 +191,14 @@ namespace BlackJack
         /// <param name="e"></param>
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            Game.ContinueGame();
+            try
+            {
+                Game.ContinueGame();
+            }
+            catch (NotEnoughCardsException)
+            {
+                MessageBox.Show("There are not enough cards in the deck", "Not enough cards", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             foreach (var gamePlayer in Game.Players)
             {
                 UnitOfWork.Players.Update(gamePlayer);
@@ -228,7 +242,14 @@ namespace BlackJack
         {
             if (gameStarted)
             {
-                Game.GiveCard();
+                try
+                {
+                    Game.GiveCard();
+                }
+                catch (NotEnoughCardsException)
+                {
+                    MessageBox.Show("There are not enough cards in the deck", "Not enough cards", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 foreach (var card in Game.GetPlayer().Hand)
                 {
                     UnitOfWork.Cards.Update(card);
@@ -251,7 +272,14 @@ namespace BlackJack
         {
             if (gameStarted)
             {
-                UpdateCards(Game.NextPlayer());
+                try
+                {
+                    UpdateCards(Game.NextPlayer());
+                }
+                catch (NotEnoughCardsException)
+                {
+                    MessageBox.Show("There are not enough cards in the deck", "Not enough cards", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 foreach (var card in Game.GetPlayer().Hand)
                 {
                     UnitOfWork.Cards.Update(card);

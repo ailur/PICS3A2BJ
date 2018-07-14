@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using UtilitiesLib;
 
 namespace GameCardLib
 {
@@ -164,7 +165,7 @@ namespace GameCardLib
         /// <param name="count">Number of cards the player receives</param>
         private void GiveCard(int playerId, int count = 1)
         {
-            //TODO: Comprobar si quedan suficientes cartas
+            if (MyDeck.Count < count) throw new NotEnoughCardsException();
             Player player = Players[playerId];
             for (int i = 0; i < count; i++)
             {
@@ -273,7 +274,6 @@ namespace GameCardLib
         /// </summary>
         public void ContinueGame()
         {
-            //TODO: Check if there are enough cards left in deck
             CurrentPlayer = players.IndexOf(GetCroupier()) + 1;
             foreach (Player player in Players)
             {
